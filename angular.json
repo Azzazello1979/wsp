@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "wsp"
+    }
+  },
+  "defaultProject": "wsp",
+  "cli": {
+    "analytics": false
+  }
 }
