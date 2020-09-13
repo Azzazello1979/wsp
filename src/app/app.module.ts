@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 /* components */
-import { AppComponent } from './app.component';
-import { LoginPageComponent } from './components/login-page/login-page.component';
-import { DashboardPageComponent } from './components/dashboard-page/dashboard-page.component';
-import { NotfoundPageComponent } from './components/notfound-page/notfound-page.component';
+import { AppComponent } from 'src/app/app.component';
+import { LoginPageComponent } from 'src/app/components/pages/login-page/login-page.component';
+import { DashboardPageComponent } from 'src/app/components/pages/dashboard-page/dashboard-page.component';
+import { NotfoundPageComponent } from 'src/app/components/pages/notfound-page/notfound-page.component';
 
 @NgModule({
   declarations: [

@@ -1,0 +1,16 @@
+div {
+  border: 1px solid grey;
+}
+.login-page-wrapper {
+  height: 95vh;
+  margin: 2.5vh auto;
+}
+.login-page-toolbar {
+  height: 15%;
+}
+.login-page-main {
+  height: 80%;
+}
+.login-page-footer {
+  height: 5%;
+}
