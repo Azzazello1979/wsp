@@ -18,7 +18,8 @@ export class LoginPageFormComponent implements OnInit {
       .saveUser(this.loginForm.value.loginFormGroup as User)
       .subscribe(
         (response) => {
-          console.log(response);
+          localStorage.setItem('token', response.token);
+          this.loginForm.reset();
         },
         (err) => console.log(err)
       );

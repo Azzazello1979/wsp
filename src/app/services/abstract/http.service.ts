@@ -4,11 +4,11 @@ import { CrudOperations } from 'src/app/models/crudOperations';
 import { environment } from 'src/environments/environment';
 
 export abstract class HttpService<T> implements CrudOperations<T> {
-  private apiBase: string = environment.backURL;
+  protected apiBase: string = environment.backURL;
 
   constructor(protected _http: HttpClient) {}
 
-  post(body: T, path: string): Observable<T> {
+  post(path: string, body: T): Observable<T> {
     return this._http.post<T>(`${this.apiBase}/${path}`, body);
   }
 

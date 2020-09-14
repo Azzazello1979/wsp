@@ -45,7 +45,7 @@ router.post("/", (req, res) => {
           SECRET,
           { expiresIn: "1d" }
         );
-        res.status(200).json({ message: "OK, new user registered!", token });
+        res.status(200).json({ token: token });
       }
     })
     .catch((e) => {
