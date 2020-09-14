@@ -1,6 +1,9 @@
 const db = require("./../connection");
 const express = require("express");
 const router = express.Router();
+const hash = require("sha256");
+const SECRET = process.env.SECRET;
+const SALT = process.env.SALT;
 
 router.get("/", (req, res) => {
   res.setHeader("Content-Type", "application/json");
@@ -26,8 +29,9 @@ router.post("/", (req, res) => {
           message: "Such username already exists, please choose another one!",
         });
       } else {
+        let hashedPassword = hash(req.body.password + SALT);
         return db.query(
-          `INSERT INTO users (name, password) VALUES ('${req.body.name}', '${req.body.password}');`
+          `INSERT INTO users (name, password) VALUES ('${req.body.name}', '${hashedPassword}');`
         );
       }
     })
