@@ -2,9 +2,11 @@ const db = require("./../connection");
 const express = require("express");
 const router = express.Router();
 const hash = require("sha256");
+const jwt = require("jsonwebtoken");
 const SECRET = process.env.SECRET;
 const SALT = process.env.SALT;
 
+// LIST ALL USERS
 router.get("/", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   db.query(`SELECT * FROM users`)
@@ -20,6 +22,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// REGISTER NEW USER
 router.post("/", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   db.query(`SELECT * FROM users WHERE name = '${req.body.name}';`)
@@ -36,9 +39,14 @@ router.post("/", (req, res) => {
       }
     })
     .then((OKPacket) => {
-      OKPacket[0].affectedRows === 1
-        ? res.status(200).json({ message: "OK, new user registered!" })
-        : null;
+      if (OKPacket[0].affectedRows === 1) {
+        let token = jwt.sign(
+          { userId: OKPacket[0].insertId, userName: req.body.name },
+          SECRET,
+          { expiresIn: "1d" }
+        );
+        res.status(200).json({ message: "OK, new user registered!", token });
+      }
     })
     .catch((e) => {
       return res.status(500).send(e);
