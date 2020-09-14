@@ -1,23 +1,30 @@
-import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { CrudOperations } from 'src/app/models/crudOperations';
 import { environment } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class HttpService<T> {
-  constructor(private http: HttpClient, private router: Router) {}
+export abstract class HttpService<T> implements CrudOperations<T> {
+  private apiBase: string = environment.backURL;
 
-  get(route: string, id?: string) {
-    if (!id) {
-      return this.http.get<T>(`${environment.backURL}/${route}`);
-    } else {
-      return this.http.get<T>(`${environment.backURL}/${route}/${id}`);
-    }
+  constructor(protected _http: HttpClient) {}
+
+  post(body: T): Observable<T> {
+    return this._http.post<T>(this.apiBase, body);
   }
 
-  post(route: string, body: any) {
-    return this.http.post<T>(`${environment.backURL}/${route}`, body);
+  put(id: number, body: T): Observable<T> {
+    return this._http.put<T>(this.apiBase + '/' + id, body, {});
+  }
+
+  getOne(id: number): Observable<T> {
+    return this._http.get<T>(this.apiBase + '/' + id);
+  }
+
+  getAll(): Observable<T[]> {
+    return this._http.get<T[]>(this.apiBase);
+  }
+
+  delete(id: number): Observable<T> {
+    return this._http.delete<T>(this.apiBase + '/' + id);
   }
 }
