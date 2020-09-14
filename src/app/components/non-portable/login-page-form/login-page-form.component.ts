@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { User } from 'src/app/models/User';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login-page-form',
@@ -9,14 +11,24 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LoginPageFormComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
-  onSubmit() {}
+  onSubmit() {
+    this.userService
+      .saveUser(this.loginForm.value.loginFormGroup as User)
+      .subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (err) => console.log(err)
+      );
+    this.loginForm.reset();
+  }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
       loginFormGroup: new FormGroup({
-        username: new FormControl(null, [
+        name: new FormControl(null, [
           Validators.required,
           Validators.minLength(5),
         ]),

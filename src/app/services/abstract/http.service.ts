@@ -21,7 +21,6 @@ export abstract class HttpService<T> implements CrudOperations<T> {
   }
 
   getAll(path: string): Observable<T[]> {
-    console.log('request going out: ', `${this.apiBase}/${path}`);
     return this._http.get<T[]>(`${this.apiBase}/${path}`);
   }
 

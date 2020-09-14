@@ -14,4 +14,8 @@ export class UserService extends HttpService<User> {
   getUsers() {
     return this.getAll('users');
   }
+
+  saveUser(body: User) {
+    return this.post(body, 'users');
+  }
 }
