@@ -20,8 +20,9 @@ export abstract class HttpService<T> implements CrudOperations<T> {
     return this._http.get<T>(this.apiBase + '/' + id);
   }
 
-  getAll(): Observable<T[]> {
-    return this._http.get<T[]>(this.apiBase);
+  getAll(path: string): Observable<T[]> {
+    console.log('request going out: ', `${this.apiBase}/${path}`);
+    return this._http.get<T[]>(`${this.apiBase}/${path}`);
   }
 
   delete(id: number): Observable<T> {

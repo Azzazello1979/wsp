@@ -1,8 +1,9 @@
+"use strict";
+
 // module imports
 const express = require("express");
 const app = express();
-const dotenv = require("dotenv"); // process .env files
-dotenv.config();
+require("dotenv").config(); // process .env files
 const cors = require("cors");
 const path = require("path");
 const PORT = process.env.PORT;
@@ -17,3 +18,7 @@ const usersRoute = require("./routeControllers/usersController");
 
 // use routeControllers
 app.use("/users", usersRoute);
+
+app.listen(PORT, () => {
+  console.log("OK...express listening on " + PORT);
+});

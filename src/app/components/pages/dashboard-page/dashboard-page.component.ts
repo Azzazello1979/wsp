@@ -13,6 +13,17 @@ export class DashboardPageComponent implements OnInit {
 
   constructor(private userService: UserService) {}
 
+  getUsers() {
+    this.userService.getUsers().subscribe(
+      (resposne) => {
+        console.log('result of users query: ', resposne);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
   onSubmit() {
     // console.log(this.theForm.value.addUserForm);
     this.userService

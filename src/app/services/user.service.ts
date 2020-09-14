@@ -10,4 +10,8 @@ export class UserService extends HttpService<User> {
   constructor(protected _http: HttpClient) {
     super(_http);
   }
+
+  getUsers() {
+    return this.getAll('users');
+  }
 }
