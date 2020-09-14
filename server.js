@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // require routeControllers
-const usersRoute = require("./routeControllers/usersController");
+const usersRoute = require("./server-core/routeControllers/usersController");
 
 // use routeControllers
 app.use("/users", usersRoute);
