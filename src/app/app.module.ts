@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 /* services */
+import { UserService } from 'src/app/services/user.service';
 
 /* components */
 import { AppComponent } from 'src/app/app.component';
@@ -28,7 +29,7 @@ import { NotfoundPageComponent } from 'src/app/components/pages/notfound-page/no
     HttpClientModule,
     RouterModule,
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

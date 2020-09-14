@@ -8,8 +8,8 @@ export abstract class HttpService<T> implements CrudOperations<T> {
 
   constructor(protected _http: HttpClient) {}
 
-  post(body: T): Observable<T> {
-    return this._http.post<T>(this.apiBase, body);
+  post(body: T, path: string): Observable<T> {
+    return this._http.post<T>(`${this.apiBase}/${path}`, body);
   }
 
   put(id: number, body: T): Observable<T> {
