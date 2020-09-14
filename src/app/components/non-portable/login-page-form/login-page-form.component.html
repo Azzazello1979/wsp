@@ -1,0 +1,13 @@
+<div class="login-page-form-wrapper">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="loginFormGroup" formGroupName="loginFormGroup">
+      <input type="text" formControlName="username" placeholder="username" />
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="password"
+      />
+      <button type="submit">Register/Login</button>
+    </div>
+  </form>
+</div>

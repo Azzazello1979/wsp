@@ -13,6 +13,7 @@ import { AppComponent } from 'src/app/app.component';
 import { LoginPageComponent } from 'src/app/components/pages/login-page/login-page.component';
 import { DashboardPageComponent } from 'src/app/components/pages/dashboard-page/dashboard-page.component';
 import { NotfoundPageComponent } from 'src/app/components/pages/notfound-page/notfound-page.component';
+import { LoginPageFormComponent } from './components/non-portable/login-page-form/login-page-form.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NotfoundPageComponent } from 'src/app/components/pages/notfound-page/no
     LoginPageComponent,
     DashboardPageComponent,
     NotfoundPageComponent,
+    LoginPageFormComponent,
   ],
   imports: [
     BrowserModule,
