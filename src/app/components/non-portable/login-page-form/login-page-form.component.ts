@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page-form',
@@ -13,13 +14,25 @@ export class LoginPageFormComponent implements OnInit {
 
   constructor(private userService: UserService) {}
 
-  onSubmit() {
+  onLogin() {
+    this.userService
+      .loginUser(this.loginForm.value.loginFormGroup as User)
+      .subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (err) => console.log(err)
+      );
+  }
+
+  onRegister() {
     this.userService
       .saveUser(this.loginForm.value.loginFormGroup as User)
       .subscribe(
         (response) => {
           localStorage.setItem('token', response.token);
           this.loginForm.reset();
+          // navigate to dashboard
         },
         (err) => console.log(err)
       );

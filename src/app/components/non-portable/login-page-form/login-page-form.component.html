@@ -1,14 +1,21 @@
 <div class="login-page-form-wrapper">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm">
     <div class="loginFormGroup" formGroupName="loginFormGroup">
+      <button type="button" [disabled]="loginForm.invalid" (click)="onLogin()">
+        Login
+      </button>
       <input type="text" formControlName="name" placeholder="username" />
       <input
         type="password"
         formControlName="password"
         placeholder="password"
       />
-      <button type="submit" [disabled]="loginForm.invalid">
-        Register/Login
+      <button
+        type="button"
+        [disabled]="loginForm.invalid"
+        (click)="onRegister()"
+      >
+        Register
       </button>
     </div>
   </form>
