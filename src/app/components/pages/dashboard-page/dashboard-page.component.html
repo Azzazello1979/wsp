@@ -1,1 +1,9 @@
-<p>dashboard-page works!</p>
+<div>
+  <form [formGroup]="theForm" (ngSubmit)="onSubmit()">
+    <div formGroupName="addUserForm">
+      <input type="text" formControlName="username" />
+      <input type="password" formControlName="password" />
+    </div>
+    <button type="submit">add user</button>
+  </form>
+</div>
