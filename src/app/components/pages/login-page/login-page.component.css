@@ -1,16 +1,26 @@
-div {
-  border: 1px solid grey;
-}
 .login-page-wrapper {
-  height: 95vh;
-  margin: 2.5vh auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(50px, auto);
+  grid-template-areas:
+    "header"
+    "nav"
+    "main"
+    "footer";
 }
-.login-page-toolbar {
-  height: 15%;
+header {
+  grid-area: header;
+  background-color: var(--light-orange);
 }
-.login-page-main {
-  height: 80%;
+nav {
+  grid-area: nav;
+  background-color: var(--dark-orange);
 }
-.login-page-footer {
-  height: 5%;
+main {
+  grid-area: main;
+  background-color: var(--light-orange);
+}
+footer {
+  grid-area: footer;
+  background-color: var(--dark-orange);
 }

@@ -3,4 +3,14 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  --dark-orange: rgb(133, 88, 4);
+  --light-orange: rgb(245, 216, 163);
+}
+
+.pageWrapper {
+  width: 90vw;
+  margin: 5vh auto;
+  -webkit-box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
+  -moz-box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
+  box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
 }
