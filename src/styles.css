@@ -12,6 +12,7 @@ body {
 }
 
 .pageWrapper {
+  border: 2px solid red;
   width: 90vw;
   margin: 5vh auto;
   -webkit-box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);

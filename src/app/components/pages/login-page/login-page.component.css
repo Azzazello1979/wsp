@@ -1,46 +1,55 @@
 .login-page-wrapper {
   display: grid;
   grid-template-columns: 1fr;
-  grid-auto-rows: minmax(50px, auto);
+  grid-auto-rows: minmax(auto);
   grid-template-areas:
     "menu"
     "header"
-    "news"
+    "aside"
     "main"
     "footer";
+}
+header {
+  grid-area: header;
+  background-color: var(--light-orange);
+  min-height: 200px;
 }
 nav {
   grid-area: menu;
   background-color: var(--dark-orange);
 }
-header {
-  grid-area: header;
-  background-color: var(--light-orange);
-}
-aside {
-  grid-area: news;
-  background-color: white;
-}
 main {
   grid-area: main;
   background-color: var(--light-orange);
+  min-height: 400px;
+}
+aside {
+  grid-area: aside;
+  background-color: white;
+  min-height: 400px;
 }
 footer {
   grid-area: footer;
   background-color: var(--dark-orange);
+  min-height: 30px;
 }
 
 @media screen and (min-width: 577px) {
   .login-page-wrapper {
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: minmax(50px, auto);
+    grid-auto-rows: minmax(auto);
     grid-template-areas:
       "header"
       "menu"
-      "news"
+      "aside"
       "main"
       "footer";
+  }
+  nav {
+    grid-area: menu;
+    background-color: var(--dark-orange);
+    height: 60px;
   }
 }
 
@@ -48,11 +57,11 @@ footer {
   .login-page-wrapper {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    grid-auto-rows: minmax(50px, auto);
+    grid-auto-rows: minmax(auto);
     grid-template-areas:
       "header header header"
       "menu menu menu"
-      "news main main"
+      "aside main main"
       "footer footer footer";
   }
 }
