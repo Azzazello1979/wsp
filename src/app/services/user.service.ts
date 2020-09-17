@@ -19,19 +19,13 @@ export class UserService extends HttpService<User> {
   }
 
   // specific, not from HttpService
-
   logoutUser() {
     localStorage.removeItem('token');
     this.router.navigate(['login']);
   }
 
-  loginUser(body: User): Observable<any> {
-    body.intent = 'login';
-    return this._http.post(`${this.apiBase}/users`, body);
-  }
-
-  saveUser(body: User): Observable<any> {
-    body.intent = 'register';
+  sendUserDataToBackEnd(body: User, intent: string): Observable<any> {
+    body.intent = intent;
     return this._http.post(`${this.apiBase}/users`, body);
   }
 }

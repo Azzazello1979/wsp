@@ -12,14 +12,23 @@ import { Router } from '@angular/router';
 export class LoginPageFormComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
+
+  goToDashboard(token: string) {
+    localStorage.setItem('token', token);
+    this.loginForm.reset();
+    this.router.navigate(['dashboard']);
+  }
 
   onLogin() {
     this.userService
-      .loginUser(this.loginForm.value.loginFormGroup as User)
+      .sendUserDataToBackEnd(
+        this.loginForm.value.loginFormGroup as User,
+        'login'
+      )
       .subscribe(
         (response) => {
-          console.log(response);
+          this.goToDashboard(response.token);
         },
         (err) => console.log(err)
       );
@@ -27,12 +36,13 @@ export class LoginPageFormComponent implements OnInit {
 
   onRegister() {
     this.userService
-      .saveUser(this.loginForm.value.loginFormGroup as User)
+      .sendUserDataToBackEnd(
+        this.loginForm.value.loginFormGroup as User,
+        'register'
+      )
       .subscribe(
         (response) => {
-          localStorage.setItem('token', response.token);
-          this.loginForm.reset();
-          // navigate to dashboard
+          this.goToDashboard(response.token);
         },
         (err) => console.log(err)
       );
