@@ -6,8 +6,16 @@ import { NotfoundPageComponent } from 'src/app/components/pages/notfound-page/no
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginPageComponent },
-  { path: 'dashboard', component: DashboardPageComponent },
+  {
+    path: 'login',
+    component: LoginPageComponent,
+    data: { animationState: 'One' },
+  },
+  {
+    path: 'dashboard',
+    component: DashboardPageComponent,
+    data: { animationState: 'Two' },
+  },
   { path: '**', component: NotfoundPageComponent },
 ];
 

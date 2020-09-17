@@ -11,7 +11,7 @@ export class LoginPageComponent implements OnInit {
   constructor() {}
 
   addAnims() {
-    this.animate = true;
+    /* this.animate = true; */
   }
 
   ngOnInit(): void {}
