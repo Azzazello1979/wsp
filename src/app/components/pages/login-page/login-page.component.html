@@ -1,4 +1,8 @@
-<div class="login-page-wrapper pageWrapper">
+<div
+  class="login-page-wrapper pageWrapper animate__animated"
+  (mouseover)="addAnims()"
+  [class.animate__rubberBand]="animate"
+>
   <header>HEADER</header>
   <nav><app-login-page-form></app-login-page-form></nav>
   <main>MAIN</main>

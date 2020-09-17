@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "animate.css/animate.css";
+
 /* breakPoints: 577- ... 577->769 ... 769+ */
 body {
   margin: 0;
