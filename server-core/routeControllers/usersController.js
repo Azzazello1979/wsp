@@ -65,8 +65,6 @@ router.post("/", (req, res) => {
     req.body.intent === "login"
   ) {
     // LOGIN USER ...
-    // CHECK IF USERNAME PASSWORD COMBO EXISTS ...
-
     db.query(` SELECT * FROM users WHERE name = '${req.body.name}' ;`)
       .then((response) => {
         if (response[0].length !== 0) {
@@ -81,7 +79,7 @@ router.post("/", (req, res) => {
             );
             return res.status(200).send({ token });
           } else {
-            return res.status(500).json({
+            return res.status(400).json({
               message: "This password is not correct for this username!",
             });
           }
@@ -95,7 +93,7 @@ router.post("/", (req, res) => {
         return res.status(500).send(e);
       });
   } else {
-    return res.status(500).json({
+    return res.status(400).json({
       message:
         "credentials missing from request body, name, password, intent, or intent is neither login nor register",
     });
