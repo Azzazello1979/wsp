@@ -1,7 +1,7 @@
 .login-page-wrapper {
   display: grid;
   grid-template-columns: 1fr;
-  grid-auto-rows: minmax(auto);
+  grid-auto-rows: auto;
   grid-template-areas:
     "menu"
     "header"
@@ -38,7 +38,7 @@ footer {
   .login-page-wrapper {
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: minmax(auto);
+    grid-auto-rows: auto;
     grid-template-areas:
       "header"
       "menu"
@@ -57,7 +57,7 @@ footer {
   .login-page-wrapper {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    grid-auto-rows: minmax(auto);
+    grid-auto-rows: auto;
     grid-template-areas:
       "header header header"
       "menu menu menu"
