@@ -5,9 +5,10 @@ const hash = require("sha256");
 const jwt = require("jsonwebtoken");
 const SECRET = process.env.SECRET;
 const SALT = process.env.SALT;
+const tokenControl = require("./../middlewares/tokenControl");
 
 // LIST ALL USERS
-router.get("/", (req, res) => {
+router.get("/", tokenControl, (req, res) => {
   res.setHeader("Content-Type", "application/json");
   db.query(`SELECT * FROM users`)
     .then((results) => {

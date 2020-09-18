@@ -20,3 +20,4 @@ export class AuthInterceptorService implements HttpInterceptor {
     return next.handle(transformedRequest);
   }
 }
+// attaches Bearer token to all outgoing requests
