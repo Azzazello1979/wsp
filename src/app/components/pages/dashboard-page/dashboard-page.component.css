@@ -1,0 +1,29 @@
+.dashboard-page-wrapper {
+  display: flex;
+  justify-content: left;
+  min-height: 90vh;
+}
+.dashboard-page-sideNav {
+  border: 1px solid red;
+  padding: 20px;
+  margin: 5px;
+  transition: width 1s;
+}
+.dashboard-page-content {
+  border: 1px solid green;
+  margin: 5px;
+  width: stretch;
+}
+.dashboard-page-content-header {
+  cursor: pointer;
+  height: 20%;
+  border: 1px solid grey;
+}
+.dashboard-page-content-main {
+  height: 70%;
+  border: 1px solid grey;
+}
+.dashboard-page-content-footer {
+  height: 10%;
+  border: 1px solid grey;
+}

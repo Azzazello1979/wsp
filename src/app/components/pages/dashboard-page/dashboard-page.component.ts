@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -7,16 +6,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./dashboard-page.component.css'],
 })
 export class DashboardPageComponent {
-  constructor(private userService: UserService) {}
+  sideNavExpanded: boolean = false;
 
-  getUsers() {
-    this.userService.getUsers().subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+  onHeaderClick() {
+    this.sideNavExpanded = !this.sideNavExpanded;
   }
 }
