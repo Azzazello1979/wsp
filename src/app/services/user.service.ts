@@ -5,6 +5,7 @@ import { User } from 'src/app/models/User';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
+// AKA: AUTH SERVICE
 @Injectable({
   providedIn: 'root',
 })
@@ -13,17 +14,16 @@ export class UserService extends HttpService<User> {
     super(_http);
   }
 
-  // general, from HttpService
   getUsers(): Observable<User[]> {
     return this.getAll('users');
   }
 
-  // specific, not from HttpService
   logoutUser() {
     localStorage.removeItem('token');
     this.router.navigate(['login']);
   }
 
+  // either login or register user at backEnd
   sendUserDataToBackEnd(body: User, intent: string): Observable<any> {
     body.intent = intent;
     return this._http.post(`${this.apiBase}/users`, body);

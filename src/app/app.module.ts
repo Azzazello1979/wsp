@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 /* services */
 import { UserService } from 'src/app/services/user.service';
 import { AuthInterceptorService } from 'src/app/services/auth-interceptor.service';
+import { UserGuardService } from 'src/app/services/user-guard.service';
 
 /* components */
 import { AppComponent } from 'src/app/app.component';
@@ -36,6 +37,7 @@ import { LoginPageFormComponent } from './components/non-portable/login-page-for
   ],
   providers: [
     UserService,
+    UserGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
