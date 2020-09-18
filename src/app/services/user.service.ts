@@ -4,6 +4,7 @@ import { HttpService } from 'src/app/services/abstract/http.service';
 import { User } from 'src/app/models/User';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { delay } from 'rxjs/operators';
 
 // AKA: AUTH SERVICE
 @Injectable({
@@ -15,7 +16,7 @@ export class UserService extends HttpService<User> {
   }
 
   getUsers(): Observable<User[]> {
-    return this.getAll('users');
+    return this.getAll('users').pipe(delay(1000)); // delay just to show spinner :-)
   }
 
   logoutUser() {
