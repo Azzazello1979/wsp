@@ -4,4 +4,20 @@
   width: 200px;
   height: 200px;
   margin: 10px;
+  cursor: pointer;
+}
+.navigation-tile-text {
+  padding: 10px;
+  font-size: 22px;
+  text-align: center;
+  height: 20%;
+}
+.navigation-tile-icon {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon-display {
+  transform: scale(3); /* this is how you properly scale up a mat-icon */
 }

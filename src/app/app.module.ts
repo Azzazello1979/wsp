@@ -5,6 +5,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { MaterialModule } from 'src/app/material/material.module';
 
 /* services */
 import { UserService } from 'src/app/services/user.service';
@@ -54,6 +55,7 @@ import { NavigationTileComponent } from 'src/app/components/portable/navigation-
     HttpClientModule,
     RouterModule,
     BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [
     UserService,

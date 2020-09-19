@@ -4,6 +4,7 @@
 
 /* breakPoints: 577- ... 577->769 ... 769+ */
 body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
   padding: 0;
   /* overflow-x: hidden; */
@@ -16,9 +17,6 @@ body {
   width: 90vw;
   min-height: 90vh;
   margin: 5vh auto;
-  -webkit-box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
-  -moz-box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
-  box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
 }
 
 /* FORMS */
