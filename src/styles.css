@@ -6,7 +6,7 @@
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   --dark-orange: rgb(133, 88, 4);
   --light-orange: rgb(245, 216, 163);
 }
@@ -14,6 +14,7 @@ body {
 .pageWrapper {
   border: 2px solid red;
   width: 90vw;
+  min-height: 90vh;
   margin: 5vh auto;
   -webkit-box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
   -moz-box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
