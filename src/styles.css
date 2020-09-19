@@ -25,3 +25,10 @@ input {
   padding: 3px;
   outline: none;
 }
+
+/* design, looks */
+.lovelyShadow {
+  -webkit-box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
+  -moz-box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
+  box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
+}

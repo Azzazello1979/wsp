@@ -1,1 +1,8 @@
-<p>home-page works!</p>
+<div class="home-page-wrapper">
+  <app-navigation-tile
+    *ngFor="let tile of navigationTiles"
+    [name]="tile.name"
+    [icon]="tile.icon"
+    [path]="tile.path"
+  ></app-navigation-tile>
+</div>

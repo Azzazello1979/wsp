@@ -16,16 +16,17 @@ import { AppComponent } from 'src/app/app.component';
 import { LoginPageComponent } from 'src/app/components/pages/login-page/login-page.component';
 import { DashboardPageComponent } from 'src/app/components/pages/dashboard-page/dashboard-page.component';
 import { NotfoundPageComponent } from 'src/app/components/pages/notfound-page/notfound-page.component';
-import { LoginPageFormComponent } from './components/non-portable/login-page-form/login-page-form.component';
-import { HomePageComponent } from './components/pages/home-page/home-page.component';
-import { ProductsPageComponent } from './components/pages/products-page/products-page.component';
-import { WishlistPageComponent } from './components/pages/wishlist-page/wishlist-page.component';
-import { SettingsforuserPageComponent } from './components/pages/settingsforuser-page/settingsforuser-page.component';
-import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
-import { ManageUsersPageComponent } from './components/pages/manage-users-page/manage-users-page.component';
-import { ManageProductsPageComponent } from './components/pages/manage-products-page/manage-products-page.component';
-import { ManageOrdersPageComponent } from './components/pages/manage-orders-page/manage-orders-page.component';
-import { ListOrdersPageComponent } from './components/pages/list-orders-page/list-orders-page.component';
+import { LoginPageFormComponent } from 'src/app/components/non-portable/login-page-form/login-page-form.component';
+import { HomePageComponent } from 'src/app/components/pages/home-page/home-page.component';
+import { ProductsPageComponent } from 'src/app/components/pages/products-page/products-page.component';
+import { WishlistPageComponent } from 'src/app/components/pages/wishlist-page/wishlist-page.component';
+import { SettingsforuserPageComponent } from 'src/app/components/pages/settingsforuser-page/settingsforuser-page.component';
+import { CartPageComponent } from 'src/app/components/pages/cart-page/cart-page.component';
+import { ManageUsersPageComponent } from 'src/app/components/pages/manage-users-page/manage-users-page.component';
+import { ManageProductsPageComponent } from 'src/app/components/pages/manage-products-page/manage-products-page.component';
+import { ManageOrdersPageComponent } from 'src/app/components/pages/manage-orders-page/manage-orders-page.component';
+import { ListOrdersPageComponent } from 'src/app/components/pages/list-orders-page/list-orders-page.component';
+import { NavigationTileComponent } from 'src/app/components/portable/navigation-tile/navigation-tile.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ListOrdersPageComponent } from './components/pages/list-orders-page/lis
     ManageProductsPageComponent,
     ManageOrdersPageComponent,
     ListOrdersPageComponent,
+    NavigationTileComponent,
   ],
   imports: [
     BrowserModule,
