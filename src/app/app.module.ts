@@ -17,6 +17,15 @@ import { LoginPageComponent } from 'src/app/components/pages/login-page/login-pa
 import { DashboardPageComponent } from 'src/app/components/pages/dashboard-page/dashboard-page.component';
 import { NotfoundPageComponent } from 'src/app/components/pages/notfound-page/notfound-page.component';
 import { LoginPageFormComponent } from './components/non-portable/login-page-form/login-page-form.component';
+import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import { ProductsPageComponent } from './components/pages/products-page/products-page.component';
+import { WishlistPageComponent } from './components/pages/wishlist-page/wishlist-page.component';
+import { SettingsforuserPageComponent } from './components/pages/settingsforuser-page/settingsforuser-page.component';
+import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
+import { ManageUsersPageComponent } from './components/pages/manage-users-page/manage-users-page.component';
+import { ManageProductsPageComponent } from './components/pages/manage-products-page/manage-products-page.component';
+import { ManageOrdersPageComponent } from './components/pages/manage-orders-page/manage-orders-page.component';
+import { ListOrdersPageComponent } from './components/pages/list-orders-page/list-orders-page.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +34,15 @@ import { LoginPageFormComponent } from './components/non-portable/login-page-for
     DashboardPageComponent,
     NotfoundPageComponent,
     LoginPageFormComponent,
+    HomePageComponent,
+    ProductsPageComponent,
+    WishlistPageComponent,
+    SettingsforuserPageComponent,
+    CartPageComponent,
+    ManageUsersPageComponent,
+    ManageProductsPageComponent,
+    ManageOrdersPageComponent,
+    ListOrdersPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -10,20 +9,7 @@ export class DashboardPageComponent implements OnInit {
   sideNavExpanded: boolean = false;
   busy: boolean = false;
 
-  constructor(private userService: UserService) {}
-
-  getUsers() {
-    this.busy = !this.busy;
-    this.userService.getUsers().subscribe(
-      (response) => {
-        console.log(response);
-        this.busy = !this.busy;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
+  constructor() {}
 
   onHeaderClick() {
     this.sideNavExpanded = !this.sideNavExpanded;
