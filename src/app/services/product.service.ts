@@ -10,4 +10,8 @@ export class ProductService extends HttpService<Product> {
   constructor(protected http: HttpClient) {
     super(http, 'products');
   }
+
+  getProducts() {
+    return this.getAll();
+  }
 }

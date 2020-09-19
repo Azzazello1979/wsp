@@ -7,10 +7,15 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material/material.module';
 
-/* services */
-import { UserService } from 'src/app/services/user.service';
+/* interceptors */
 import { AuthInterceptorService } from 'src/app/services/auth-interceptor.service';
+import { ErrorInterceptorService } from 'src/app/services/error-interceptor.service';
+
+/* guards */
 import { UserGuardService } from 'src/app/services/user-guard.service';
+
+/* other services */
+import { UserService } from 'src/app/services/user.service';
 import { ProductService } from 'src/app/services/product.service';
 
 /* components */
@@ -65,6 +70,11 @@ import { NavigationTileComponent } from 'src/app/components/portable/navigation-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
       multi: true,
     },
   ],
