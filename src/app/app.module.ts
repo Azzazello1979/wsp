@@ -11,6 +11,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { UserService } from 'src/app/services/user.service';
 import { AuthInterceptorService } from 'src/app/services/auth-interceptor.service';
 import { UserGuardService } from 'src/app/services/user-guard.service';
+import { ProductService } from 'src/app/services/product.service';
 
 /* components */
 import { AppComponent } from 'src/app/app.component';
@@ -60,6 +61,7 @@ import { NavigationTileComponent } from 'src/app/components/portable/navigation-
   providers: [
     UserService,
     UserGuardService,
+    ProductService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

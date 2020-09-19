@@ -4,27 +4,27 @@ import { CrudOperations } from 'src/app/models/crudOperations';
 import { environment } from 'src/environments/environment';
 
 export abstract class HttpService<T> implements CrudOperations<T> {
-  protected apiBase: string = environment.backURL;
+  apiBase: string = environment.backURL;
 
-  constructor(protected _http: HttpClient) {}
+  constructor(protected http: HttpClient, public endPoint: string) {}
 
-  post(path: string, body: T): Observable<T> {
-    return this._http.post<T>(`${this.apiBase}/${path}`, body);
+  post(body: T): Observable<T> {
+    return this.http.post<T>(`${this.apiBase}/${this.endPoint}`, body);
   }
 
   put(id: number, body: T): Observable<T> {
-    return this._http.put<T>(this.apiBase + '/' + id, body, {});
+    return this.http.put<T>(this.apiBase + '/' + id, body, {});
   }
 
   getOne(id: number): Observable<T> {
-    return this._http.get<T>(this.apiBase + '/' + id);
+    return this.http.get<T>(this.apiBase + '/' + id);
   }
 
-  getAll(path: string): Observable<T[]> {
-    return this._http.get<T[]>(`${this.apiBase}/${path}`);
+  getAll(): Observable<T[]> {
+    return this.http.get<T[]>(`${this.apiBase}/${this.endPoint}`);
   }
 
   delete(id: number): Observable<T> {
-    return this._http.delete<T>(this.apiBase + '/' + id);
+    return this.http.delete<T>(this.apiBase + '/' + id);
   }
 }

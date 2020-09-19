@@ -11,12 +11,12 @@ import { delay } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UserService extends HttpService<User> {
-  constructor(protected _http: HttpClient, private router: Router) {
-    super(_http);
+  constructor(protected http: HttpClient, protected router: Router) {
+    super(http, 'users');
   }
 
   getUsers(): Observable<User[]> {
-    return this.getAll('users').pipe(delay(1000)); // delay just to show spinner :-)
+    return this.getAll().pipe(delay(1000)); // delay just to show spinner :-)
   }
 
   logoutUser() {
@@ -27,6 +27,6 @@ export class UserService extends HttpService<User> {
   // either login or register user at backEnd
   sendUserDataToBackEnd(body: User, intent: string): Observable<any> {
     body.intent = intent;
-    return this._http.post(`${this.apiBase}/users`, body);
+    return this.http.post(`${this.apiBase}/users`, body);
   }
 }
