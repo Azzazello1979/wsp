@@ -14,7 +14,7 @@ export class NavigationTileComponent implements OnInit {
   @Input() path: string;
 
   onClick() {
-    this.navTileClicked.emit(this.name as string);
+    this.navTileClicked.emit(this.path as string);
   }
 
   playAnim() {

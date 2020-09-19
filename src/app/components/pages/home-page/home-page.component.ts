@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationTile } from 'src/app/models/NavigationTile';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -30,10 +31,10 @@ export class HomePageComponent implements OnInit {
     { name: 'Manage Orders', path: 'dashboard/manage-orders', icon: 'article' },
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
-  onNavTileClick(event: string) {
-    console.log(event);
+  onNavTileClick(pathFromTile: string) {
+    this.router.navigate([pathFromTile]);
   }
 
   ngOnInit(): void {}
