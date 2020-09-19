@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-navigation-tile',
@@ -6,9 +6,23 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./navigation-tile.component.css'],
 })
 export class NavigationTileComponent implements OnInit {
+  animated: boolean = false;
+  @Output() navTileClicked = new EventEmitter<string>();
+
   @Input() name: string;
   @Input() icon: string;
   @Input() path: string;
+
+  onClick() {
+    this.navTileClicked.emit(this.name as string);
+  }
+
+  playAnim() {
+    this.animated = true;
+    setTimeout(() => {
+      this.animated = false;
+    }, 2000);
+  }
 
   constructor() {}
 

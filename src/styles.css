@@ -10,6 +10,7 @@ body {
   /* overflow-x: hidden; */
   --dark-orange: rgb(133, 88, 4);
   --light-orange: rgb(245, 216, 163);
+  --light-background: rgb(251, 243, 224);
 }
 
 .pageWrapper {

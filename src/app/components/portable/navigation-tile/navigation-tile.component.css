@@ -1,11 +1,19 @@
 .navigation-tile {
-  border: 1px solid lightgrey;
   border-radius: 10px;
   width: 200px;
   height: 200px;
   margin: 10px;
   cursor: pointer;
+  background: white;
 }
+.navigation-tile:hover .navigation-tile-icon .icon-display {
+  color: white;
+}
+
+.navigation-tile:hover .navigation-tile-icon {
+  background: orange;
+}
+
 .navigation-tile-text {
   padding: 10px;
   font-size: 22px;
@@ -13,11 +21,14 @@
   height: 20%;
 }
 .navigation-tile-icon {
+  border-radius: 0 0 10px 10px;
   height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: 0.5s;
 }
 .icon-display {
   transform: scale(3); /* this is how you properly scale up a mat-icon */
+  transition: 0.5s;
 }

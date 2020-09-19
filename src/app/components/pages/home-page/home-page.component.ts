@@ -32,5 +32,9 @@ export class HomePageComponent implements OnInit {
 
   constructor() {}
 
+  onNavTileClick(event: string) {
+    console.log(event);
+  }
+
   ngOnInit(): void {}
 }

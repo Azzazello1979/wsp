@@ -1,4 +1,9 @@
-<div class="navigation-tile lovelyShadow">
+<div
+  class="navigation-tile lovelyShadow animate__animated"
+  (mouseenter)="playAnim()"
+  (click)="onClick()"
+  [class.animate__headShake]="animated"
+>
   <div class="navigation-tile-text">{{ name }}</div>
   <div class="navigation-tile-icon">
     <mat-icon class="icon-display">{{ icon }}</mat-icon>
