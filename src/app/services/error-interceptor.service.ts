@@ -1,6 +1,4 @@
 import {
-  HttpErrorResponse,
-  HttpEventType,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,

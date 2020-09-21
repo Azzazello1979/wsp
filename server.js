@@ -15,9 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // require routeControllers
 const usersRoute = require("./server-core/routeControllers/usersController");
+const productsRoute = require("./server-core/routeControllers/productsController");
 
 // use routeControllers
 app.use("/users", usersRoute);
+app.use("/products", productsRoute);
 
 app.listen(PORT, () => {
   console.log("OK...express listening on " + PORT);

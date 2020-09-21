@@ -17,7 +17,7 @@ export class LoginPageFormComponent implements OnInit {
   goToDashboard(token: string) {
     localStorage.setItem('token', token);
     this.loginForm.reset();
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['dashboard/home']);
   }
 
   onLogin() {
