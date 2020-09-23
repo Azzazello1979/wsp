@@ -1,27 +1,69 @@
 .animated-card-wrapper {
   border-radius: 5px;
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   text-align: center;
   position: relative;
-  cursor: pointer;
   margin: 10px;
 }
 .animated-card-wrapper .front img {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
 }
 .animated-card-wrapper > * {
-  width: 200px;
-  height: 200px;
+  border: 1px solid lightgray;
+  width: 250px;
+  height: 250px;
 }
+
 .front {
+  cursor: pointer;
   position: absolute;
-  background: white;
   transition: 1s ease-in-out;
   z-index: 9;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
 }
+.front-title {
+  padding: 5px;
+  font-size: medium;
+  background: var(--light-orange);
+}
+.front-image {
+  padding: 5px;
+}
+.front-price {
+  padding: 5px;
+  font-size: medium;
+  background: var(--light-orange);
+}
+
 .back {
   transition: 1s ease-in-out;
   transform: scale(0);
+  padding: 10px;
+}
+.back-description {
+  height: 70%;
+  overflow: hidden;
+}
+.back-actions {
+  cursor: pointer;
+  height: 30%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: var(--light-orange);
+}
+
+mat-icon {
+  transform: scale(2);
+}
+mat-icon:hover {
+  color: yellow;
+  transition: 0.5s ease-in-out;
+  transform: scale(2) rotateX(360deg);
 }

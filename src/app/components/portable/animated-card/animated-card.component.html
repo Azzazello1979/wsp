@@ -3,18 +3,29 @@
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
 >
+  <!-- FRONT starts -->
   <div
     class="front lovelyShadow"
     [style.transform]="mouseInside ? 'rotate(360deg) scale(0)' : null"
   >
-    <h3>{{ product.name }}</h3>
-    <img [src]="constructImagePath(product.mainIMGurl)" />
-    <p>{{ product.price }} USD</p>
+    <div class="front-title">{{ product.name }}</div>
+    <div class="front-image">
+      <img [src]="constructImagePath(product.mainIMGurl)" />
+    </div>
+    <div class="front-price">{{ product.price | currency }}</div>
   </div>
+  <!-- FRONT ends -->
+  <!-- BACK starts -->
   <div
     class="back lovelyShadow"
     [style.transform]="mouseInside ? 'scale(1)' : null"
   >
-    ...back...
+    <div class="back-description">{{ product.description }}</div>
+    <div class="back-actions">
+      <mat-icon>add_shopping_cart</mat-icon>
+      <mat-icon>info</mat-icon>
+      <mat-icon>grade</mat-icon>
+    </div>
   </div>
+  <!-- BACK ends -->
 </div>
