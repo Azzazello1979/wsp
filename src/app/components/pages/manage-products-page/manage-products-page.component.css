@@ -1,0 +1,13 @@
+.manage-products-page-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px;
+}
+.manage-products-page-upload-products {
+  border: 1px solid red;
+  padding: 20px;
+}
+.uploadProducts > * {
+  display: block;
+}

@@ -1,1 +1,41 @@
-<p>manage-products-page works!</p>
+<div class="manage-products-page-wrapper">
+  <div class="manage-products-page-upload-products">
+    <form [formGroup]="theForm" (ngSubmit)="onSubmit()">
+      <div class="uploadProducts" formGroupName="uploadProducts">
+        <!-- CATEGORY -->
+        <label for="category">Category:</label>
+        <select formControlName="category" id="category">
+          <option
+            *ngFor="let productCategory of productCategories"
+            [value]="productCategory.name"
+          >
+            {{ productCategory.name }}
+          </option>
+        </select>
+        <!-- NAME -->
+        <label for="name">Product name:</label>
+        <input type="text" formControlName="name" id="name" />
+        <!-- PRICE -->
+        <label for="price">Price:</label>
+        <input type="number" formControlName="price" id="price" />
+        <!-- DESCRIPTION -->
+        <label for="description">Description:</label>
+        <textarea
+          formControlName="description"
+          id="description"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <!-- IMAGE -->
+        <label for="image">Choose image: </label>
+        <input
+          type="file"
+          formControlName="image"
+          id="image"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+      <button type="submit" [disabled]="theForm.invalid">Save Product</button>
+    </form>
+  </div>
+</div>
