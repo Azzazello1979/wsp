@@ -10,16 +10,16 @@ import { environment } from 'src/environments/environment';
 export class AnimatedCardComponent implements OnInit {
   apiBase: string = environment.backURL;
   @Input('product') product: Product;
-  mouseEnter: boolean = false;
+  mouseInside: boolean = false;
 
   constructor() {}
 
   onMouseEnter() {
-    this.mouseEnter = true;
+    this.mouseInside = true;
   }
 
   onMouseLeave() {
-    this.mouseEnter = false;
+    this.mouseInside = false;
   }
 
   constructImagePath(path: string): string {

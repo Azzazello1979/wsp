@@ -5,11 +5,16 @@
 >
   <div
     class="front lovelyShadow"
-    [style.transform]="mouseEnter ? 'rotate(360deg) scale(0)' : null"
+    [style.transform]="mouseInside ? 'rotate(360deg) scale(0)' : null"
   >
     <h3>{{ product.name }}</h3>
     <img [src]="constructImagePath(product.mainIMGurl)" />
     <p>{{ product.price }} USD</p>
   </div>
-  <div class="back lovelyShadow">...back...</div>
+  <div
+    class="back lovelyShadow"
+    [style.transform]="mouseInside ? 'scale(1)' : null"
+  >
+    ...back...
+  </div>
 </div>

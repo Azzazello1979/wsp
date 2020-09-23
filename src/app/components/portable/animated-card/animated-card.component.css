@@ -5,6 +5,7 @@
   text-align: center;
   position: relative;
   cursor: pointer;
+  margin: 10px;
 }
 .animated-card-wrapper .front img {
   width: 120px;
@@ -13,10 +14,14 @@
 .animated-card-wrapper > * {
   width: 200px;
   height: 200px;
-  transition: 1s ease-in-out;
 }
 .front {
   position: absolute;
   background: white;
+  transition: 1s ease-in-out;
   z-index: 9;
+}
+.back {
+  transition: 1s ease-in-out;
+  transform: scale(0);
 }
