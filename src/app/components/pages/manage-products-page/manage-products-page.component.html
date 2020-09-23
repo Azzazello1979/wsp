@@ -1,6 +1,10 @@
 <div class="manage-products-page-wrapper">
   <div class="manage-products-page-upload-products">
-    <form [formGroup]="theForm" (ngSubmit)="onSubmit()">
+    <form
+      [formGroup]="theForm"
+      (ngSubmit)="onSubmit()"
+      enctype="multipart/form-data"
+    >
       <div class="uploadProducts" formGroupName="uploadProducts">
         <!-- CATEGORY -->
         <label for="category">Category:</label>

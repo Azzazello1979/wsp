@@ -6,13 +6,14 @@ const app = express();
 require("dotenv").config(); // process .env files
 const cors = require("cors");
 const path = require("path");
+const multer = require("multer");
 const PORT = process.env.PORT;
 
 // use middlewares...
 app.use(cors());
+app.use(multer({ dest: "rawimages" }).single("image"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-console.log(__dirname);
 app.use("/public", express.static(path.join(__dirname + "/public")));
 
 // require routeControllers

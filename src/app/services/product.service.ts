@@ -12,8 +12,7 @@ export class ProductService extends HttpService<Product> {
   }
 
   saveProduct(productObject) {
-    console.log(productObject);
-    //return this.post();
+    return this.post(productObject);
   }
 
   getProducts() {

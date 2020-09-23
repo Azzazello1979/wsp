@@ -14,4 +14,8 @@ router.get("/", tokenControl, (req, res) => {
     });
 });
 
+router.post("/", tokenControl, (req, res) => {
+  console.log(req.file);
+});
+
 module.exports = router;

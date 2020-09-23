@@ -30,7 +30,6 @@ export class ManageProductsPageComponent implements OnInit {
   }
 
   onSubmit() {
-    //console.log(this.theForm);
     let body = new FormData();
     body.append('category', this.theForm.value.uploadProducts.category);
     body.append('name', this.theForm.value.uploadProducts.name);
@@ -38,7 +37,15 @@ export class ManageProductsPageComponent implements OnInit {
     body.append('description', this.theForm.value.uploadProducts.description);
     body.append('imagePath', this.theForm.value.uploadProducts.image);
     body.append('image', this.image);
-    this.productService.saveProduct(body);
+    console.log(body);
+    this.productService.saveProduct(body).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   ngOnInit() {
