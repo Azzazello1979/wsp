@@ -34,6 +34,7 @@ import { ManageProductsPageComponent } from 'src/app/components/pages/manage-pro
 import { ManageOrdersPageComponent } from 'src/app/components/pages/manage-orders-page/manage-orders-page.component';
 import { ListOrdersPageComponent } from 'src/app/components/pages/list-orders-page/list-orders-page.component';
 import { NavigationTileComponent } from 'src/app/components/portable/navigation-tile/navigation-tile.component';
+import { AnimatedCardComponent } from './components/portable/animated-card/animated-card.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { NavigationTileComponent } from 'src/app/components/portable/navigation-
     ManageOrdersPageComponent,
     ListOrdersPageComponent,
     NavigationTileComponent,
+    AnimatedCardComponent,
   ],
   imports: [
     BrowserModule,

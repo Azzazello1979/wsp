@@ -1,7 +1,6 @@
 <div class="products-page-wrapper">
-  <div class="products-page-card" *ngFor="let product of products">
-    <h3>{{ product.name }}</h3>
-    <img [src]="constructImagePath(product.mainIMGurl)" />
-    <p>{{ product.price }}</p>
-  </div>
+  <app-animated-card
+    *ngFor="let product of products"
+    [product]="product"
+  ></app-animated-card>
 </div>

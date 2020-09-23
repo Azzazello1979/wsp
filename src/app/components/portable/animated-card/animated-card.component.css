@@ -1,0 +1,22 @@
+.animated-card-wrapper {
+  border-radius: 5px;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+.animated-card-wrapper .front img {
+  width: 120px;
+  height: 120px;
+}
+.animated-card-wrapper > * {
+  width: 200px;
+  height: 200px;
+  transition: 1s ease-in-out;
+}
+.front {
+  position: absolute;
+  background: white;
+  z-index: 9;
+}
