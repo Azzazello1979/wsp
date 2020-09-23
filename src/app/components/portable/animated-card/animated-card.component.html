@@ -12,7 +12,9 @@
     <div class="front-image">
       <img [src]="constructImagePath(product.mainIMGurl)" />
     </div>
-    <div class="front-price">{{ product.price | currency }}</div>
+    <div class="front-price">
+      {{ product.price | currency }}
+    </div>
   </div>
   <!-- FRONT ends -->
   <!-- BACK starts -->
@@ -22,9 +24,13 @@
   >
     <div class="back-description">{{ product.description }}</div>
     <div class="back-actions">
-      <mat-icon>add_shopping_cart</mat-icon>
-      <mat-icon>info</mat-icon>
-      <mat-icon>grade</mat-icon>
+      <mat-icon (click)="onToolClick('cart')">add_shopping_cart</mat-icon>
+      <mat-icon (click)="onToolClick('info')">info</mat-icon>
+      <mat-icon
+        (click)="onToolClick('wish')"
+        [style.color]="wished ? 'red' : null"
+        >{{ wished ? "favorite" : "favorite_border" }}</mat-icon
+      >
     </div>
   </div>
   <!-- BACK ends -->

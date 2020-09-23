@@ -65,5 +65,5 @@ mat-icon {
 mat-icon:hover {
   color: yellow;
   transition: 0.5s ease-in-out;
-  transform: scale(2) rotateX(360deg);
+  transform: scale(2.5);
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 import { environment } from 'src/environments/environment';
 
@@ -9,10 +9,32 @@ import { environment } from 'src/environments/environment';
 })
 export class AnimatedCardComponent implements OnInit {
   apiBase: string = environment.backURL;
-  @Input('product') product: Product;
   mouseInside: boolean = false;
+  wished: boolean = false;
+  @Input('product') product: Product;
+  @Output() productCardEvent = new EventEmitter();
 
   constructor() {}
+
+  onToolClick(intent: string) {
+    intent === 'cart'
+      ? this.productCardEvent.emit({
+          id: this.product.id as number,
+          event: 'cartUpdated',
+        })
+      : intent === 'info'
+      ? this.productCardEvent.emit({
+          id: this.product.id as number,
+          event: 'infoRequired',
+        })
+      : intent === 'wish'
+      ? (this.productCardEvent.emit({
+          id: this.product.id as number,
+          event: 'productWished',
+        }),
+        (this.wished = !this.wished))
+      : null;
+  }
 
   onMouseEnter() {
     this.mouseInside = true;
