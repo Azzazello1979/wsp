@@ -12,7 +12,7 @@ const PORT = process.env.PORT;
 // config multer
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "rawimages"); // cb(error, destination)
+    cb(null, "public/categories/" + req.body.category); // cb(error, destination)
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname); // cb(error, filename)
@@ -20,10 +20,12 @@ const multerStorage = multer.diskStorage({
 });
 
 const multerFileFilter = (req, file, cb) => {
+  console.log("file:", file);
   if (
-    file.type === "image/png" ||
-    file.type === "image/jpg" ||
-    file.type === "image/jpeg"
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/JPEG" ||
+    file.mimetype === "image/jpeg"
   ) {
     cb(null, true); // cb(error, store file)
   } else {

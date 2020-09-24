@@ -19,7 +19,7 @@ export class ManageProductsPageComponent implements OnInit {
   productCategories: ProductCategory[] = [
     { id: 0, name: 'none' },
     { id: 1, name: 'coffee' },
-    { id: 2, name: 'board game' },
+    { id: 2, name: 'board-game' },
     { id: 3, name: 'book' },
   ];
 

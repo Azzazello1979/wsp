@@ -15,7 +15,7 @@ router.get("/", tokenControl, (req, res) => {
 });
 
 router.post("/", tokenControl, (req, res) => {
-  console.log(req.file);
+  console.log(req.body);
 });
 
 module.exports = router;
