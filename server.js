@@ -12,18 +12,35 @@ const PORT = process.env.PORT;
 // config multer
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "rawimages");
+    cb(null, "rawimages"); // cb(error, destination)
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, Date.now() + "-" + file.originalname); // cb(error, filename)
   },
 });
+
+const multerFileFilter = (req, file, cb) => {
+  if (
+    file.type === "image/png" ||
+    file.type === "image/jpg" ||
+    file.type === "image/jpeg"
+  ) {
+    cb(null, true); // cb(error, store file)
+  } else {
+    cb(null, false); // cb(error, do not store file)
+    console.log("Not an image file, won't save!");
+  }
+};
 
 // use middlewares...
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(multer({ storage: multerStorage }).single("image"));
+app.use(
+  multer({ storage: multerStorage, fileFilter: multerFileFilter }).single(
+    "image"
+  )
+);
 app.use("/public", express.static(path.join(__dirname + "/public")));
 
 // require routeControllers
