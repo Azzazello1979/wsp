@@ -10,7 +10,7 @@ const tokenControl = require("./../middlewares/tokenControl");
 // LIST ALL USERS
 router.get("/", tokenControl, (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  db.query(`SELECT * FROM users`)
+  db.query(`SELECT * FROM users;`)
     .then((results) => {
       if (results[0].length !== 0) {
         return res.status(200).send(results[0]);

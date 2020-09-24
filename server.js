@@ -48,10 +48,12 @@ app.use("/public", express.static(path.join(__dirname + "/public")));
 // require routeControllers
 const usersRoute = require("./server-core/routeControllers/usersController");
 const productsRoute = require("./server-core/routeControllers/productsController");
+const productCategoriesRoute = require("./server-core/routeControllers/productCategoriesController");
 
 // use routeControllers
 app.use("/users", usersRoute);
 app.use("/products", productsRoute);
+app.use("/categories", productCategoriesRoute);
 
 app.listen(PORT, () => {
   console.log("OK...express listening on " + PORT);

@@ -17,6 +17,7 @@ import { UserGuardService } from 'src/app/services/user-guard.service';
 /* other services */
 import { UserService } from 'src/app/services/user.service';
 import { ProductService } from 'src/app/services/product.service';
+import { ProductCategoryService } from 'src/app/services/product-category.service';
 
 /* components */
 import { AppComponent } from 'src/app/app.component';
@@ -69,6 +70,7 @@ import { AnimatedCardComponent } from './components/portable/animated-card/anima
     UserService,
     UserGuardService,
     ProductService,
+    ProductCategoryService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

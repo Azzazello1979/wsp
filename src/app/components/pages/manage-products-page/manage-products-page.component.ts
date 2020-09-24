@@ -1,29 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
-
-export interface ProductCategory {
-  id: number;
-  name: string;
-}
+import { ProductCategoryService } from 'src/app/services/product-category.service';
+import { ProductCategory } from 'src/app/models/ProductCategory';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-manage-products-page',
   templateUrl: './manage-products-page.component.html',
   styleUrls: ['./manage-products-page.component.css'],
 })
-export class ManageProductsPageComponent implements OnInit {
+export class ManageProductsPageComponent implements OnInit, OnDestroy {
   theForm: FormGroup;
   image: File;
 
-  productCategories: ProductCategory[] = [
-    { id: 0, name: 'none' },
-    { id: 1, name: 'coffee' },
-    { id: 2, name: 'board-game' },
-    { id: 3, name: 'book' },
-  ];
+  productCategories: ProductCategory[] = [];
+  productCategoriesSub = new Subscription();
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private productCategoryService: ProductCategoryService
+  ) {}
+
+  getProductCategories() {
+    this.productCategoriesSub = this.productCategoryService
+      .getProductCategories()
+      .subscribe(
+        (response) => {
+          this.productCategories = [...response];
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
 
   onFileSelected(event) {
     this.image = event.target.files[0];
@@ -49,6 +59,7 @@ export class ManageProductsPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getProductCategories();
     this.theForm = new FormGroup({
       uploadProducts: new FormGroup({
         category: new FormControl('none', Validators.required),
@@ -61,5 +72,9 @@ export class ManageProductsPageComponent implements OnInit {
         image: new FormControl(null, Validators.required),
       }),
     });
+  }
+
+  ngOnDestroy() {
+    this.productCategoriesSub.unsubscribe();
   }
 }
