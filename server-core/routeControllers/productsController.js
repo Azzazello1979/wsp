@@ -16,10 +16,9 @@ router.get("/", tokenControl, (req, res) => {
 
 router.post("/", tokenControl, (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  console.log(req.body);
-  const { category, name, price, description } = req.body;
+  const { category, name, price, description, createdFileName } = req.body;
   const createPath = () => {
-    return `public/categories/${category}/${req.file.originalname}`;
+    return `public/categories/${category}/${createdFileName}`;
   };
   db.query(
     `INSERT INTO products (category, name, price, description, mainIMGurl) VALUES ( '${category}', '${name}', ${price}, '${description}', '${createPath()}' );`

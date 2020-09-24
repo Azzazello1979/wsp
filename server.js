@@ -15,7 +15,9 @@ const multerStorage = multer.diskStorage({
     cb(null, "public/categories/" + req.body.category); // cb(error, destination)
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname); // cb(error, filename)
+    const createdFileName = Date.now() + "-" + file.originalname;
+    req.body.createdFileName = createdFileName;
+    cb(null, createdFileName); // cb(error, filename)
   },
 });
 
