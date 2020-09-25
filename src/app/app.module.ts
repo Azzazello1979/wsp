@@ -38,6 +38,8 @@ import { ListOrdersPageComponent } from 'src/app/components/pages/list-orders-pa
 import { NavigationTileComponent } from 'src/app/components/portable/navigation-tile/navigation-tile.component';
 import { AnimatedCardComponent } from 'src/app/components/portable/animated-card/animated-card.component';
 import { FilterBarComponent } from 'src/app/components/portable/filter-bar/filter-bar.component';
+import { CartItemComponent } from './components/portable/cart-item/cart-item.component';
+import { BasicCardComponent } from './components/portable/basic-card/basic-card.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { FilterBarComponent } from 'src/app/components/portable/filter-bar/filte
     NavigationTileComponent,
     AnimatedCardComponent,
     FilterBarComponent,
+    CartItemComponent,
+    BasicCardComponent,
   ],
   imports: [
     BrowserModule,
