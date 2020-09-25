@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardPageComponent implements OnInit {
   sideNavExpanded: boolean = false;
-  busy: boolean = false;
 
   constructor() {}
 
