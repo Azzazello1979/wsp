@@ -15,6 +15,7 @@ import { ErrorInterceptorService } from 'src/app/services/error-interceptor.serv
 import { UserGuardService } from 'src/app/services/user-guard.service';
 
 /* other services */
+import { CentralService } from 'src/app/services/central.service';
 import { UserService } from 'src/app/services/user.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
@@ -67,6 +68,7 @@ import { AnimatedCardComponent } from './components/portable/animated-card/anima
     MaterialModule,
   ],
   providers: [
+    CentralService,
     UserService,
     UserGuardService,
     ProductService,

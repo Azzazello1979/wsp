@@ -9,7 +9,7 @@ const path = require("path");
 const multer = require("multer");
 const PORT = process.env.PORT;
 
-// config multer
+// config multer storage
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/categories/" + req.body.category); // cb(error, destination)
@@ -21,6 +21,7 @@ const multerStorage = multer.diskStorage({
   },
 });
 
+// config multer filter
 const multerFileFilter = (req, file, cb) => {
   console.log("file:", file);
   if (

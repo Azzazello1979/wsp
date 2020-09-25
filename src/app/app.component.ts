@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { routeTransitionAnimations } from './route-transition-animations';
+import { CentralService } from 'src/app/services/central.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,11 @@ import { routeTransitionAnimations } from './route-transition-animations';
   styleUrls: ['./app.component.css'],
   animations: [routeTransitionAnimations],
 })
-export class AppComponent {
-  state: string = 'normal';
+export class AppComponent implements OnInit {
+  busy: boolean = false;
   title = 'wsp';
+
+  constructor(private centralService: CentralService) {}
 
   prepareRoute(outlet: RouterOutlet) {
     return (
@@ -18,5 +21,11 @@ export class AppComponent {
       outlet.activatedRouteData &&
       outlet.activatedRouteData['animationState']
     );
+  }
+
+  ngOnInit() {
+    this.centralService.busyState().subscribe((response) => {
+      this.busy = response;
+    });
   }
 }

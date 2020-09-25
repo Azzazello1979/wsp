@@ -4,13 +4,17 @@ import { HttpClient } from '@angular/common/http';
 import { ProductCategory } from 'src/app/models/ProductCategory';
 import { delay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { CentralService } from 'src/app/services/central.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductCategoryService extends HttpService<ProductCategory> {
-  constructor(protected http: HttpClient) {
-    super(http, 'categories');
+  constructor(
+    protected centralService: CentralService,
+    protected http: HttpClient
+  ) {
+    super(centralService, http, 'categories');
   }
 
   getProductCategories(): Observable<ProductCategory[]> {

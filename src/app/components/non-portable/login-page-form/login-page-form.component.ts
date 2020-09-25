@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { CentralService } from 'src/app/services/central.service';
 
 @Component({
   selector: 'app-login-page-form',
@@ -12,7 +13,11 @@ import { Router } from '@angular/router';
 export class LoginPageFormComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private centralService: CentralService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   goToDashboard(token: string) {
     localStorage.setItem('token', token);
@@ -28,6 +33,7 @@ export class LoginPageFormComponent implements OnInit {
       )
       .subscribe(
         (response) => {
+          this.centralService.busyOFF();
           this.goToDashboard(response.token);
         },
         (err) => console.log(err)
@@ -42,6 +48,7 @@ export class LoginPageFormComponent implements OnInit {
       )
       .subscribe(
         (response) => {
+          this.centralService.busyOFF();
           this.goToDashboard(response.token);
         },
         (err) => console.log(err)

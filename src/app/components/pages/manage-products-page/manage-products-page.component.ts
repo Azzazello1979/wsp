@@ -4,6 +4,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 import { ProductCategory } from 'src/app/models/ProductCategory';
 import { Subscription } from 'rxjs';
+import { CentralService } from 'src/app/services/central.service';
 
 @Component({
   selector: 'app-manage-products-page',
@@ -18,6 +19,7 @@ export class ManageProductsPageComponent implements OnInit, OnDestroy {
   productCategoriesSub = new Subscription();
 
   constructor(
+    private centralService: CentralService,
     private productService: ProductService,
     private productCategoryService: ProductCategoryService
   ) {}
@@ -28,6 +30,7 @@ export class ManageProductsPageComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           this.productCategories = [...response];
+          this.centralService.busyOFF();
         },
         (err) => {
           console.log(err);
