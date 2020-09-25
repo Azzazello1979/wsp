@@ -1,11 +1,14 @@
 <div class="wishlist-page-wrapper">
-  <div class="wish-card" *ngFor="let wish of wishedProducts">
+  <div class="wish-card lovelyShadow" *ngFor="let wish of wishedProducts">
     <div class="upper">
       <div>{{ wish.name }}</div>
-      <mat-icon>delete</mat-icon>
+      <mat-icon (click)="removeWish(wish.id)">delete</mat-icon>
     </div>
-    <div class="lower"></div>
+    <div class="lower">
+      <img
+        class="wishlist-page-image"
+        [src]="constructImagePath(wish.mainIMGurl)"
+      />
+    </div>
   </div>
 </div>
-
-<!-- [src]="constructImagePath(wishedProduct.mainIMGurl)" -->

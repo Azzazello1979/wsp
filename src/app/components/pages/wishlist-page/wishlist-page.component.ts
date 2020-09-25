@@ -3,6 +3,7 @@ import { Product } from 'src/app/models/Product';
 import { ProductService } from 'src/app/services/product.service';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { CentralService } from 'src/app/services/central.service';
 
 @Component({
   selector: 'app-wishlist-page',
@@ -16,7 +17,26 @@ export class WishlistPageComponent implements OnInit, OnDestroy {
 
   wishedProducts: Product[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private centralService: CentralService
+  ) {}
+
+  removeWish(id: number) {
+    //console.log(id);
+    this.wishedProducts = [
+      ...this.wishedProducts.filter((product) => product.id !== id),
+    ];
+    this.productService.updateWishedStatus(id).subscribe(
+      (response) => {
+        this.centralService.busyOFF();
+        console.log(response);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   constructImagePath(path: string): string {
     return `${this.apiBase}/${path}`;
