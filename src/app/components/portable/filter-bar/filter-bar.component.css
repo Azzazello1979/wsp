@@ -19,15 +19,17 @@ select {
   width: 150px;
 }
 
-@media screen and (min-width: 630px) {
+@media screen and (min-width: 700px) {
   .filter-bar-form {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
   }
-  input,
-  select {
+  input {
     width: 75px;
+  }
+  select {
+    width: 150px;
   }
 }

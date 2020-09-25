@@ -9,6 +9,7 @@
     <app-animated-card
       *ngFor="let product of filteredProducts"
       [product]="product"
+      (productCardEvent)="onProductCardEvent($event)"
     ></app-animated-card>
   </div>
 </div>

@@ -2,8 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 import { Subscription } from 'rxjs';
 import { ProductService } from 'src/app/services/product.service';
+import { CentralService } from 'src/app/services/central.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 import { ProductCategory } from 'src/app/models/ProductCategory';
+import { ProductCardEvent } from 'src/app/components/portable/animated-card/animated-card.component';
 
 @Component({
   selector: 'app-products-page',
@@ -20,8 +22,21 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private productService: ProductService,
-    private productCategoryService: ProductCategoryService
+    private productCategoryService: ProductCategoryService,
+    private centralService: CentralService
   ) {}
+
+  onProductCardEvent(event: ProductCardEvent) {
+    this.productService.updateWishedStatus(event.id).subscribe(
+      (response) => {
+        console.log(response);
+        this.centralService.busyOFF();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   filterProducts(minPrice: number, maxPrice: number, category: string) {
     if (category === 'none') {
@@ -41,7 +56,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   }
 
   onFilterBarEmission(event) {
-    //console.log(event);
     this.filterProducts(event.minPrice, event.maxPrice, event.category);
   }
 

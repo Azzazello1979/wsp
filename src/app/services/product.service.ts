@@ -19,6 +19,10 @@ export class ProductService extends HttpService<Product> {
     super(centralService, http, 'products');
   }
 
+  updateWishedStatus(id: number) {
+    return this.patch(id, 'Y');
+  }
+
   saveProduct(productObject) {
     return this.post(productObject);
   }

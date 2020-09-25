@@ -2,6 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 import { environment } from 'src/environments/environment';
 
+export interface ProductCardEvent {
+  id: number;
+  event: string;
+}
+
 @Component({
   selector: 'app-animated-card',
   templateUrl: './animated-card.component.html',
