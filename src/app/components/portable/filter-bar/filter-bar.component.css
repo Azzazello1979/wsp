@@ -1,4 +1,33 @@
 .filter-bar-wrapper {
-  border: 1px solid red;
   padding: 10px;
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.filter-bar-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.filter-bar-form > * {
+  display: block;
+}
+input,
+select {
+  width: 150px;
+}
+
+@media screen and (min-width: 630px) {
+  .filter-bar-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  input,
+  select {
+    width: 75px;
+  }
 }

@@ -31,8 +31,8 @@ export class FilterBarComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.theForm = new FormGroup({
       form: new FormGroup({
-        minPrice: new FormControl('min.Price'),
-        maxPrice: new FormControl('max.Price'),
+        minPrice: new FormControl(0),
+        maxPrice: new FormControl(0),
         category: new FormControl('category'),
       }),
     });
