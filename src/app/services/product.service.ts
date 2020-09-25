@@ -40,7 +40,6 @@ export class ProductService extends HttpService<Product> {
         this.products = [...response];
         this.productsChanged.next(this.products);
         this.centralService.busyOFF();
-        console.log(this.products);
       },
       (err) => {
         console.log(err);

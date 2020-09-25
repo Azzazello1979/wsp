@@ -1,0 +1,37 @@
+.wishlist-page-wrapper {
+  border: 1px solid red;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.wish-card {
+  border: 1px solid grey;
+  border-radius: 5px;
+  width: 200px;
+  height: 200px;
+  padding: 10px;
+  margin: 10px;
+}
+.upper {
+  padding: 10px;
+  border: 1px solid red;
+  height: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.upper > * {
+  border: 1px solid brown;
+  display: block;
+}
+
+.lower {
+  border: 1px solid blue;
+  height: 80%;
+}
+
+mat-icon {
+  transform: scale(1.5);
+}
