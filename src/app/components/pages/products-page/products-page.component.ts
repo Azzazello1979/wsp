@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 import { Subscription } from 'rxjs';
 import { ProductService } from 'src/app/services/product.service';
+import { ProductCategoryService } from 'src/app/services/product-category.service';
+import { ProductCategory } from 'src/app/models/ProductCategory';
 
 @Component({
   selector: 'app-products-page',
@@ -12,7 +14,26 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   productsSub = new Subscription();
 
-  constructor(private productService: ProductService) {}
+  productCategories: ProductCategory[] = [];
+  productCategoriesSub = new Subscription();
+
+  constructor(
+    private productService: ProductService,
+    private productCategoryService: ProductCategoryService
+  ) {}
+
+  subscribeToProductCategories() {
+    this.productCategoriesSub = this.productCategoryService
+      .productCategoriesObservable()
+      .subscribe(
+        (news) => {
+          this.productCategories = [...news];
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
 
   subscribeToProductsChanges() {
     this.productsSub = this.productService.productsObservable().subscribe(
@@ -27,9 +48,11 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscribeToProductsChanges();
+    this.subscribeToProductCategories();
   }
 
   ngOnDestroy() {
     this.productsSub.unsubscribe();
+    this.productCategoriesSub.unsubscribe();
   }
 }

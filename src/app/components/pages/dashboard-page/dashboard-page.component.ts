@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 export class DashboardPageComponent {
   sideNavExpanded: boolean = false;
 
+  constructor() {}
+
   onHeaderClick() {
     this.sideNavExpanded = !this.sideNavExpanded;
   }

@@ -36,11 +36,10 @@ import { ManageProductsPageComponent } from 'src/app/components/pages/manage-pro
 import { ManageOrdersPageComponent } from 'src/app/components/pages/manage-orders-page/manage-orders-page.component';
 import { ListOrdersPageComponent } from 'src/app/components/pages/list-orders-page/list-orders-page.component';
 import { NavigationTileComponent } from 'src/app/components/portable/navigation-tile/navigation-tile.component';
-import { AnimatedCardComponent } from './components/portable/animated-card/animated-card.component';
-import { FilterDialogComponent } from './components/portable/filter-dialog/filter-dialog.component';
+import { AnimatedCardComponent } from 'src/app/components/portable/animated-card/animated-card.component';
+import { FilterBarComponent } from 'src/app/components/portable/filter-bar/filter-bar.component';
 
 @NgModule({
-  entryComponents: [FilterDialogComponent],
   declarations: [
     AppComponent,
     LoginPageComponent,
@@ -58,6 +57,7 @@ import { FilterDialogComponent } from './components/portable/filter-dialog/filte
     ListOrdersPageComponent,
     NavigationTileComponent,
     AnimatedCardComponent,
+    FilterBarComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,12 @@
+<div class="filter-bar-wrapper">
+  <label for="minPrice">Min. Price</label>
+  <input type="number" id="minPrice" [(ngModel)]="minPrice" />
+  <label for="maxPrice">Max. Price</label>
+  <input type="number" id="maxPrice" [(ngModel)]="maxPrice" />
+  <label for="category">Category</label>
+  <select id="category" (change)="onCategorySelect($event)">
+    <option *ngFor="let category of productCategories" [value]="category.name">
+      {{ category.name }}
+    </option>
+  </select>
+</div>

@@ -1,6 +1,11 @@
 <div class="products-page-wrapper">
-  <app-animated-card
-    *ngFor="let product of products"
-    [product]="product"
-  ></app-animated-card>
+  <div class="products-page-filters">
+    <app-filter-bar [productCategories]="productCategories"></app-filter-bar>
+  </div>
+  <div class="products-page-products">
+    <app-animated-card
+      *ngFor="let product of products"
+      [product]="product"
+    ></app-animated-card>
+  </div>
 </div>
