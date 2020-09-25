@@ -11,6 +11,7 @@ import { ProductCategory } from 'src/app/models/ProductCategory';
   styleUrls: ['./products-page.component.css'],
 })
 export class ProductsPageComponent implements OnInit, OnDestroy {
+  filteredProducts: Product[] = []; // SHOWING THIS
   products: Product[] = [];
   productsSub = new Subscription();
 
@@ -22,8 +23,26 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     private productCategoryService: ProductCategoryService
   ) {}
 
+  filterProducts(minPrice: number, maxPrice: number, category: string) {
+    if (category === 'none') {
+      let filtered = this.products.filter(
+        (product) => product.price < maxPrice && product.price > minPrice
+      );
+      return (this.filteredProducts = [...filtered]);
+    } else {
+      let filtered = this.products.filter(
+        (product) =>
+          product.category === category &&
+          product.price < maxPrice &&
+          product.price > minPrice
+      );
+      return (this.filteredProducts = [...filtered]);
+    }
+  }
+
   onFilterBarEmission(event) {
-    console.log(event);
+    //console.log(event);
+    this.filterProducts(event.minPrice, event.maxPrice, event.category);
   }
 
   subscribeToProductCategories() {
@@ -43,6 +62,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     this.productsSub = this.productService.productsObservable().subscribe(
       (news) => {
         this.products = [...news];
+        this.filteredProducts = [...news];
       },
       (err) => {
         console.log(err);
