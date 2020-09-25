@@ -19,6 +19,13 @@ export class ProductService extends HttpService<Product> {
     super(centralService, http, 'products');
   }
 
+  updateProductsWishStatus(id: number, wished: string): void {
+    this.products.forEach((product) => {
+      product.id === id ? (product.wished = wished) : null;
+    });
+    this.productsChanged.next(this.products);
+  }
+
   updateWishedStatus(id: number) {
     return this.patch(id, 'Y');
   }
@@ -33,6 +40,7 @@ export class ProductService extends HttpService<Product> {
         this.products = [...response];
         this.productsChanged.next(this.products);
         this.centralService.busyOFF();
+        console.log(this.products);
       },
       (err) => {
         console.log(err);

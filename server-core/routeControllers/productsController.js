@@ -38,6 +38,10 @@ router.post("/", tokenControl, (req, res) => {
 });
 
 router.patch("/:id", tokenControl, (req, res) => {
+  wishedStatus = null;
+  const toggleWishStatus = () => {
+    return wishedStatus === "N" ? "Y" : "N";
+  };
   res.setHeader("Content-Type", "application/json");
   //console.log(req.params);
   db.query(` SELECT wished FROM products WHERE id = ${req.params.id}  ;`)
@@ -47,9 +51,8 @@ router.patch("/:id", tokenControl, (req, res) => {
       return currentWishedStatus;
     })
     .then((currentWishedStatus) => {
-      const toggleWishStatus = () => {
-        return currentWishedStatus === "N" ? "Y" : "N";
-      };
+      wishedStatus = currentWishedStatus;
+
       return db.query(
         ` UPDATE products SET wished = '${toggleWishStatus()}' WHERE id = ${
           req.params.id
@@ -57,9 +60,13 @@ router.patch("/:id", tokenControl, (req, res) => {
       );
     })
     .then((response) => {
-      console.log(response[0].warningCount);
+      //console.log(response[0].warningCount);
       if (response[0].warningCount === 0) {
-        res.status(200).json({ message: "OK, wished status updated" });
+        res.status(200).json({
+          message: "OK, wished status updated",
+          id: req.params.id,
+          wished: toggleWishStatus(),
+        });
       } else {
         throw new Error("warning count not zero");
       }

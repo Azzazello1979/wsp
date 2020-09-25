@@ -28,8 +28,8 @@
       <mat-icon (click)="onToolClick('info')">info</mat-icon>
       <mat-icon
         (click)="onToolClick('wish')"
-        [style.color]="wished ? 'red' : null"
-        >{{ wished ? "favorite" : "favorite_border" }}</mat-icon
+        [style.color]="product.wished === 'Y' ? 'red' : null"
+        >{{ product.wished === "Y" ? "favorite" : "favorite_border" }}</mat-icon
       >
     </div>
   </div>

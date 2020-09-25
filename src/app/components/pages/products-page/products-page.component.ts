@@ -30,6 +30,10 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     this.productService.updateWishedStatus(event.id).subscribe(
       (response) => {
         console.log(response);
+        this.productService.updateProductsWishStatus(
+          parseInt(response.id),
+          response.wished
+        );
         this.centralService.busyOFF();
       },
       (err) => {

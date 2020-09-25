@@ -15,7 +15,7 @@ export interface ProductCardEvent {
 export class AnimatedCardComponent implements OnInit {
   apiBase: string = environment.backURL;
   mouseInside: boolean = false;
-  wished: boolean = false;
+  /* wished: boolean = false; */
   @Input('product') product: Product;
   @Output() productCardEvent = new EventEmitter();
 
@@ -37,7 +37,9 @@ export class AnimatedCardComponent implements OnInit {
           id: this.product.id as number,
           event: 'productWished',
         }),
-        (this.wished = !this.wished))
+        this.product.wished === 'Y'
+          ? (this.product.wished = 'N')
+          : (this.product.wished = 'Y'))
       : null;
   }
 
