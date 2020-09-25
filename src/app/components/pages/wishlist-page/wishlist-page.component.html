@@ -1,5 +1,9 @@
 <div class="wishlist-page-wrapper">
-  <div class="wish-card lovelyShadow" *ngFor="let wish of wishedProducts">
+  <div
+    class="wish-card lovelyShadow animate__animated"
+    [class.animate__backOutDown]="deletedWishId === wish.id"
+    *ngFor="let wish of wishedProducts"
+  >
     <div class="upper">
       <div>{{ wish.name }}</div>
       <mat-icon (click)="removeWish(wish.id)">delete</mat-icon>

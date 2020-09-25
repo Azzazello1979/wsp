@@ -15,6 +15,8 @@ export class WishlistPageComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   productsSub = new Subscription();
 
+  deletedWishId: number = 0;
+
   wishedProducts: Product[] = [];
 
   constructor(
@@ -23,19 +25,25 @@ export class WishlistPageComponent implements OnInit, OnDestroy {
   ) {}
 
   removeWish(id: number) {
-    //console.log(id);
-    this.wishedProducts = [
-      ...this.wishedProducts.filter((product) => product.id !== id),
-    ];
-    this.productService.updateWishedStatus(id).subscribe(
-      (response) => {
-        this.centralService.busyOFF();
-        console.log(response);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.deletedWishId = id;
+
+    console.log('deletedWishId: ' + this.deletedWishId);
+    console.log('incoming id: ' + id);
+
+    setTimeout(() => {
+      this.wishedProducts = [
+        ...this.wishedProducts.filter((product) => product.id !== id),
+      ];
+      this.productService.updateWishedStatus(id).subscribe(
+        (response) => {
+          this.centralService.busyOFF();
+          console.log(response);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }, 500);
   }
 
   constructImagePath(path: string): string {

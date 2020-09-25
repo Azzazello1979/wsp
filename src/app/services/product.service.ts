@@ -27,6 +27,7 @@ export class ProductService extends HttpService<Product> {
   }
 
   updateWishedStatus(id: number) {
+    this.updateProductsWishStatus(id, 'N');
     return this.patch(id, 'Y');
   }
 
