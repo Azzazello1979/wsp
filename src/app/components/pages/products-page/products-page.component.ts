@@ -22,6 +22,10 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     private productCategoryService: ProductCategoryService
   ) {}
 
+  onFilterBarEmission(event) {
+    console.log(event);
+  }
+
   subscribeToProductCategories() {
     this.productCategoriesSub = this.productCategoryService
       .productCategoriesObservable()

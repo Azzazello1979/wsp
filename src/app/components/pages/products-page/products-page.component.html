@@ -1,6 +1,9 @@
 <div class="products-page-wrapper">
   <div class="products-page-filters">
-    <app-filter-bar [productCategories]="productCategories"></app-filter-bar>
+    <app-filter-bar
+      [productCategories]="productCategories"
+      (filterBarEmitted)="onFilterBarEmission($event)"
+    ></app-filter-bar>
   </div>
   <div class="products-page-products">
     <app-animated-card

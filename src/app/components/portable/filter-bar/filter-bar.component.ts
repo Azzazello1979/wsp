@@ -1,21 +1,40 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ProductCategory } from 'src/app/models/ProductCategory';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-filter-bar',
   templateUrl: './filter-bar.component.html',
   styleUrls: ['./filter-bar.component.css'],
 })
-export class FilterBarComponent implements OnInit {
+export class FilterBarComponent implements OnInit, AfterViewInit {
   @Input('productCategories') productCategories: ProductCategory[] = [];
-  minPrice: number = 0;
-  maxPrice: number = 0;
-  selectedCategory: string = 'none';
+  theForm: FormGroup;
+  @Output() filterBarEmitted = new EventEmitter();
+
   constructor() {}
 
-  onCategorySelect(event) {
-    this.selectedCategory = event.target.value;
+  ngAfterViewInit() {
+    this.theForm.controls.form.valueChanges.subscribe(() => {
+      let values = this.theForm.get('form').value;
+      this.filterBarEmitted.emit(values);
+    });
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.theForm = new FormGroup({
+      form: new FormGroup({
+        minPrice: new FormControl('min.Price'),
+        maxPrice: new FormControl('max.Price'),
+        category: new FormControl('category'),
+      }),
+    });
+  }
 }
