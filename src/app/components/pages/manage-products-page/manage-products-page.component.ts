@@ -4,7 +4,6 @@ import { ProductService } from 'src/app/services/product.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 import { ProductCategory } from 'src/app/models/ProductCategory';
 import { Subscription } from 'rxjs';
-import { CentralService } from 'src/app/services/central.service';
 
 @Component({
   selector: 'app-manage-products-page',
@@ -19,24 +18,9 @@ export class ManageProductsPageComponent implements OnInit, OnDestroy {
   productCategoriesSub = new Subscription();
 
   constructor(
-    private centralService: CentralService,
     private productService: ProductService,
     private productCategoryService: ProductCategoryService
   ) {}
-
-  getProductCategories() {
-    this.productCategoriesSub = this.productCategoryService
-      .getProductCategories()
-      .subscribe(
-        (response) => {
-          this.productCategories = [...response];
-          this.centralService.busyOFF();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-  }
 
   onFileSelected(event) {
     this.image = event.target.files[0];
@@ -61,8 +45,21 @@ export class ManageProductsPageComponent implements OnInit, OnDestroy {
     );
   }
 
+  subscribeToProductCategoriesChanges() {
+    this.productCategoriesSub = this.productCategoryService
+      .productCategoriesObservable()
+      .subscribe(
+        (news) => {
+          this.productCategories = [...news];
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
+
   ngOnInit() {
-    this.getProductCategories();
+    this.subscribeToProductCategoriesChanges();
     this.theForm = new FormGroup({
       uploadProducts: new FormGroup({
         category: new FormControl('none', Validators.required),

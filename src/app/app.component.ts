@@ -5,6 +5,7 @@ import { routeTransitionAnimations } from './route-transition-animations';
 // SERVICES
 import { CentralService } from 'src/app/services/central.service';
 import { ProductService } from 'src/app/services/product.service';
+import { ProductCategoryService } from 'src/app/services/product-category.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private centralService: CentralService,
-    private productService: ProductService
+    private productService: ProductService,
+    private productCategoryService: ProductCategoryService
   ) {}
 
   prepareRoute(outlet: RouterOutlet) {
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // kick off data slurping from database
     this.productService.getProducts();
+    this.productCategoryService.getProductCategories();
 
     // connect to http busy state
     this.centralService.busyState().subscribe((response) => {
