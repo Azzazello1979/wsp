@@ -11,4 +11,8 @@ export class DashboardPageComponent {
   onHeaderClick() {
     this.sideNavExpanded = !this.sideNavExpanded;
   }
+
+  onHeaderMenuClick(event: MouseEvent) {
+    event.stopPropagation();
+  }
 }

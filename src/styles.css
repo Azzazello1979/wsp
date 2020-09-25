@@ -6,6 +6,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
   padding: 0;
+  outline: none !important;
   /* overflow-x: hidden; */
   --dark-orange: rgb(133, 88, 4);
   --light-orange: rgb(245, 216, 163);

@@ -21,19 +21,13 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-.dashboard-page-content-header mat-icon {
-  transition: 0.5s ease-in-out;
-  transform: scale(2);
-  margin-right: 20px;
   cursor: pointer;
 }
 
-.dashboard-page-content-header mat-icon:hover {
-  color: yellow;
-  transition: 0.5s ease-in-out;
-  transform: scale(2.25);
+.dashboard-page-content-header mat-icon {
+  transform: scale(2);
+  margin-right: 20px;
+  cursor: pointer;
 }
 
 .dashboard-page-content-main {
@@ -43,4 +37,13 @@
 .dashboard-page-content-footer {
   height: 50px;
   border: 1px solid grey;
+}
+
+mat-icon,
+mat-icon-button,
+mat-menu-trigger,
+button {
+  outline: none !important;
+  border: none !important;
+  background: transparent;
 }

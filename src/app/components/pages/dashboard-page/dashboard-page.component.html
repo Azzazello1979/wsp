@@ -5,7 +5,26 @@
   ></div>
   <div class="dashboard-page-content">
     <div class="dashboard-page-content-header" (click)="onHeaderClick()">
-      <mat-icon>reorder</mat-icon>
+      <!-- HEADER MENU starts -->
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        (click)="onHeaderMenuClick($event)"
+      >
+        <mat-icon>reorder</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="home">
+          <mat-icon>home</mat-icon>
+          <span>Dashboard</span>
+        </button>
+
+        <button mat-menu-item>
+          <mat-icon>filter_list</mat-icon>
+          <span>Filter Products</span>
+        </button>
+      </mat-menu>
+      <!-- HEADER MENU ends -->
     </div>
     <div class="dashboard-page-content-main">
       <router-outlet></router-outlet>

@@ -37,8 +37,10 @@ import { ManageOrdersPageComponent } from 'src/app/components/pages/manage-order
 import { ListOrdersPageComponent } from 'src/app/components/pages/list-orders-page/list-orders-page.component';
 import { NavigationTileComponent } from 'src/app/components/portable/navigation-tile/navigation-tile.component';
 import { AnimatedCardComponent } from './components/portable/animated-card/animated-card.component';
+import { FilterDialogComponent } from './components/portable/filter-dialog/filter-dialog.component';
 
 @NgModule({
+  entryComponents: [FilterDialogComponent],
   declarations: [
     AppComponent,
     LoginPageComponent,
