@@ -4,7 +4,9 @@
     [style.width]="sideNavExpanded ? '30%' : '10%'"
   ></div>
   <div class="dashboard-page-content">
-    <div class="dashboard-page-content-header" (click)="onHeaderClick()"></div>
+    <div class="dashboard-page-content-header" (click)="onHeaderClick()">
+      <mat-icon>reorder</mat-icon>
+    </div>
     <div class="dashboard-page-content-main">
       <router-outlet></router-outlet>
     </div>
