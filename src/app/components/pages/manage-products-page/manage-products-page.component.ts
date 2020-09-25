@@ -4,6 +4,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 import { ProductCategory } from 'src/app/models/ProductCategory';
 import { Subscription } from 'rxjs';
+import { CentralService } from 'src/app/services/central.service';
 
 @Component({
   selector: 'app-manage-products-page',
@@ -19,7 +20,8 @@ export class ManageProductsPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private productService: ProductService,
-    private productCategoryService: ProductCategoryService
+    private productCategoryService: ProductCategoryService,
+    private centralService: CentralService
   ) {}
 
   onFileSelected(event) {
@@ -38,6 +40,7 @@ export class ManageProductsPageComponent implements OnInit, OnDestroy {
     this.productService.saveProduct(body).subscribe(
       (response) => {
         console.log(response);
+        this.centralService.busyOFF();
       },
       (err) => {
         console.log(err);
