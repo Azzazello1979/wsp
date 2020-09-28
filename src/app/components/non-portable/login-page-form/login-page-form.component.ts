@@ -19,10 +19,18 @@ export class LoginPageFormComponent implements OnInit {
     private router: Router
   ) {}
 
-  goToDashboard(token: string) {
+  authenticatedSequence(token: string) {
+    this.centralService.busyOFF();
+    this.userService.setUserAuthenticationStatus(true);
     localStorage.setItem('token', token);
     this.loginForm.reset();
     this.router.navigate(['dashboard/home']);
+  }
+
+  notAuthenticatedSequence(err) {
+    this.centralService.busyOFF();
+    this.userService.setUserAuthenticationStatus(false);
+    return console.log(err);
   }
 
   onLogin() {
@@ -33,10 +41,9 @@ export class LoginPageFormComponent implements OnInit {
       )
       .subscribe(
         (response) => {
-          this.centralService.busyOFF();
-          this.goToDashboard(response.token);
+          this.authenticatedSequence(response.token);
         },
-        (err) => console.log(err)
+        (err) => this.notAuthenticatedSequence(err)
       );
   }
 
@@ -48,15 +55,13 @@ export class LoginPageFormComponent implements OnInit {
       )
       .subscribe(
         (response) => {
-          this.centralService.busyOFF();
-          this.goToDashboard(response.token);
+          this.authenticatedSequence(response.token);
         },
-        (err) => console.log(err)
+        (err) => this.notAuthenticatedSequence(err)
       );
-    this.loginForm.reset();
   }
 
-  ngOnInit() {
+  initLoginForm() {
     this.loginForm = new FormGroup({
       loginFormGroup: new FormGroup({
         name: new FormControl(null, [
@@ -69,5 +74,9 @@ export class LoginPageFormComponent implements OnInit {
         ]),
       }),
     });
+  }
+
+  ngOnInit() {
+    this.initLoginForm();
   }
 }

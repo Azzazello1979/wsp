@@ -12,12 +12,22 @@ import { CentralService } from 'src/app/services/central.service';
   providedIn: 'root',
 })
 export class UserService extends HttpService<User> {
+  userAuthenticated: boolean = false;
+
   constructor(
     protected centralService: CentralService,
     protected http: HttpClient,
     protected router: Router
   ) {
     super(centralService, http, 'users');
+  }
+
+  returnUserAuthenticationStatus() {
+    return this.userAuthenticated;
+  }
+
+  setUserAuthenticationStatus(status: boolean) {
+    this.userAuthenticated = status;
   }
 
   getUsers(): Observable<User[]> {
@@ -34,6 +44,6 @@ export class UserService extends HttpService<User> {
   sendUserDataToBackEnd(body: User, intent: string): Observable<any> {
     this.centralService.busyON();
     body.intent = intent;
-    return this.http.post(`${this.apiBase}/users`, body).pipe(delay(2000));
+    return this.http.post(`${this.apiBase}/users`, body).pipe(delay(500));
   }
 }

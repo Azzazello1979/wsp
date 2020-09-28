@@ -27,19 +27,22 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   ) {}
 
   onProductCardEvent(event: ProductCardEvent) {
-    this.productService.updateWishedStatus(event.id).subscribe(
-      (response) => {
-        console.log(response);
-        this.productService.updateProductsWishStatus(
-          parseInt(response.id),
-          response.wished
-        );
-        this.centralService.busyOFF();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    if (event.event === 'productWished') {
+      console.log(event.wishedStatus);
+      this.productService.updateWishedStatus(event.id).subscribe(
+        (response) => {
+          console.log(response);
+          this.productService.updateProductsWishStatus(
+            parseInt(response.id),
+            response.wished
+          );
+          this.centralService.busyOFF();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
   }
 
   filterProducts(minPrice: number, maxPrice: number, category: string) {

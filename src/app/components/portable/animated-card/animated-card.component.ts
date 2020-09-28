@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 export interface ProductCardEvent {
   id: number;
   event: string;
+  wishedStatus?: string;
 }
 
 @Component({
@@ -21,6 +22,12 @@ export class AnimatedCardComponent implements OnInit {
 
   constructor() {}
 
+  returnWishedStatus(): string {
+    return this.product.wished === 'Y'
+      ? (this.product.wished = 'N')
+      : (this.product.wished = 'Y');
+  }
+
   onToolClick(intent: string) {
     intent === 'cart'
       ? this.productCardEvent.emit({
@@ -33,13 +40,11 @@ export class AnimatedCardComponent implements OnInit {
           event: 'infoRequired',
         })
       : intent === 'wish'
-      ? (this.productCardEvent.emit({
+      ? this.productCardEvent.emit({
           id: this.product.id as number,
           event: 'productWished',
-        }),
-        this.product.wished === 'Y'
-          ? (this.product.wished = 'N')
-          : (this.product.wished = 'Y'))
+          wishedStatus: this.returnWishedStatus(),
+        })
       : null;
   }
 
