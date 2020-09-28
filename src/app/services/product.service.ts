@@ -18,11 +18,38 @@ export class ProductService extends HttpService<Product> {
     this.filteredProducts
   );
 
+  wishedProducts: Product[] = [];
+  wishedProductsChanged = new BehaviorSubject<Product[]>(this.wishedProducts);
+
   constructor(
     protected centralService: CentralService,
     protected http: HttpClient
   ) {
     super(centralService, http, 'products');
+  }
+
+  wishedProductsObservable() {
+    return this.wishedProductsChanged.asObservable();
+  }
+
+  removeWish(id: number) {
+    setTimeout(() => {
+      // timeout, to be able to show animation first
+      this.updateWishedStatus(id, 'N').subscribe(
+        (response) => {
+          this.centralService.busyOFF();
+          this.updateProductsWishStatus(parseInt(response.id), response.wished);
+          this.wishedProducts = this.products.filter(
+            (product) => product.wished === 'Y'
+          );
+          console.log(this.wishedProducts);
+          this.wishedProductsChanged.next(this.wishedProducts);
+        },
+        (err) => {
+          return console.log(err);
+        }
+      );
+    }, 500);
   }
 
   filterProducts(minPrice: number, maxPrice: number, category: string) {
@@ -54,6 +81,7 @@ export class ProductService extends HttpService<Product> {
       this.updateWishedStatus(event.id, event.wishedStatus).subscribe(
         (response) => {
           console.log(response);
+          this.updateProductsWishStatus(event.id, event.wishedStatus);
           this.centralService.busyOFF();
         },
         (err) => {
@@ -66,10 +94,16 @@ export class ProductService extends HttpService<Product> {
 
   // local
   updateProductsWishStatus(id: number, wished: string): void {
+    console.log('updating wish status');
     this.products.forEach((product) => {
       product.id === id ? (product.wished = wished) : null;
     });
     this.productsChanged.next(this.products);
+    this.wishedProducts = [
+      ...this.products.filter((product) => product.wished === 'Y'),
+    ];
+    this.wishedProductsChanged.next(this.wishedProducts);
+    console.log(this.wishedProducts);
   }
 
   // in DB
@@ -87,6 +121,10 @@ export class ProductService extends HttpService<Product> {
         //console.log(response);
         this.products = [...response];
         this.productsChanged.next(this.products);
+        this.wishedProducts = this.products.filter(
+          (product) => product.wished === 'Y'
+        );
+        this.wishedProductsChanged.next(this.wishedProducts);
         this.filteredProducts = [...this.products];
         this.filteredProductsChanged.next(this.filteredProducts);
         this.centralService.busyOFF();

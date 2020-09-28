@@ -3,7 +3,6 @@ import { Product } from 'src/app/models/Product';
 import { ProductService } from 'src/app/services/product.service';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CentralService } from 'src/app/services/central.service';
 
 @Component({
   selector: 'app-wishlist-page',
@@ -12,65 +11,32 @@ import { CentralService } from 'src/app/services/central.service';
 })
 export class WishlistPageComponent implements OnInit, OnDestroy {
   apiBase: string = environment.backURL;
-  products: Product[] = [];
-  productsSub = new Subscription();
 
   deletedWishId: number = 0;
-
   wishedProducts: Product[] = [];
+  wishedProductsSub = new Subscription();
 
-  constructor(
-    private productService: ProductService,
-    private centralService: CentralService
-  ) {}
+  constructor(private productService: ProductService) {}
 
   removeWish(id: number) {
     this.deletedWishId = id;
-
-    console.log('deletedWishId: ' + this.deletedWishId);
-    console.log('incoming id: ' + id);
-
-    setTimeout(() => {
-      this.wishedProducts = [
-        ...this.wishedProducts.filter((product) => product.id !== id),
-      ];
-      this.productService.updateWishedStatus(id, 'N').subscribe(
-        (response) => {
-          this.centralService.busyOFF();
-          console.log(response);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    }, 500);
+    this.productService.removeWish(id);
   }
 
   constructImagePath(path: string): string {
     return `${this.apiBase}/${path}`;
   }
 
-  fillWishedProducts(): void {
-    this.wishedProducts = [
-      ...this.products.filter((product) => product.wished === 'Y'),
-    ];
-  }
-
-  subscribeToProducts() {
-    this.productsSub = this.productService.productsChanged.subscribe(
-      (news) => {
-        this.products = [...news];
-        this.fillWishedProducts();
-      },
-      (err) => console.log(err)
-    );
-  }
-
   ngOnInit() {
-    this.subscribeToProducts();
+    this.wishedProductsSub = this.productService
+      .wishedProductsObservable()
+      .subscribe((wishedProducts) => {
+        this.wishedProducts = [...wishedProducts];
+        console.log('wishedProduct:', this.wishedProducts);
+      });
   }
 
   ngOnDestroy() {
-    this.productsSub.unsubscribe();
+    this.wishedProductsSub.unsubscribe();
   }
 }
