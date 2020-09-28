@@ -6,7 +6,7 @@
   <div class="dashboard-page-content">
     <div class="dashboard-page-content-header" (click)="onHeaderClick()">
       <mat-icon
-        [matBadge]="cartItems === 0 ? '' : cartItems"
+        [matBadge]="numberOfCartItems === 0 ? '' : numberOfCartItems"
         matBadgeColor="accent"
         >shopping_cart</mat-icon
       >

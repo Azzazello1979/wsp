@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.css'],
 })
-export class DashboardPageComponent {
+export class DashboardPageComponent implements OnInit {
   sideNavExpanded: boolean = false;
-  cartItems: number = 1;
+  numberOfCartItems: number = 0;
 
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
   onHeaderClick() {
     this.sideNavExpanded = !this.sideNavExpanded;
@@ -17,5 +18,11 @@ export class DashboardPageComponent {
 
   onHeaderMenuClick(event: MouseEvent) {
     event.stopPropagation();
+  }
+
+  ngOnInit() {
+    this.cartService.cartObservable().subscribe((news: number[]) => {
+      this.numberOfCartItems = news.length;
+    });
   }
 }
