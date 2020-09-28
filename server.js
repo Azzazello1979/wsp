@@ -7,6 +7,7 @@ require("dotenv").config();
 const cors = require("cors");
 const path = require("path");
 const multer = require("multer");
+const bodyParser = require("body-parser");
 const PORT = process.env.PORT;
 
 // config multer storage
@@ -39,8 +40,8 @@ const multerFileFilter = (req, file, cb) => {
 
 // use middlewares...
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(
   multer({ storage: multerStorage, fileFilter: multerFileFilter }).single(
     "image"

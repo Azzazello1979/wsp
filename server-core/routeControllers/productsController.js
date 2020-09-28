@@ -38,44 +38,19 @@ router.post("/", tokenControl, (req, res) => {
 });
 
 router.patch("/:id", tokenControl, (req, res) => {
-  wishedStatus = null;
-  const toggleWishStatus = () => {
-    return wishedStatus === "N" ? "Y" : "N";
-  };
   res.setHeader("Content-Type", "application/json");
-  //console.log(req.params);
-  db.query(` SELECT wished FROM products WHERE id = ${req.params.id}  ;`)
-    .then((res) => {
-      let currentWishedStatus = res[0][0].wished;
-      //console.log("current wished status:", currentWishedStatus);
-      return currentWishedStatus;
-    })
-    .then((currentWishedStatus) => {
-      wishedStatus = currentWishedStatus;
-
-      return db.query(
-        ` UPDATE products SET wished = '${toggleWishStatus()}' WHERE id = ${
-          req.params.id
-        } ;`
-      );
-    })
-    .then((response) => {
-      //console.log(response[0].warningCount);
-      if (response[0].warningCount === 0) {
-        res.status(200).json({
-          message: "OK, wished status updated",
-          id: req.params.id,
-          wished: toggleWishStatus(),
-        });
-      } else {
-        throw new Error("warning count not zero");
-      }
+  db.query(
+    ` UPDATE products SET wished = '${req.body.wishedStatus}' WHERE id = ${req.params.id} ;`
+  )
+    .then(() => {
+      res.status(200).json({
+        message: "OK, wished status updated",
+        id: req.params.id,
+        wished: req.body.wishedStatus,
+      });
     })
     .catch((err) => {
-      return res.status(500).json({
-        message: "Error when selecting wished status from DB!",
-        error: err,
-      });
+      return res.status(500).send(err);
     });
 });
 

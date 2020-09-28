@@ -4,9 +4,6 @@ import { routeTransitionAnimations } from './route-transition-animations';
 
 // SERVICES
 import { CentralService } from 'src/app/services/central.service';
-import { UserService } from 'src/app/services/user.service';
-import { ProductService } from 'src/app/services/product.service';
-import { ProductCategoryService } from 'src/app/services/product-category.service';
 
 @Component({
   selector: 'app-root',
@@ -18,13 +15,9 @@ export class AppComponent implements OnInit {
   busy: boolean = false;
   title = 'wsp';
 
-  constructor(
-    private centralService: CentralService,
-    private userService: UserService,
-    private productService: ProductService,
-    private productCategoryService: ProductCategoryService
-  ) {}
+  constructor(private centralService: CentralService) {}
 
+  // needed for optional route transition
   prepareRoute(outlet: RouterOutlet) {
     return (
       outlet &&
@@ -33,19 +26,7 @@ export class AppComponent implements OnInit {
     );
   }
 
-  slurpFromDatabase() {
-    let userAuthStatus = this.userService.returnUserAuthenticationStatus();
-    if (userAuthStatus) {
-      this.productService.getProducts();
-      this.productCategoryService.getProductCategories();
-    } else {
-      return console.log('Not logged in / Not registered');
-    }
-  }
-
   ngOnInit() {
-    // kick off data slurping from database
-    this.slurpFromDatabase();
     // connect to http busy state
     this.centralService.busyState().subscribe((response) => {
       this.busy = response;

@@ -34,7 +34,7 @@ export class WishlistPageComponent implements OnInit, OnDestroy {
       this.wishedProducts = [
         ...this.wishedProducts.filter((product) => product.id !== id),
       ];
-      this.productService.updateWishedStatus(id).subscribe(
+      this.productService.updateWishedStatus(id, 'N').subscribe(
         (response) => {
           this.centralService.busyOFF();
           console.log(response);
