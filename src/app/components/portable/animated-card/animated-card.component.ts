@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 
 export interface ProductCardEvent {
   id: number;
-  event: string;
+  type: string;
   wishedStatus?: string;
 }
 
@@ -32,17 +32,17 @@ export class AnimatedCardComponent implements OnInit {
     intent === 'cart'
       ? this.productCardEvent.emit({
           id: this.product.id as number,
-          event: 'cartUpdated',
+          type: 'cartUpdated',
         })
       : intent === 'info'
       ? this.productCardEvent.emit({
           id: this.product.id as number,
-          event: 'infoRequired',
+          type: 'infoRequired',
         })
       : intent === 'wish'
       ? this.productCardEvent.emit({
           id: this.product.id as number,
-          event: 'productWished',
+          type: 'productWished',
           wishedStatus: this.returnWishedStatus(),
         })
       : null;

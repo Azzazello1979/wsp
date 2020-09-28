@@ -75,21 +75,19 @@ export class ProductService extends HttpService<Product> {
     this.filterProducts(event.minPrice, event.maxPrice, event.category);
   }
 
-  onProductCardEvent(event: ProductCardEvent) {
-    if (event.event === 'productWished') {
-      console.log(event);
-      this.updateWishedStatus(event.id, event.wishedStatus).subscribe(
-        (response) => {
-          console.log(response);
-          this.updateProductsWishStatus(event.id, event.wishedStatus);
-          this.centralService.busyOFF();
-        },
-        (err) => {
-          this.centralService.busyOFF();
-          return console.log(err);
-        }
-      );
-    }
+  onProductWished(event: ProductCardEvent) {
+    console.log(event);
+    this.updateWishedStatus(event.id, event.wishedStatus).subscribe(
+      (response) => {
+        console.log(response);
+        this.updateProductsWishStatus(event.id, event.wishedStatus);
+        this.centralService.busyOFF();
+      },
+      (err) => {
+        this.centralService.busyOFF();
+        return console.log(err);
+      }
+    );
   }
 
   // local

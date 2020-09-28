@@ -5,6 +5,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 import { ProductCategory } from 'src/app/models/ProductCategory';
 import { ProductCardEvent } from 'src/app/components/portable/animated-card/animated-card.component';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-products-page',
@@ -22,11 +23,16 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private productService: ProductService,
-    private productCategoryService: ProductCategoryService
+    private productCategoryService: ProductCategoryService,
+    private cartService: CartService
   ) {}
 
   onProductCardEvent(event: ProductCardEvent) {
-    this.productService.onProductCardEvent(event);
+    event.type === 'productWished'
+      ? this.productService.onProductWished(event)
+      : event.type === 'cartUpdated'
+      ? this.cartService.onCartUpdated(event)
+      : null;
   }
 
   onFilterBarEmission(event) {
