@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class DashboardPageComponent {
   sideNavExpanded: boolean = false;
+  cartItems: number = 1;
 
   constructor() {}
 

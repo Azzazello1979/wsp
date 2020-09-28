@@ -5,9 +5,15 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatBadgeModule } from '@angular/material/badge';
 
 // Module for angular material modules imports
-const MATMODULES = [MatIconModule, MatMenuModule, MatDialogModule];
+const MATMODULES = [
+  MatIconModule,
+  MatMenuModule,
+  MatDialogModule,
+  MatBadgeModule,
+];
 
 @NgModule({
   imports: [CommonModule, [...MATMODULES]],

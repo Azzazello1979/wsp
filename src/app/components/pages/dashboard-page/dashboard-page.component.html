@@ -5,27 +5,38 @@
   ></div>
   <div class="dashboard-page-content">
     <div class="dashboard-page-content-header" (click)="onHeaderClick()">
-      <!-- HEADER MENU starts -->
-      <button
-        mat-icon-button
-        [matMenuTriggerFor]="menu"
-        (click)="onHeaderMenuClick($event)"
+      <mat-icon
+        [matBadge]="cartItems === 0 ? '' : cartItems"
+        matBadgeColor="accent"
+        >shopping_cart</mat-icon
       >
-        <mat-icon>reorder</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="home">
-          <mat-icon>home</mat-icon>
-          <span>Dashboard</span>
+      <div class="headerMenu">
+        <!-- HEADER MENU starts -->
+
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          (click)="onHeaderMenuClick($event)"
+        >
+          <mat-icon>reorder</mat-icon>
         </button>
 
-        <button mat-menu-item>
-          <mat-icon>filter_list</mat-icon>
-          <span>Filter Products</span>
-        </button>
-      </mat-menu>
-      <!-- HEADER MENU ends -->
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="home">
+            <mat-icon>home</mat-icon>
+            <span>Dashboard</span>
+          </button>
+
+          <button mat-menu-item>
+            <mat-icon>filter_list</mat-icon>
+            <span>Filter Products</span>
+          </button>
+        </mat-menu>
+
+        <!-- HEADER MENU ends -->
+      </div>
     </div>
+
     <div class="dashboard-page-content-main">
       <router-outlet></router-outlet>
     </div>
