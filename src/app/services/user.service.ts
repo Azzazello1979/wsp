@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { User } from 'src/app/models/User';
 import { HttpService } from 'src/app/services/abstract/http.service';
+import { ProductService } from 'src/app/services/product.service';
+import { ProductCategoryService } from 'src/app/services/product-category.service';
 import { CentralService } from 'src/app/services/central.service';
 
 export interface AuthResponse {
@@ -20,6 +22,8 @@ export class UserService extends HttpService<User> {
 
   constructor(
     protected centralService: CentralService,
+    protected productService: ProductService,
+    protected productCategoryService: ProductCategoryService,
     protected http: HttpClient,
     protected router: Router
   ) {
@@ -31,6 +35,8 @@ export class UserService extends HttpService<User> {
     this.userAuthenticated = true;
     localStorage.setItem('token', token);
     this.router.navigate(['dashboard/home']);
+    this.productService.getProducts();
+    this.productCategoryService.getProductCategories();
   }
 
   notAuthenticatedSequence(err) {
