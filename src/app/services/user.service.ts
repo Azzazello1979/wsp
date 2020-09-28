@@ -7,12 +7,16 @@ import { User } from 'src/app/models/User';
 import { HttpService } from 'src/app/services/abstract/http.service';
 import { CentralService } from 'src/app/services/central.service';
 
+export interface AuthResponse {
+  token: string;
+}
+
 // AKA: AUTH SERVICE
 @Injectable({
   providedIn: 'root',
 })
 export class UserService extends HttpService<User> {
-  userAuthenticated: boolean = false;
+  private userAuthenticated: boolean = false;
 
   constructor(
     protected centralService: CentralService,
@@ -22,12 +26,21 @@ export class UserService extends HttpService<User> {
     super(centralService, http, 'users');
   }
 
-  returnUserAuthenticationStatus() {
-    return this.userAuthenticated;
+  authenticatedSequence(token: string) {
+    this.centralService.busyOFF();
+    this.userAuthenticated = true;
+    localStorage.setItem('token', token);
+    this.router.navigate(['dashboard/home']);
   }
 
-  setUserAuthenticationStatus(status: boolean) {
-    this.userAuthenticated = status;
+  notAuthenticatedSequence(err) {
+    this.centralService.busyOFF();
+    this.userAuthenticated = false;
+    return console.log(err);
+  }
+
+  returnUserAuthenticationStatus() {
+    return this.userAuthenticated;
   }
 
   getUsers(): Observable<User[]> {
@@ -41,9 +54,16 @@ export class UserService extends HttpService<User> {
 
   // SPECIFIC HTTP CALLS - not from  HttpService Abstract class
   // either login or register user at backEnd
-  sendUserDataToBackEnd(body: User, intent: string): Observable<any> {
+  sendUserDataToBackEnd(body: User, intent: string) {
     this.centralService.busyON();
     body.intent = intent;
-    return this.http.post(`${this.apiBase}/users`, body).pipe(delay(500));
+    this.http.post(`${this.apiBase}/users`, body).subscribe(
+      (response: AuthResponse) => {
+        this.authenticatedSequence(response.token);
+      },
+      (err) => {
+        return this.notAuthenticatedSequence(err);
+      }
+    );
   }
 }

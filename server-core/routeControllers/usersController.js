@@ -53,7 +53,7 @@ router.post("/", (req, res) => {
             SECRET,
             { expiresIn: "1d" }
           );
-          return res.status(200).json({ token: token });
+          return res.status(200).json({ token });
         }
       })
       .catch((e) => {
@@ -78,7 +78,7 @@ router.post("/", (req, res) => {
               SECRET,
               { expiresIn: "1d" }
             );
-            return res.status(200).send({ token });
+            return res.status(200).json({ token });
           } else {
             return res.status(400).json({
               message: "This password is not correct for this username!",

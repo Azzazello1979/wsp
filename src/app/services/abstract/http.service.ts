@@ -14,14 +14,14 @@ export abstract class HttpService<T> implements CrudOperations<T> {
     public endPoint: string
   ) {}
 
-  post(body: T): Observable<T> {
+  post(body: T): Observable<any> {
     this.centralService.busyON();
     return this.http
       .post<T>(`${this.apiBase}/${this.endPoint}`, body)
       .pipe(delay(500));
   }
 
-  put(id: number, body: T): Observable<T> {
+  put(id: number, body: T): Observable<any> {
     this.centralService.busyON();
     return this.http.put<T>(this.apiBase + '/' + id, body).pipe(delay(500));
   }
@@ -33,19 +33,19 @@ export abstract class HttpService<T> implements CrudOperations<T> {
       .pipe(delay(500));
   }
 
-  getOne(id: number): Observable<T> {
+  getOne(id: number): Observable<any> {
     this.centralService.busyON();
     return this.http.get<T>(this.apiBase + '/' + id).pipe(delay(500));
   }
 
-  getAll(): Observable<T[]> {
+  getAll(): Observable<any[]> {
     this.centralService.busyON();
     return this.http
       .get<T[]>(`${this.apiBase}/${this.endPoint}`)
       .pipe(delay(500));
   }
 
-  delete(id: number): Observable<T> {
+  delete(id: number): Observable<any> {
     this.centralService.busyON();
     return this.http.delete<T>(this.apiBase + '/' + id).pipe(delay(500));
   }
