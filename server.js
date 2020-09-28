@@ -53,11 +53,13 @@ app.use("/public", express.static(path.join(__dirname + "/public")));
 const usersRoute = require("./server-core/routeControllers/usersController");
 const productsRoute = require("./server-core/routeControllers/productsController");
 const productCategoriesRoute = require("./server-core/routeControllers/productCategoriesController");
+const cartRoute = require("./server-core/routeControllers/cartController");
 
 // use routeControllers
 app.use("/users", usersRoute);
 app.use("/products", productsRoute);
 app.use("/categories", productCategoriesRoute);
+app.use("/cart", cartRoute);
 
 app.listen(PORT, () => {
   console.log("OK...express listening on " + PORT);
