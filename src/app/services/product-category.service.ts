@@ -33,7 +33,8 @@ export class ProductCategoryService extends HttpService<ProductCategory> {
         this.centralService.busyOFF();
       },
       (err) => {
-        console.log(err);
+        this.centralService.busyOFF();
+        return console.log(err);
       }
     );
   }

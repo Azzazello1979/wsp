@@ -25,6 +25,29 @@ export class ProductService extends HttpService<Product> {
     super(centralService, http, 'products');
   }
 
+  filterProducts(minPrice: number, maxPrice: number, category: string) {
+    if (category === 'none') {
+      let filtered = this.products.filter(
+        (product) => product.price < maxPrice && product.price > minPrice
+      );
+      this.filteredProducts = [...filtered];
+      this.filteredProductsChanged.next(this.filteredProducts);
+    } else {
+      let filtered = this.products.filter(
+        (product) =>
+          product.category === category &&
+          product.price < maxPrice &&
+          product.price > minPrice
+      );
+      this.filteredProducts = [...filtered];
+      this.filteredProductsChanged.next(this.filteredProducts);
+    }
+  }
+
+  onProductFilterBarEmission(event) {
+    this.filterProducts(event.minPrice, event.maxPrice, event.category);
+  }
+
   onProductCardEvent(event: ProductCardEvent) {
     if (event.event === 'productWished') {
       console.log(event);
@@ -61,8 +84,11 @@ export class ProductService extends HttpService<Product> {
   getProducts() {
     return this.getAll().subscribe(
       (response) => {
+        //console.log(response);
         this.products = [...response];
         this.productsChanged.next(this.products);
+        this.filteredProducts = [...this.products];
+        this.filteredProductsChanged.next(this.filteredProducts);
         this.centralService.busyOFF();
       },
       (err) => {
@@ -74,5 +100,9 @@ export class ProductService extends HttpService<Product> {
 
   productsObservable(): Observable<Product[]> {
     return this.productsChanged.asObservable();
+  }
+
+  filteredProductsObservable(): Observable<Product[]> {
+    return this.filteredProductsChanged.asObservable();
   }
 }
