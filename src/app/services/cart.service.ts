@@ -1,23 +1,69 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { ProductCardEvent } from '../components/portable/animated-card/animated-card.component';
+import { Product } from 'src/app//models/Product';
+import { CartProduct } from 'src/app/models/CartProduct';
+import { ProductService } from 'src/app/services/product.service';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { HttpService } from 'src/app/services/abstract/http.service';
+import { CentralService } from './central.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CartService {
-  cart: number[] = [];
-  cartUpdated = new BehaviorSubject<number[]>(this.cart);
+export class CartService extends HttpService<any> {
+  apiBase: string = environment.backURL;
+  products: Product[] = [];
+  cartProductIds: number[] = [];
+  cartProducts: CartProduct[] = [];
 
-  constructor() {}
-
-  onCartUpdated(event: ProductCardEvent) {
-    const id = event.id;
-    !this.cart.includes(id) ? this.cart.push(id) : null;
-    this.cartUpdated.next(this.cart);
+  constructor(
+    protected http: HttpClient,
+    protected centralService: CentralService,
+    protected productService: ProductService
+  ) {
+    super(centralService, http, 'cart');
+    this.productService.productsObservable().subscribe((news) => {
+      this.products = [...news];
+      this.bringCartTable();
+    });
   }
 
-  cartObservable() {
-    return this.cartUpdated.asObservable();
+  constructImagePath(path: string): string {
+    return `${this.apiBase}/${path}`;
+  }
+
+  onCartUpdated(event) {}
+
+  bringCartTable() {
+    // backEnd call to cart route, returns cart table for user, array of product ids
+    //TODO: extract user_id from token here locally
+    this.getOne(28).subscribe(
+      (response) => {
+        this.cartProductIds = [...response];
+        this.centralService.busyOFF();
+        this.createCartProducts();
+      },
+      (err) => console.log(err)
+    );
+  }
+
+  createCartProducts() {
+    this.cartProducts = [];
+
+    this.products.forEach((product) => {
+      if (this.cartProductIds.includes(product.id)) {
+        let aCartProduct: CartProduct = {
+          id: product.id,
+          name: product.name,
+          unitPrice: product.price,
+          amount: 0,
+          totalPrice: 0,
+          mainIMGurl: product.mainIMGurl,
+        };
+        this.cartProducts.push(aCartProduct);
+      }
+    });
+    //console.log(this.cartProducts);
+    //console.log(this.cartProductIds);
   }
 }

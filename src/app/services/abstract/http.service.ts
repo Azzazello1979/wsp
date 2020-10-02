@@ -38,7 +38,9 @@ export abstract class HttpService<T> implements CrudOperations<T> {
 
   getOne(id: number): Observable<any> {
     this.centralService.busyON();
-    return this.http.get<T>(this.apiBase + '/' + id).pipe(delay(500));
+    return this.http
+      .get<T>(`${this.apiBase}/${this.endPoint}/${id}`)
+      .pipe(delay(500));
   }
 
   getAll(): Observable<any[]> {

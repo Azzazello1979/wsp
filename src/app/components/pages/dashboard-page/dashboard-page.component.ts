@@ -20,9 +20,5 @@ export class DashboardPageComponent implements OnInit {
     event.stopPropagation();
   }
 
-  ngOnInit() {
-    this.cartService.cartObservable().subscribe((news: number[]) => {
-      this.numberOfCartItems = news.length;
-    });
-  }
+  ngOnInit() {}
 }

@@ -28,6 +28,10 @@ export class ProductService extends HttpService<Product> {
     super(centralService, http, 'products');
   }
 
+  getAllProducts(){
+    return this.products;
+  }
+
   wishedProductsObservable() {
     return this.wishedProductsChanged.asObservable();
   }
