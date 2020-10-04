@@ -32,7 +32,7 @@ export class AnimatedCardComponent implements OnInit {
     intent === 'cart'
       ? this.productCardEvent.emit({
           id: this.product.id as number,
-          type: 'cartUpdated',
+          type: 'addedToCart',
         })
       : intent === 'info'
       ? this.productCardEvent.emit({

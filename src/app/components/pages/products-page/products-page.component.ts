@@ -30,8 +30,8 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   onProductCardEvent(event: ProductCardEvent) {
     event.type === 'productWished'
       ? this.productService.onProductWished(event)
-      : event.type === 'cartUpdated'
-      ? this.cartService.onCartUpdated(event)
+      : event.type === 'addedToCart'
+      ? this.cartService.onAddedToCart(event)
       : null;
   }
 

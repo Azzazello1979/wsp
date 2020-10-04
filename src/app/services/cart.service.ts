@@ -8,6 +8,7 @@ import { HttpService } from 'src/app/services/abstract/http.service';
 import { CentralService } from './central.service';
 import { BehaviorSubject } from 'rxjs';
 import { CartProductAmountChanged } from 'src/app//components/portable/cart-item/cart-item.component';
+import { ProductCardEvent } from '../components/portable/animated-card/animated-card.component';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +34,7 @@ export class CartService extends HttpService<any> {
     });
   }
 
-  // update cartProducts amount and totalPrice locally & persist to database - optimistic update
+  // update cartProducts amount and totalPrice locally - optimistic update
   onAmountChange(event: CartProductAmountChanged) {
     // 1st update locally
     this.cartProducts.forEach((cp) => {
@@ -58,13 +59,34 @@ export class CartService extends HttpService<any> {
     });
 
     // 2nd persist to database
+    // patch! because these records already exist, just update them
   }
 
   constructImagePath(path: string): string {
     return `${this.apiBase}/${path}`;
   }
 
-  onCartUpdated(event) {}
+  onAddedToCart(event: ProductCardEvent) {
+    if (!this.cartProductIds.includes(event.id)) {
+      this.cartProductIds.push(event.id);
+      let buffer: Product;
+      this.products.forEach((prod) => {
+        if (prod.id === event.id) {
+          buffer = prod;
+        }
+      });
+      let newCartProduct: CartProduct = {
+        id: buffer.id,
+        name: buffer.name,
+        unitPrice: buffer.price,
+        amount: 1,
+        totalPrice: buffer.price,
+        mainIMGurl: buffer.mainIMGurl,
+      };
+      this.cartProducts.push(newCartProduct);
+      this.cartProductsChanged.next(this.cartProducts);
+    }
+  }
 
   bringCartTable() {
     // backEnd call to cart route, returns cart table for user, array of product ids
