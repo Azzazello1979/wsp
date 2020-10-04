@@ -6,12 +6,22 @@ const tokenControl = require("./../middlewares/tokenControl");
 router.get("/:user_id", tokenControl, (req, res) => {
   res.setHeader("Content-Type", "application/json");
   db.query(
-    ` SELECT product_id, amount FROM cart WHERE user_id = ${req.params.user_id} ;`
+    ` SELECT id FROM cart WHERE user_id = ${req.params.user_id} AND amount = 0 ;`
   )
     .then((response) => {
-      //console.log(response[0]);
-      res.status(200).send(response[0]);
+      if (response[0].length !== 0) {
+        // there is at least 1 record with 0 amount, run delete
+        return db.query(
+          ` DELETE FROM cart WHERE user_id = ${req.params.user_id} AND amount = 0 ;`
+        );
+      }
     })
+    .then(() => {
+      return db.query(
+        ` SELECT product_id, amount FROM cart WHERE user_id = ${req.params.user_id} ;`
+      );
+    })
+    .then((response) => res.status(200).send(response[0]))
     .catch((err) => res.status(500).send(err));
 });
 
