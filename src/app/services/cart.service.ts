@@ -60,8 +60,8 @@ export class CartService extends HttpService<any> {
           id: product.id,
           name: product.name,
           unitPrice: product.price,
-          amount: 0,
-          totalPrice: 0,
+          amount: 1,
+          totalPrice: product.price,
           mainIMGurl: product.mainIMGurl,
         };
         this.cartProducts.push(aCartProduct);

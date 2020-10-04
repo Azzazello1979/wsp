@@ -9,7 +9,10 @@
   <div class="cart-item-minus">
     <mat-icon>arrow_circle_down</mat-icon>
   </div>
-  <div class="cart-item-piecesANDtotal"></div>
+  <div class="cart-item-piecesANDtotal">
+    <h4>{{ cartProduct.amount }} pcs</h4>
+    <p>{{ cartProduct.totalPrice | currency }}</p>
+  </div>
   <div class="cart-item-plus">
     <mat-icon>arrow_circle_up</mat-icon>
   </div>
