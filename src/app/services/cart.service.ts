@@ -33,8 +33,24 @@ export class CartService extends HttpService<any> {
     });
   }
 
+  // update cartProducts amount and totalPrice locally & persist to database - optimistic update
   onAmountChange(event: CartProductAmountChanged) {
-    console.log(event);
+    // 1st update locally
+    this.cartProducts.forEach((cp) => {
+      if (event.id === cp.id) {
+        if (event.change === 'plus') {
+          //PLUS
+          cp.amount++;
+          cp.totalPrice += cp.unitPrice;
+        } else {
+          //MINUS
+          cp.amount--;
+          cp.totalPrice -= cp.unitPrice;
+        }
+      }
+    });
+
+    // 2nd persist to database
   }
 
   constructImagePath(path: string): string {
