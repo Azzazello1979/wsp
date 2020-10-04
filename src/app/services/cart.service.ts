@@ -68,7 +68,6 @@ export class CartService extends HttpService<any> {
 
   onAddedToCart(event: ProductCardEvent) {
     if (!this.cartProductIds.includes(event.id)) {
-      this.cartProductIds.push(event.id);
       let buffer: Product;
       this.products.forEach((prod) => {
         if (prod.id === event.id) {
@@ -85,6 +84,7 @@ export class CartService extends HttpService<any> {
       };
       this.cartProducts.push(newCartProduct);
       this.cartProductsChanged.next(this.cartProducts);
+      this.cartProductIds.push(event.id);
     }
   }
 
