@@ -1,1 +1,16 @@
-<p>{{ cartProduct.name }}</p>
+<div class="cart-item-wrapper lovelyShadow">
+  <div class="cart-item-img">
+    <img [src]="constructImagePath(cartProduct.mainIMGurl)" />
+  </div>
+  <div class="cart-item-nameANDprice">
+    <h4>{{ cartProduct.name }}</h4>
+    <p>{{ cartProduct.unitPrice | currency }}</p>
+  </div>
+  <div class="cart-item-minus">
+    <mat-icon>arrow_circle_down</mat-icon>
+  </div>
+  <div class="cart-item-piecesANDtotal"></div>
+  <div class="cart-item-plus">
+    <mat-icon>arrow_circle_up</mat-icon>
+  </div>
+</div>

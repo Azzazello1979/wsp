@@ -1,0 +1,36 @@
+mat-icon {
+  transition: 0.5s color;
+  transform: scale(1.5);
+  cursor: pointer;
+}
+mat-icon:hover {
+  transition: 0.5s color;
+  color: yellow;
+}
+.cart-item-wrapper {
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+.cart-item-wrapper > * {
+  padding: 20px;
+  border: 1px solid blue;
+}
+.cart-item-img {
+  border-radius: 8px 0 0 8px;
+}
+.cart-item-img img {
+  width: 80px;
+}
+.cart-item-nameANDprice {
+  text-align: center;
+}
+.cart-item-nameANDprice p {
+  margin-top: 10px;
+}
+.cart-item-plus {
+  border-radius: 0 8px 8px 0;
+}
