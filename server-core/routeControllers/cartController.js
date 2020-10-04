@@ -2,16 +2,16 @@ const db = require("./../connection");
 const express = require("express");
 const router = express.Router();
 const tokenControl = require("./../middlewares/tokenControl");
-const { errorComparator } = require("tslint/lib/verify/lintError");
 
 router.get("/:user_id", tokenControl, (req, res) => {
   res.setHeader("Content-Type", "application/json");
   db.query(
-    ` SELECT product_id FROM cart WHERE user_id = ${req.params.user_id} ;`
+    ` SELECT product_id, amount FROM cart WHERE user_id = ${req.params.user_id} ;`
   )
-    .then((response) =>
-      res.status(200).send(response[0].map((e) => e.product_id))
-    )
+    .then((response) => {
+      //console.log(response[0]);
+      res.status(200).send(response[0]);
+    })
     .catch((err) => res.status(500).send(err));
 });
 

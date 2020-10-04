@@ -10,6 +10,11 @@ import { BehaviorSubject } from 'rxjs';
 import { CartProductAmountChanged } from 'src/app//components/portable/cart-item/cart-item.component';
 import { ProductCardEvent } from '../components/portable/animated-card/animated-card.component';
 
+export interface CartTableRecord {
+  product_id: number;
+  amount: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,8 +35,8 @@ export class CartService extends HttpService<any> {
     super(centralService, http, 'cart');
     this.productService.productsObservable().subscribe((news) => {
       this.products = [...news];
-      this.bringCartTable();
     });
+    this.bringCartTable();
   }
 
   persistAmountChangeToDB(event: CartProductAmountChanged) {
@@ -133,37 +138,47 @@ export class CartService extends HttpService<any> {
   }
 
   bringCartTable() {
-    // backEnd call to cart route, returns cart table for user, array of product ids
-    //TODO: extract user_id from token here locally
     this.getOne(28).subscribe(
       (response) => {
-        this.cartProductIds = [...response];
+        //console.log(response as CartTableRecord[]);
+        this.createCartProduct(response as CartTableRecord[]);
         this.centralService.busyOFF();
-        this.createCartProducts();
       },
-      (err) => console.log(err)
+      (err) => {
+        console.log(err);
+        this.centralService.busyOFF();
+      }
     );
   }
 
-  createCartProducts() {
-    this.cartProducts = [];
+  // create cart products on init
+  createCartProduct(cartRows: CartTableRecord[]) {
+    console.log(cartRows);
 
-    this.products.forEach((product) => {
-      if (this.cartProductIds.includes(product.id)) {
-        let aCartProduct: CartProduct = {
-          id: product.id,
-          name: product.name,
-          unitPrice: product.price,
-          amount: 1,
-          totalPrice: product.price,
-          mainIMGurl: product.mainIMGurl,
-        };
-        this.cartProducts.push(aCartProduct);
-        this.cartProductsChanged.next(this.cartProducts);
-      }
+    cartRows.forEach((cartRow) => {
+      !this.cartProductIds.includes(cartRow.product_id)
+        ? this.cartProductIds.push(cartRow.product_id)
+        : null;
     });
-    //console.log(this.cartProducts);
     //console.log(this.cartProductIds);
+
+    cartRows.forEach((cr) => {
+      this.products.forEach((pr) => {
+        if (pr.id === cr.product_id) {
+          let aCartProduct: CartProduct = {
+            id: pr.id,
+            name: pr.name,
+            unitPrice: pr.price,
+            amount: cr.amount,
+            totalPrice: cr.amount * pr.price,
+            mainIMGurl: pr.mainIMGurl,
+          };
+          this.cartProducts.push(aCartProduct);
+        }
+      });
+    });
+
+    this.cartProductsChanged.next(this.cartProducts);
   }
 
   cartProductsObservable() {
