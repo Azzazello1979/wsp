@@ -3,6 +3,7 @@
     <app-cart-item
       *ngFor="let cartProduct of cartProducts"
       [cartProduct]="cartProduct"
+      (amountChanged)="onAmountChange($event)"
     ></app-cart-item>
   </div>
   <div class="cart-page-options">OPTIONS</div>

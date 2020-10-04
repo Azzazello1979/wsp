@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpService } from 'src/app/services/abstract/http.service';
 import { CentralService } from './central.service';
 import { BehaviorSubject } from 'rxjs';
+import { CartProductAmountChanged } from 'src/app//components/portable/cart-item/cart-item.component';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,10 @@ export class CartService extends HttpService<any> {
       this.products = [...news];
       this.bringCartTable();
     });
+  }
+
+  onAmountChange(event: CartProductAmountChanged) {
+    console.log(event);
   }
 
   constructImagePath(path: string): string {
