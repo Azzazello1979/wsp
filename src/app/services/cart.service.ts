@@ -68,6 +68,7 @@ export class CartService extends HttpService<any> {
 
   onAddedToCart(event: ProductCardEvent) {
     if (!this.cartProductIds.includes(event.id)) {
+      // 1st update state locally - optimistic update
       let buffer: Product;
       this.products.forEach((prod) => {
         if (prod.id === event.id) {
@@ -85,6 +86,23 @@ export class CartService extends HttpService<any> {
       this.cartProducts.push(newCartProduct);
       this.cartProductsChanged.next(this.cartProducts);
       this.cartProductIds.push(event.id);
+
+      // 2nd update database ...
+      let body = {
+        user_id: 28, //TODO: extract user_id from token here locally
+        product_id: event.id,
+        amount: 1,
+      };
+      this.post(body).subscribe(
+        (response) => {
+          console.log(response);
+          this.centralService.busyOFF();
+        },
+        (err) => {
+          console.log(err);
+          this.centralService.busyOFF();
+        }
+      );
     }
   }
 
