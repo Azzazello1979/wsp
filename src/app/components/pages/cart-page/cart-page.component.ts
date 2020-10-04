@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CartProduct } from 'src/app/models/CartProduct';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -6,9 +8,19 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./cart-page.component.css'],
 })
 export class CartPageComponent implements OnInit, OnDestroy {
-  constructor() {}
+  public cartProducts: CartProduct[] = [];
 
-  ngOnInit() {}
+  constructor(private cartService: CartService) {}
+
+  fillCartProducts() {
+    this.cartService.cartProductsObservable().subscribe((news) => {
+      this.cartProducts = [...news];
+    });
+  }
+
+  ngOnInit() {
+    this.fillCartProducts();
+  }
 
   ngOnDestroy() {}
 }

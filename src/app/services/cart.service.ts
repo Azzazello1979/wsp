@@ -6,15 +6,19 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from 'src/app/services/abstract/http.service';
 import { CentralService } from './central.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService extends HttpService<any> {
-  apiBase: string = environment.backURL;
-  products: Product[] = [];
-  cartProductIds: number[] = [];
-  cartProducts: CartProduct[] = [];
+  public apiBase: string = environment.backURL;
+  private products: Product[] = [];
+  private cartProductIds: number[] = [];
+  private cartProducts: CartProduct[] = [];
+  private cartProductsChanged = new BehaviorSubject<CartProduct[]>(
+    this.cartProducts
+  );
 
   constructor(
     protected http: HttpClient,
@@ -61,9 +65,14 @@ export class CartService extends HttpService<any> {
           mainIMGurl: product.mainIMGurl,
         };
         this.cartProducts.push(aCartProduct);
+        this.cartProductsChanged.next(this.cartProducts);
       }
     });
     //console.log(this.cartProducts);
     //console.log(this.cartProductIds);
+  }
+
+  cartProductsObservable() {
+    return this.cartProductsChanged.asObservable();
   }
 }
