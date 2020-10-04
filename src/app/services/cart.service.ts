@@ -34,6 +34,19 @@ export class CartService extends HttpService<any> {
     });
   }
 
+  persistAmountChangeToDB(event: CartProductAmountChanged) {
+    this.patch(event.id as number, { change: event.change }).subscribe(
+      (response) => {
+        console.log(response);
+        this.centralService.busyOFF();
+      },
+      (err) => {
+        console.log(err);
+        this.centralService.busyOFF();
+      }
+    );
+  }
+
   // update cartProducts amount and totalPrice locally - optimistic update
   onAmountChange(event: CartProductAmountChanged) {
     // 1st update locally
@@ -43,16 +56,28 @@ export class CartService extends HttpService<any> {
           //PLUS
           cp.amount++;
           cp.totalPrice += cp.unitPrice;
+          this.cartProductIds.push(event.id);
+          this.cartProductsChanged.next(this.cartProducts);
+          this.persistAmountChangeToDB(event);
         } else {
           //MINUS
           if (cp.amount > 1) {
             cp.amount--;
             cp.totalPrice -= cp.unitPrice;
+            this.cartProductIds = [
+              ...this.cartProductIds.filter((cpid) => cpid !== event.id),
+            ];
+            this.cartProductsChanged.next(this.cartProducts);
+            this.persistAmountChangeToDB(event);
           } else {
             this.cartProducts = [
               ...this.cartProducts.filter((cp) => cp.id !== event.id),
             ];
+            this.cartProductIds = [
+              ...this.cartProductIds.filter((cpid) => cpid !== event.id),
+            ];
             this.cartProductsChanged.next(this.cartProducts);
+            this.persistAmountChangeToDB(event);
           }
         }
       }
@@ -66,6 +91,7 @@ export class CartService extends HttpService<any> {
     return `${this.apiBase}/${path}`;
   }
 
+  // called from animated-cart-component, adding product for the 1st time
   onAddedToCart(event: ProductCardEvent) {
     if (!this.cartProductIds.includes(event.id)) {
       // 1st update state locally - optimistic update

@@ -2,6 +2,7 @@ const db = require("./../connection");
 const express = require("express");
 const router = express.Router();
 const tokenControl = require("./../middlewares/tokenControl");
+const { errorComparator } = require("tslint/lib/verify/lintError");
 
 router.get("/:user_id", tokenControl, (req, res) => {
   res.setHeader("Content-Type", "application/json");
@@ -27,7 +28,7 @@ router.post("/", tokenControl, (req, res) => {
           ` INSERT INTO cart ( user_id, product_id, amount ) VALUES ( ${req.body.user_id}, ${req.body.product_id}, ${req.body.amount} );`
         );
       } else {
-        // else, only update amount
+        // else, only update amount ... REMOVE THIS, sending patch instead
         return db.query(
           ` UPDATE cart SET amount = amount + 1 WHERE user_id = ${req.body.user_id} AND product_id = ${req.body.product_id} ;`
         );
@@ -39,6 +40,22 @@ router.post("/", tokenControl, (req, res) => {
       } else {
         res.status(200).json({ message: "OK, amount updated!" });
       }
+    })
+    .catch((err) => res.status(500).send(err));
+});
+
+router.patch("/:product_id", tokenControl, (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  const operation = () => {
+    return req.body.change === "plus" ? "+" : "-";
+  };
+  db.query(
+    ` UPDATE cart SET amount = amount ${operation()} 1 WHERE product_id = ${
+      req.params.product_id
+    } ;`
+  )
+    .then(() => {
+      res.status(200).json({ message: "OK, updated amount!" });
     })
     .catch((err) => res.status(500).send(err));
 });
