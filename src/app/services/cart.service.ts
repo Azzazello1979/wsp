@@ -44,8 +44,15 @@ export class CartService extends HttpService<any> {
           cp.totalPrice += cp.unitPrice;
         } else {
           //MINUS
-          cp.amount--;
-          cp.totalPrice -= cp.unitPrice;
+          if (cp.amount > 1) {
+            cp.amount--;
+            cp.totalPrice -= cp.unitPrice;
+          } else {
+            this.cartProducts = [
+              ...this.cartProducts.filter((cp) => cp.id !== event.id),
+            ];
+            this.cartProductsChanged.next(this.cartProducts);
+          }
         }
       }
     });
