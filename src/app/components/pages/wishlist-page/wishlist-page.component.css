@@ -1,5 +1,6 @@
 .wishlist-page-wrapper {
   /* border: 1px solid red; */
+  height: 100%;
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -48,4 +49,12 @@ mat-icon:hover {
 
 .wishlist-page-image {
   width: 150px;
+}
+
+.wishlist-page-nowish-text {
+  margin-top: 10vh;
+  font-size: 28px;
+  display: block;
+  line-height: 125%;
+  text-align: center;
 }

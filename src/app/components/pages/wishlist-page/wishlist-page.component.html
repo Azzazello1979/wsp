@@ -1,4 +1,8 @@
 <div class="wishlist-page-wrapper">
+  <div *ngIf="wishedProducts.length === 0" class="wishlist-page-nowish-text">
+    Your Wish List appears to be empty!
+  </div>
+  <!-- wish-card starts -->
   <div
     class="wish-card lovelyShadow animate__animated"
     [class.animate__backOutDown]="deletedWishId === wish.id"
@@ -15,4 +19,5 @@
       />
     </div>
   </div>
+  <!-- wish-card ends -->
 </div>
