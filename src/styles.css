@@ -41,3 +41,8 @@ select {
   -moz-box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
   box-shadow: 4px 4px 4px 0px rgba(143, 143, 143, 1);
 }
+
+.bold {
+  font-weight: bold;
+  background: transparent;
+}

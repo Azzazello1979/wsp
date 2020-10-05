@@ -1,3 +1,21 @@
+.shipping-option-card {
+  padding: 20px;
+  border: 1px solid lightgray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shipping-option-card img {
+  width: 100px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.shipping-option-card img:hover {
+  transition: 0.25s;
+  transform: scale(1.25);
+}
+
 .cart-page-wrapper {
   border: 1px solid red;
   display: grid;
@@ -17,6 +35,7 @@
   align-items: center;
 }
 .cart-page-options {
+  padding: 10px;
   grid-area: options;
   border: 1px solid grey;
 }

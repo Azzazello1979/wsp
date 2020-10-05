@@ -6,6 +6,29 @@
       (amountChanged)="onAmountChange($event)"
     ></app-cart-item>
   </div>
-  <div class="cart-page-options">OPTIONS</div>
+  <div class="cart-page-options">
+    <!-- shipping option card starts -->
+    <div
+      class="shipping-option-card"
+      *ngFor="let shippingOption of shippingOptions"
+    >
+      <img [src]="shippingOption.assetIMGpath" />
+      <div class="shipping-option-card-details">
+        <p><mark class="bold">Courier: </mark>{{ shippingOption.name }}</p>
+        <p>
+          <mark class="bold">Price: </mark>{{ shippingOption.price | currency }}
+        </p>
+        <p>
+          <mark class="bold">Minimum delivery time: </mark
+          >{{ shippingOption.minDays }} days
+        </p>
+        <p>
+          <mark class="bold">Maximum delivery time: </mark
+          >{{ shippingOption.maxDays }} days
+        </p>
+      </div>
+    </div>
+    <!-- shipping option card ends -->
+  </div>
   <div class="cart-page-details">DETAILS</div>
 </div>
