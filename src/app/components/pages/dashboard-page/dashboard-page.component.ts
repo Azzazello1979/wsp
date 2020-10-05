@@ -26,6 +26,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   onHeaderMenuClick(event: MouseEvent) {
     event.stopPropagation();
+    this.router.navigate(['dashboard/home']);
   }
 
   ngOnInit() {

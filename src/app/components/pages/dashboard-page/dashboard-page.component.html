@@ -11,30 +11,10 @@
         matBadgeColor="accent"
         >shopping_cart</mat-icon
       >
-      <div class="headerMenu">
-        <!-- HEADER MENU starts -->
-
-        <button
-          mat-icon-button
-          [matMenuTriggerFor]="menu"
-          (click)="onHeaderMenuClick($event)"
-        >
-          <mat-icon>reorder</mat-icon>
+      <div class="dashboard-page-home">
+        <button mat-icon-button (click)="onHeaderMenuClick($event)">
+          <mat-icon>home</mat-icon>
         </button>
-
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item routerLink="home">
-            <mat-icon>home</mat-icon>
-            <span>Dashboard</span>
-          </button>
-
-          <button mat-menu-item>
-            <mat-icon>filter_list</mat-icon>
-            <span>Filter Products</span>
-          </button>
-        </mat-menu>
-
-        <!-- HEADER MENU ends -->
       </div>
     </div>
 

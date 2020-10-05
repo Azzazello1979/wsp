@@ -41,6 +41,13 @@
   height: 50px;
   border: 1px solid grey;
 }
+.dashboard-page-home mat-icon {
+  transition: 0.5s color;
+}
+.dashboard-page-home mat-icon:hover {
+  color: yellow;
+  transition: 0.5s color;
+}
 
 mat-icon,
 mat-icon-button,
