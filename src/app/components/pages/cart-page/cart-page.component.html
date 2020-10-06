@@ -11,8 +11,12 @@
     <div
       class="shipping-option-card"
       *ngFor="let shippingOption of shippingOptions"
+      [style.backgroundColor]="shippingOption.selected ? 'lightGreen' : null"
     >
-      <img [src]="shippingOption.assetIMGpath" />
+      <img
+        [src]="shippingOption.assetIMGpath"
+        (click)="onShippingOptionSelect(shippingOption.id)"
+      />
       <div class="shipping-option-card-details">
         <p><mark class="bold">Courier: </mark>{{ shippingOption.name }}</p>
         <p>

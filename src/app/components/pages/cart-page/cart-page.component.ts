@@ -10,6 +10,7 @@ export interface ShippingOption {
   minDays: number;
   maxDays: number;
   assetIMGpath: string;
+  selected: boolean;
 }
 
 @Component({
@@ -27,6 +28,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
       maxDays: 30,
       assetIMGpath:
         './../../../../assets/img/shippingOptions/Shipping-3-icon.png',
+      selected: false,
     },
     {
       id: 2,
@@ -36,6 +38,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
       maxDays: 7,
       assetIMGpath:
         './../../../../assets/img/shippingOptions/Shipping-8-icon.png',
+      selected: false,
     },
     {
       id: 3,
@@ -45,6 +48,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
       maxDays: 12,
       assetIMGpath:
         './../../../../assets/img/shippingOptions/Shipping-4-icon.png',
+      selected: false,
     },
     {
       id: 4,
@@ -54,6 +58,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
       maxDays: 10,
       assetIMGpath:
         './../../../../assets/img/shippingOptions/Shipping-5-icon.png',
+      selected: false,
     },
     {
       id: 5,
@@ -63,12 +68,19 @@ export class CartPageComponent implements OnInit, OnDestroy {
       maxDays: 12,
       assetIMGpath:
         './../../../../assets/img/shippingOptions/Shipping-7-icon.png',
+      selected: false,
     },
   ];
 
   public cartProducts: CartProduct[] = [];
 
   constructor(private cartService: CartService) {}
+
+  onShippingOptionSelect(id: number) {
+    this.shippingOptions.forEach((so) => {
+      so.id === id ? (so.selected = true) : (so.selected = false);
+    });
+  }
 
   onAmountChange(event: CartProductAmountChanged) {
     this.cartService.onAmountChange(event);

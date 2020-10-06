@@ -4,9 +4,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: transparent;
+  transition: 1s background-color;
 }
 
 .shipping-option-card img {
+  padding: 5px;
   width: 100px;
   cursor: pointer;
   transition: 0.25s;
