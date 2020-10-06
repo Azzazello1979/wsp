@@ -27,11 +27,10 @@ mat-icon {
   cursor: pointer;
   transition: 0.5s;
   padding: 5px;
-  
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
   border: 1px solid orange;
 }
 
+.subCardLink {
+  width: 100%;
+}
