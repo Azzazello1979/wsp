@@ -8,6 +8,7 @@
   align-items: center;
 }
 .wish-card {
+  background-color: white;
   border: 1px solid grey;
   border-radius: 5px;
   width: 200px;
