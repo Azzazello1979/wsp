@@ -11,7 +11,7 @@
     <div
       class="shipping-option-card"
       *ngFor="let shippingOption of shippingOptions"
-      [style.backgroundColor]="shippingOption.selected ? 'lightGreen' : null"
+      [style.backgroundColor]="shippingOption.selected ? 'lightGreen' : 'white'"
     >
       <img
         [src]="shippingOption.assetIMGpath"

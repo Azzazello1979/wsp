@@ -8,6 +8,7 @@ mat-icon:hover {
   color: yellow;
 }
 .cart-item-wrapper {
+  background-color: white;
   width: 380px;
   border: 1px solid lightgray;
   border-radius: 8px;

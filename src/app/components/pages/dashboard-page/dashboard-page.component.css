@@ -33,8 +33,13 @@
 }
 
 .dashboard-page-content-main {
-  min-height: calc(100vh - 150px);
+  /* min-height: calc(100vh - 150px); */
+  background: var(--light-background);
+  min-height: 110vh;
   border: 1px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 .dashboard-page-content-footer {
   height: 50px;

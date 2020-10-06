@@ -25,14 +25,14 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   cards: Card[] = [
     {
       id: 1,
-      selected: false,
+      selected: true,
       icon: 'home',
       link: '',
       text: 'Home',
       children: [
         {
           id: 1,
-          selected: false,
+          selected: true,
           icon: '',
           link: 'home',
           text: 'Home',
