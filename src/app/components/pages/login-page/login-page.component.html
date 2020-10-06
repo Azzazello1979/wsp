@@ -7,16 +7,19 @@
   <nav><app-login-page-form></app-login-page-form></nav>
   <main>
     <ng-image-slider
+      [imageSize]="{ space: 4 }"
       [images]="boardGames"
       [infinite]="true"
       [autoSlide]="{ interval: 2, stopOnHover: true }"
     ></ng-image-slider>
     <ng-image-slider
+      [imageSize]="{ space: 4 }"
       [images]="wines"
       [infinite]="true"
       [autoSlide]="{ interval: 2, stopOnHover: true }"
     ></ng-image-slider>
     <ng-image-slider
+      [imageSize]="{ space: 4 }"
       [images]="books"
       [infinite]="true"
       [autoSlide]="{ interval: 2, stopOnHover: true }"
