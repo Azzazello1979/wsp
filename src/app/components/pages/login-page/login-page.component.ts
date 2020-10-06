@@ -32,6 +32,76 @@ export class LoginPageComponent implements OnInit {
       alt: '',
       title: 'Interesting!',
     },
+    {
+      image: 'assets/slides/board-game/front/board-5-b.jpg',
+      thumbImage: 'assets/slides/board-game/thumb/board-5-t.jpg',
+      alt: '',
+      title: 'Challenging!',
+    },
+  ];
+  wines: Array<object> = [
+    {
+      image: 'assets/slides/wine/front/wine-1-b.jpg',
+      thumbImage: 'assets/slides/wine/thumb/wine-1-t.jpg',
+      alt: '',
+      title: 'Smashing!',
+    },
+    {
+      image: 'assets/slides/wine/front/wine-2-b.jpg',
+      thumbImage: 'assets/slides/wine/thumb/wine-2-t.jpg',
+      alt: '',
+      title: 'Exciting!',
+    },
+    {
+      image: 'assets/slides/wine/front/wine-3-b.jpg',
+      thumbImage: 'assets/slides/wine/thumb/wine-3-t.jpg',
+      alt: '',
+      title: 'Exhilarating!',
+    },
+    {
+      image: 'assets/slides/wine/front/wine-4-b.jpg',
+      thumbImage: 'assets/slides/wine/thumb/wine-4-t.jpg',
+      alt: '',
+      title: 'Interesting!',
+    },
+    {
+      image: 'assets/slides/wine/front/wine-5-b.jpg',
+      thumbImage: 'assets/slides/wine/thumb/wine-5-t.jpg',
+      alt: '',
+      title: 'Tasty!',
+    },
+  ];
+  books: Array<object> = [
+    {
+      image: 'assets/slides/book/front/book-1-b.jpg',
+      thumbImage: 'assets/slides/book/thumb/book-1-t.jpg',
+      alt: '',
+      title: 'Smashing!',
+    },
+    {
+      image: 'assets/slides/book/front/book-2-b.jpg',
+      thumbImage: 'assets/slides/book/thumb/book-2-t.jpg',
+      alt: '',
+      title: 'Exciting!',
+    },
+    {
+      image: 'assets/slides/book/front/book-3-b.jpg',
+      thumbImage: 'assets/slides/book/thumb/book-3-t.jpg',
+      alt: '',
+      title: 'Exhilarating!',
+    },
+    {
+      image: 'assets/slides/book/front/book-4-b.jpg',
+      thumbImage: 'assets/slides/book/thumb/book-4-t.jpg',
+      alt: '',
+      title: 'Interesting!',
+    },
+    {
+      image: 'assets/slides/book/front/book-5-b.jpg',
+      thumbImage: 'assets/slides/book/thumb/book-5-t.jpg',
+      alt: '',
+      title: 'Entertaining!',
+    },
   ];
 
   constructor() {}
