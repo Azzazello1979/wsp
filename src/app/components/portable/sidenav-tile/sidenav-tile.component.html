@@ -1,0 +1,37 @@
+<div class="navCard" *ngFor="let card of cards">
+  <!-- L1 starts-->
+  <div
+    class="L1"
+    (click)="onL1Click(card.id)"
+    [style.backgroundColor]="card.selected ? 'lightGreen' : 'white'"
+  >
+    <div>
+      <mat-icon
+        [ngStyle]="{
+          color: card.selected ? 'green' : 'grey',
+          transform: card.selected ? 'scale(1.75) rotateY(180deg)' : null
+        }"
+        >{{ card.icon }}</mat-icon
+      >
+    </div>
+    <div *ngIf="sideNavExpanded">{{ card.link }}</div>
+  </div>
+  <!-- L1 ends-->
+
+  <!-- L2 starts-->
+  <div *ngIf="card.selected">
+    <div
+      class="L2"
+      *ngFor="let subCard of card.children"
+      (click)="onL2Click(subCard.id)"
+      [style.backgroundColor]="subCard.selected ? 'lightGreen' : 'white'"
+    >
+      <div>
+        <mat-icon>{{ subCard.icon }}</mat-icon>
+      </div>
+      <div>{{ subCard.link }}</div>
+    </div>
+  </div>
+
+  <!-- L2 ends -->
+</div>

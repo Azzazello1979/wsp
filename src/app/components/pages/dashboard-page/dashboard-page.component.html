@@ -2,7 +2,12 @@
   <div
     class="dashboard-page-sideNav"
     [style.width]="sideNavExpanded ? '30%' : '10%'"
-  ></div>
+  >
+    <app-sidenav-tile
+      [cards]="cards"
+      [sideNavExpanded]="sideNavExpanded"
+    ></app-sidenav-tile>
+  </div>
   <div class="dashboard-page-content">
     <div class="dashboard-page-content-header" (click)="onHeaderClick()">
       <mat-icon

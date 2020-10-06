@@ -1,0 +1,38 @@
+mat-icon {
+  transition: 1s;
+  transform: scale(1.25);
+}
+
+.navCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.L1 {
+  width: 100%;
+  height: 90px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  transition: 0.5s;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.L2 {
+  width: 100%;
+  padding: 0 !important;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  transition: 0.5s;
+  background-color: white;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.L2 > * {
+  display: block;
+}

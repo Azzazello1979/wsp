@@ -40,6 +40,7 @@ import { AnimatedCardComponent } from 'src/app/components/portable/animated-card
 import { FilterBarComponent } from 'src/app/components/portable/filter-bar/filter-bar.component';
 import { CartItemComponent } from './components/portable/cart-item/cart-item.component';
 import { BasicCardComponent } from './components/portable/basic-card/basic-card.component';
+import { SidenavTileComponent } from './components/portable/sidenav-tile/sidenav-tile.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { BasicCardComponent } from './components/portable/basic-card/basic-card.
     FilterBarComponent,
     CartItemComponent,
     BasicCardComponent,
+    SidenavTileComponent,
   ],
   imports: [
     BrowserModule,
