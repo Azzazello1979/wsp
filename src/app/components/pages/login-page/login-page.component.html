@@ -5,7 +5,9 @@
 >
   <header>HEADER</header>
   <nav><app-login-page-form></app-login-page-form></nav>
-  <main>MAIN</main>
+  <main>
+    <ng-image-slider [images]="boardGames" #nav></ng-image-slider>
+  </main>
   <aside>NEWS</aside>
   <footer>FOOTER</footer>
 </div>

@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material/material.module';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 /* interceptors */
 import { AuthInterceptorService } from 'src/app/services/auth-interceptor.service';
@@ -75,6 +76,7 @@ import { SidenavTileComponent } from './components/portable/sidenav-tile/sidenav
     RouterModule,
     BrowserAnimationsModule,
     MaterialModule,
+    NgImageSliderModule,
   ],
   providers: [
     CentralService,
