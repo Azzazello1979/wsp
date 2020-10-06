@@ -1,4 +1,5 @@
 <div class="dashboard-page-wrapper pageWrapper lovelyShadow">
+  <!-- SIDENAV starts -->
   <div
     class="dashboard-page-sideNav"
     [style.width]="sideNavExpanded ? '30%' : '10%'"
@@ -8,6 +9,7 @@
       [sideNavExpanded]="sideNavExpanded"
     ></app-sidenav-tile>
   </div>
+  <!-- SIDENAV ends -->
   <div class="dashboard-page-content">
     <div class="dashboard-page-content-header" (click)="onHeaderClick()">
       <mat-icon

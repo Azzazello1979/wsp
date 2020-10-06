@@ -1,9 +1,7 @@
 <div class="home-page-wrapper">
   <app-navigation-tile
     *ngFor="let tile of navigationTiles"
-    [name]="tile.name"
-    [icon]="tile.icon"
-    [path]="tile.path"
+    [tile]="tile"
     (navTileClicked)="onNavTileClick($event)"
   ></app-navigation-tile>
 </div>

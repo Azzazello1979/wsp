@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { NavigationTile } from 'src/app/models/NavigationTile';
 
 @Component({
   selector: 'app-navigation-tile',
@@ -9,12 +10,10 @@ export class NavigationTileComponent implements OnInit {
   animated: boolean = false;
   @Output() navTileClicked = new EventEmitter<string>();
 
-  @Input() name: string;
-  @Input() icon: string;
-  @Input() path: string;
+  @Input() tile: NavigationTile;
 
   onClick() {
-    this.navTileClicked.emit(this.path as string);
+    this.navTileClicked.emit(this.tile.path as string);
   }
 
   playAnim() {

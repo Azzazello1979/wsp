@@ -19,6 +19,7 @@ import { CentralService } from 'src/app/services/central.service';
 import { UserService } from 'src/app/services/user.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 /* components */
 import { AppComponent } from 'src/app/app.component';
@@ -81,6 +82,7 @@ import { SidenavTileComponent } from './components/portable/sidenav-tile/sidenav
     UserGuardService,
     ProductService,
     ProductCategoryService,
+    NavigationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

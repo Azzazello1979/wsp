@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 export interface Card {
   id: number;
@@ -22,163 +23,14 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   numberOfCartItems: number = 0;
   cartProductsSub = new Subscription();
 
-  cards: Card[] = [
-    {
-      id: 1,
-      selected: true,
-      icon: 'home',
-      link: '',
-      text: 'Home',
-      children: [
-        {
-          id: 1,
-          selected: true,
-          icon: '',
-          link: 'home',
-          text: 'Home',
-          children: [],
-        },
-      ],
-    },
-    {
-      id: 2,
-      selected: false,
-      icon: 'shopping_basket',
-      link: '',
-      text: 'Products',
-      children: [
-        {
-          id: 1,
-          selected: false,
-          icon: '',
-          link: 'products',
-          text: 'Products',
-          children: [],
-        },
-      ],
-    },
-    {
-      id: 3,
-      selected: false,
-      icon: 'star_rate',
-      link: '',
-      text: 'Wishlist',
-      children: [
-        {
-          id: 1,
-          selected: false,
-          icon: '',
-          link: 'wishlist',
-          text: 'Wishlist',
-          children: [],
-        },
-      ],
-    },
-    {
-      id: 4,
-      selected: false,
-      icon: 'build',
-      link: '',
-      text: 'My Settings',
-      children: [
-        {
-          id: 1,
-          selected: false,
-          icon: '',
-          link: 'user-settings',
-          text: 'My Settings',
-          children: [],
-        },
-      ],
-    },
-    {
-      id: 5,
-      selected: false,
-      icon: 'shopping_cart',
-      link: '',
-      text: 'Shopping Cart',
-      children: [
-        {
-          id: 1,
-          selected: false,
-          icon: '',
-          link: 'cart',
-          text: 'Shopping Cart',
-          children: [],
-        },
-      ],
-    },
-    {
-      id: 6,
-      selected: false,
-      icon: 'grading',
-      link: '',
-      text: 'My Orders',
-      children: [
-        {
-          id: 1,
-          selected: false,
-          icon: '',
-          link: 'list-orders',
-          text: 'My Orders',
-          children: [],
-        },
-      ],
-    },
-    {
-      id: 7,
-      selected: false,
-      icon: 'escalator_warning',
-      link: '',
-      text: 'Manage Users',
-      children: [
-        {
-          id: 1,
-          selected: false,
-          icon: '',
-          link: 'manage-users',
-          text: 'Manage Users',
-          children: [],
-        },
-      ],
-    },
-    {
-      id: 8,
-      selected: false,
-      icon: 'touch_app',
-      link: '',
-      text: 'Manage Products',
-      children: [
-        {
-          id: 1,
-          selected: false,
-          icon: '',
-          link: 'manage-products',
-          text: 'Manage Products',
-          children: [],
-        },
-      ],
-    },
-    {
-      id: 9,
-      selected: false,
-      icon: 'article',
-      link: '',
-      text: 'Manage Orders',
-      children: [
-        {
-          id: 1,
-          selected: false,
-          icon: '',
-          link: 'manage-orders',
-          text: 'Manage Orders',
-          children: [],
-        },
-      ],
-    },
-  ];
+  cards: Card[] = [];
+  cardsSub = new Subscription();
 
-  constructor(private cartService: CartService, private router: Router) {}
+  constructor(
+    private cartService: CartService,
+    private router: Router,
+    private navigationService: NavigationService
+  ) {}
 
   navigateToCart(event: MouseEvent) {
     event.stopPropagation();
@@ -200,9 +52,15 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       .subscribe((news) => {
         this.numberOfCartItems = news.length;
       });
+    this.cardsSub = this.navigationService
+      .cardsObservable()
+      .subscribe((news) => {
+        this.cards = [...news];
+      });
   }
 
   ngOnDestroy() {
     this.cartProductsSub.unsubscribe();
+    this.cardsSub.unsubscribe();
   }
 }
