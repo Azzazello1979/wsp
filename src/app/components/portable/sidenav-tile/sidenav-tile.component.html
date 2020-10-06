@@ -1,6 +1,7 @@
 <div class="navCard" *ngFor="let card of cards">
   <!-- L1 starts-->
   <div
+    #L1
     class="L1"
     (click)="onL1Click(card.id)"
     [style.backgroundColor]="card.selected ? 'lightGreen' : 'white'"
@@ -24,11 +25,9 @@
       class="L2"
       *ngFor="let subCard of card.children"
       (click)="onL2Click(subCard.id)"
+      [style.width]="currentNaviWidth"
       [style.backgroundColor]="subCard.selected ? 'lightGreen' : 'white'"
     >
-      <div>
-        <mat-icon>{{ subCard.icon }}</mat-icon>
-      </div>
       <div>{{ subCard.link }}</div>
     </div>
   </div>
