@@ -14,7 +14,7 @@
         >{{ card.icon }}</mat-icon
       >
     </div>
-    <div *ngIf="sideNavExpanded">{{ card.link }}</div>
+    <div *ngIf="sideNavExpanded">{{ card.text }}</div>
   </div>
   <!-- L1 ends-->
 
@@ -26,7 +26,9 @@
     (click)="onL2Click(subCard.id)"
     [style.backgroundColor]="subCard.selected ? 'lightGreen' : 'white'"
   >
-    <div class="subCardLink">{{ subCard.link }}</div>
+    <div class="subCardLink" [routerLink]="subCard.link">
+      {{ subCard.text }}
+    </div>
   </div>
   <!-- L2 ends -->
 </div>

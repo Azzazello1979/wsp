@@ -13,9 +13,7 @@ export class SidenavTileComponent {
 
   onL1Click(id: number) {
     this.cards.forEach((card) => {
-      card.id === id
-        ? (card.selected = !card.selected)
-        : (card.selected = false);
+      card.id === id ? (card.selected = true) : (card.selected = false);
     });
   }
 
