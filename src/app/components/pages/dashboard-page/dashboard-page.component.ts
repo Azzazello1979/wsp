@@ -35,6 +35,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   navigateToCart(event: MouseEvent) {
     event.stopPropagation();
     this.router.navigate(['dashboard/cart']);
+    this.navigationService.updateSideNavState('dashboard/cart');
   }
 
   onHeaderClick() {
@@ -44,6 +45,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   onHeaderMenuClick(event: MouseEvent) {
     event.stopPropagation();
     this.router.navigate(['dashboard/home']);
+    this.navigationService.updateSideNavState('dashboard/home');
   }
 
   ngOnInit() {
