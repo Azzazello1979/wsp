@@ -3,6 +3,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { UserService } from 'src/app/services/user.service';
 
 export interface Card {
   id: number;
@@ -29,7 +30,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   constructor(
     private cartService: CartService,
     private router: Router,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private userService: UserService
   ) {}
 
   navigateToCart(event: MouseEvent) {
@@ -42,10 +44,15 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.sideNavExpanded = !this.sideNavExpanded;
   }
 
-  onHeaderMenuClick(event: MouseEvent) {
+  onHomeClick(event: MouseEvent) {
     event.stopPropagation();
     this.router.navigate(['dashboard/home']);
     this.navigationService.updateSideNavState('dashboard/home');
+  }
+
+  onLogoutClick(event: MouseEvent) {
+    event.stopPropagation();
+    this.userService.logoutUser();
   }
 
   ngOnInit() {

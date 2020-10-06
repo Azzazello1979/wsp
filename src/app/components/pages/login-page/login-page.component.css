@@ -20,11 +20,12 @@ header {
 }
 nav {
   grid-area: menu;
-  background-color: var(--dark-orange);
+  background-color: var(--lilac1);
 }
 main {
   grid-area: main;
-  background-color: var(--light-orange);
+  /* background-color: var(--light-orange); */
+  background-color: black;
   min-height: 400px;
   padding: 10px;
 }
@@ -35,7 +36,7 @@ aside {
 }
 footer {
   grid-area: footer;
-  background-color: var(--dark-orange);
+  background-color: var(--lilac1);
   min-height: 30px;
 }
 
@@ -53,7 +54,6 @@ footer {
   }
   nav {
     grid-area: menu;
-    background-color: var(--dark-orange);
     height: 60px;
   }
 }

@@ -3,12 +3,12 @@
   <div
     class="L1"
     (click)="onL1Click(card.id)"
-    [style.backgroundColor]="card.selected ? 'lightGreen' : 'white'"
+    [style.backgroundColor]="card.selected ? 'var(--lilac2)' : null"
   >
     <div>
       <mat-icon
         [ngStyle]="{
-          color: card.selected ? 'green' : 'black',
+          color: card.selected ? 'yellow' : null,
           transform: card.selected ? 'scale(1.75) rotateY(180deg)' : null
         }"
         >{{ card.icon }}</mat-icon
@@ -24,7 +24,7 @@
     class="L2"
     *ngFor="let subCard of card.children"
     (click)="onL2Click(subCard.id)"
-    [style.backgroundColor]="subCard.selected ? 'lightGreen' : 'white'"
+    [style.backgroundColor]="subCard.selected ? 'var(--lilac2)' : null"
   >
     <div class="subCardLink" [routerLink]="subCard.link">
       {{ subCard.text }}

@@ -90,6 +90,14 @@ export class NavigationService {
           text: 'Shopping Cart',
           children: [],
         },
+        {
+          id: 2,
+          selected: false,
+          icon: '',
+          link: 'cart',
+          text: 'Courier Info',
+          children: [],
+        },
       ],
     },
     {

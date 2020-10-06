@@ -1,6 +1,7 @@
 mat-icon {
   transition: 1s;
   transform: scale(1.25);
+  color: var(--lilac2);
 }
 
 .navCard {
@@ -17,7 +18,7 @@ mat-icon {
   border: 1px solid lightgray;
   cursor: pointer;
   transition: 0.5s;
-  background-color: white;
+  background-color: var(--lilac1);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -29,6 +30,7 @@ mat-icon {
   padding: 5px;
   width: 100%;
   border: 1px solid lightgray;
+  background-color: var(--lilac3);
 }
 
 .subCardLink {
