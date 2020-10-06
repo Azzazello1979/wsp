@@ -21,6 +21,7 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  background-color: var(--lilac1);
 }
 .dashboard-page-content-header > * {
   display: block;
@@ -30,6 +31,7 @@
   transform: scale(2);
   margin: 0 20px;
   cursor: pointer;
+  color: var(--lilac2);
 }
 
 .dashboard-page-content-main {
@@ -44,11 +46,12 @@
 .dashboard-page-content-footer {
   height: 50px;
   border: 1px solid grey;
+  background-color: var(--lilac1);
 }
-.dashboard-page-home mat-icon {
+.dashboard-page-content-header mat-icon {
   transition: 0.5s color;
 }
-.dashboard-page-home mat-icon:hover {
+.dashboard-page-content-header mat-icon:hover {
   color: yellow;
   transition: 0.5s color;
 }

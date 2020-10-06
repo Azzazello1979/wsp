@@ -1,3 +1,7 @@
+.headerLogoIMG {
+  width: 400px;
+}
+
 .login-page-wrapper {
   display: grid;
   grid-template-columns: 1fr;
@@ -11,8 +15,8 @@
 }
 header {
   grid-area: header;
-  background-color: var(--light-orange);
-  min-height: 200px;
+  min-height: 100px;
+  background-color: black;
 }
 nav {
   grid-area: menu;
