@@ -28,10 +28,7 @@ export class CartService extends HttpService<any> {
   private cartProductsChanged = new BehaviorSubject<CartProduct[]>(
     this.cartProducts
   );
-  private selectedShippingOption: ShippingOption = null;
-  private selectedShippingOptionChanged = new BehaviorSubject<ShippingOption>(
-    this.selectedShippingOption
-  );
+
   // TODO: bring this in from DB
   private shippingOptions: ShippingOption[] = [
     {
@@ -114,16 +111,10 @@ export class CartService extends HttpService<any> {
     this.shippingOptionsChanged.next(this.shippingOptions);
   }
 
-  selectedShippingOptionObservable() {
-    return this.selectedShippingOptionChanged.asObservable();
-  }
-
   updateSelectedShippingOption(shippingOption: ShippingOption) {
-    this.selectedShippingOption = { ...shippingOption };
-    this.selectedShippingOptionChanged.next(this.selectedShippingOption);
     //TODO: extract id of current user instead of using 28(ADMIN)
     this.patch(28, {
-      selectedShippingOptionId: this.selectedShippingOption.id,
+      selectedShippingOptionId: shippingOption.id,
     }).subscribe(
       (response) => {
         console.log(response);
@@ -248,17 +239,6 @@ export class CartService extends HttpService<any> {
             : (so.selected = false);
         });
         this.shippingOptionsChanged.next(this.shippingOptions);
-
-        this.selectedShippingOption = {
-          ...this.shippingOptions.filter(
-            (so) => so.id === response[0].selectedShippingMethod
-          )[0],
-        };
-        console.log(
-          'selected shipping option in cart: ',
-          this.selectedShippingOption
-        );
-        this.selectedShippingOptionChanged.next(this.selectedShippingOption);
         this.centralService.busyOFF();
       },
       (err) => {

@@ -27,7 +27,6 @@ export class CartPageComponent implements OnInit, OnDestroy {
   private shippingOptionsSub = new Subscription();
 
   private selectedShippingOption: ShippingOption = null;
-  private selectedShippingOptionSub = new Subscription();
 
   constructor(private cartService: CartService) {}
 
@@ -76,6 +75,9 @@ export class CartPageComponent implements OnInit, OnDestroy {
       .subscribe((news) => {
         this.shippingOptions = [...news];
         console.log('cart:', this.shippingOptions);
+        this.selectedShippingOption = {
+          ...this.shippingOptions.filter((so) => so.selected === true)[0],
+        };
       });
   }
 
@@ -87,24 +89,13 @@ export class CartPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  fillSelectedShippingOption() {
-    this.selectedShippingOptionSub = this.cartService
-      .selectedShippingOptionObservable()
-      .subscribe((news) => {
-        this.selectedShippingOption = { ...news };
-        //console.log('sso in cart-page:', this.selectedShippingOption);
-      });
-  }
-
   ngOnInit() {
     this.fillCartProducts();
     this.fillShippingOptions();
-    this.fillSelectedShippingOption();
   }
 
   ngOnDestroy() {
     this.cartProductsSub.unsubscribe();
     this.shippingOptionsSub.unsubscribe();
-    this.selectedShippingOptionSub.unsubscribe();
   }
 }
