@@ -18,6 +18,11 @@
         matBadgeColor="accent"
         >shopping_cart</mat-icon
       >
+
+      <div class="dashboard-page-home-greeting">
+        Greetings, {{ currentUserName }}!
+      </div>
+
       <div class="dashboard-page-home">
         <button mat-icon-button (click)="onHomeClick($event)">
           <mat-icon>home</mat-icon>

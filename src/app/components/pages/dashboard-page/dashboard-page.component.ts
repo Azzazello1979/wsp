@@ -24,6 +24,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   numberOfCartItems: number = 0;
   cartProductsSub = new Subscription();
 
+  currentUserName: string = '';
+
   cards: Card[] = [];
   cardsSub = new Subscription();
 
@@ -56,6 +58,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.currentUserName = this.userService.getCurrentUserName();
     this.cartProductsSub = this.cartService
       .cartProductsObservable()
       .subscribe((news) => {

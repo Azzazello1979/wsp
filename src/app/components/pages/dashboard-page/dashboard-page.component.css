@@ -33,6 +33,11 @@
   color: var(--lilac2);
 }
 
+.dashboard-page-home-greeting {
+  font-size: 1.5em;
+  color: var(--lilac2);
+}
+
 .dashboard-page-content-main {
   /* min-height: calc(100vh - 150px); */
   background: var(--light-background);
