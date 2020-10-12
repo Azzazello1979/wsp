@@ -49,13 +49,13 @@ app.use(
 );
 app.use("/public", express.static(path.join(__dirname + "/public")));
 
-// require routeControllers
-const usersRoute = require("./server-core/routeControllers/usersController");
-const productsRoute = require("./server-core/routeControllers/productsController");
-const productCategoriesRoute = require("./server-core/routeControllers/productCategoriesController");
-const cartRoute = require("./server-core/routeControllers/cartController");
+// require routes
+const usersRoute = require("./server-core/routes/users");
+const productsRoute = require("./server-core/routes/products");
+const productCategoriesRoute = require("./server-core/routes/productCategories");
+const cartRoute = require("./server-core/routes/cart");
 
-// use routeControllers
+// use routes
 app.use("/users", usersRoute);
 app.use("/products", productsRoute);
 app.use("/categories", productCategoriesRoute);

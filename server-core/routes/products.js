@@ -1,7 +1,7 @@
-const db = require("./../connection");
+const db = require("../connection");
 const express = require("express");
 const router = express.Router();
-const tokenControl = require("./../middlewares/tokenControl");
+const tokenControl = require("../middlewares/tokenControl");
 
 router.get("/:currentUserId", tokenControl, (req, res) => {
   res.setHeader("Content-Type", "application/json");

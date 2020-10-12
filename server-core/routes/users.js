@@ -1,11 +1,11 @@
-const db = require("./../connection");
+const db = require("../connection");
 const express = require("express");
 const router = express.Router();
 const hash = require("sha256");
 const jwt = require("jsonwebtoken");
 const SECRET = process.env.SECRET;
 const SALT = process.env.SALT;
-const tokenControl = require("./../middlewares/tokenControl");
+const tokenControl = require("../middlewares/tokenControl");
 
 // LIST ALL USERS
 router.get("/", tokenControl, (req, res) => {
