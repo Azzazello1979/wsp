@@ -5,7 +5,7 @@
   padding: 40px;
 }
 .manage-products-page-upload-products {
-  border: 1px solid red;
+  border: 1px solid gray;
   padding: 20px;
 }
 .uploadProducts > * {

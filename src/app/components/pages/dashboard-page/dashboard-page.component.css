@@ -5,12 +5,10 @@
 }
 .dashboard-page-sideNav {
   background-color: var(--lilac1);
-  border: 1px solid red;
   margin: 5px;
   transition: width 1s;
 }
 .dashboard-page-content {
-  border: 1px solid green;
   margin: 5px;
   height: 100%;
   width: stretch;
