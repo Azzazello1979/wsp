@@ -39,18 +39,23 @@ export class ProductService extends HttpService<Product> {
     return this.wishedProductsChanged.asObservable();
   }
 
+  // in DB
+  // TODO: wishedStatus no longer needed
+  updateWishedStatus(id: number, wishedStatus: string) {
+    const currentUserId: number = this.jwt.decodeToken(
+      localStorage.getItem('token')
+    ).userId;
+    return this.patch(id, { wishedStatus, currentUserId });
+  }
+
   removeWish(id: number) {
     setTimeout(() => {
       // timeout, to be able to show animation first
       this.updateWishedStatus(id, 'N').subscribe(
         (response) => {
+          //console.log(response);
+          this.updateProductsWishStatus(id, 'N');
           this.centralService.busyOFF();
-          this.updateProductsWishStatus(parseInt(response.id), response.wished);
-          this.wishedProducts = this.products.filter(
-            (product) => product.wished === 'Y'
-          );
-          console.log(this.wishedProducts);
-          this.wishedProductsChanged.next(this.wishedProducts);
         },
         (err) => {
           return console.log(err);
@@ -109,15 +114,6 @@ export class ProductService extends HttpService<Product> {
     ];
     this.wishedProductsChanged.next(this.wishedProducts);
     console.log(this.wishedProducts);
-  }
-
-  // in DB
-  // TODO: wishedStatus no longer needed
-  updateWishedStatus(id: number, wishedStatus: string) {
-    const currentUserId: number = this.jwt.decodeToken(
-      localStorage.getItem('token')
-    ).userId;
-    return this.patch(id, { wishedStatus, currentUserId });
   }
 
   saveProduct(productObject) {
