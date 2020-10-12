@@ -5,6 +5,7 @@ import { Product } from 'src/app/models/Product';
 import { CentralService } from 'src/app/services/central.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductCardEvent } from 'src/app/components/portable/animated-card/animated-card.component';
+import { JwtHelperService } from '@auth0/angular-jwt'; // decode JWT token on FrontEnd!
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,9 @@ export class ProductService extends HttpService<Product> {
     super(centralService, http, 'products');
   }
 
-  getAllProducts(){
+  private jwt = new JwtHelperService();
+
+  getAllProducts() {
     return this.products;
   }
 
@@ -109,8 +112,12 @@ export class ProductService extends HttpService<Product> {
   }
 
   // in DB
+  // TODO: wishedStatus no longer needed
   updateWishedStatus(id: number, wishedStatus: string) {
-    return this.patch(id, { wishedStatus });
+    const currentUserId: number = this.jwt.decodeToken(
+      localStorage.getItem('token')
+    ).userId;
+    return this.patch(id, { wishedStatus, currentUserId });
   }
 
   saveProduct(productObject) {
@@ -118,22 +125,18 @@ export class ProductService extends HttpService<Product> {
   }
 
   getProducts() {
-    return this.getAll().subscribe(
+    const currentUserId: number = this.jwt.decodeToken(
+      localStorage.getItem('token')
+    ).userId;
+    this.getOne(currentUserId).subscribe(
       (response) => {
-        //console.log(response);
-        this.products = [...response];
-        this.productsChanged.next(this.products);
-        this.wishedProducts = this.products.filter(
-          (product) => product.wished === 'Y'
-        );
-        this.wishedProductsChanged.next(this.wishedProducts);
-        this.filteredProducts = [...this.products];
-        this.filteredProductsChanged.next(this.filteredProducts);
+        // response is the products table for the specific user, wished flag already set
+        console.log(response);
         this.centralService.busyOFF();
       },
       (err) => {
+        console.log(err);
         this.centralService.busyOFF();
-        return console.log(err);
       }
     );
   }

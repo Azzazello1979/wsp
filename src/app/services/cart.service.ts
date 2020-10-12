@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CartProductAmountChanged } from 'src/app//components/portable/cart-item/cart-item.component';
 import { ProductCardEvent } from '../components/portable/animated-card/animated-card.component';
 import { ShippingOption } from '../components/pages/cart-page/cart-page.component';
+import { UserService } from 'src/app/services/user.service';
 
 export interface CartTableRecord {
   product_id: number;
@@ -89,7 +90,8 @@ export class CartService extends HttpService<any> {
   constructor(
     protected http: HttpClient,
     protected centralService: CentralService,
-    protected productService: ProductService
+    protected productService: ProductService,
+    protected userService: UserService
   ) {
     super(centralService, http, 'cart');
     this.productService.productsObservable().subscribe((news) => {
@@ -112,8 +114,8 @@ export class CartService extends HttpService<any> {
   }
 
   updateSelectedShippingOption(shippingOption: ShippingOption) {
-    //TODO: extract id of current user instead of using 28(ADMIN)
-    this.patch(28, {
+    const currentUserId = this.userService.getCurrentUserId();
+    this.patch(currentUserId, {
       selectedShippingOptionId: shippingOption.id,
     }).subscribe(
       (response) => {
@@ -207,8 +209,10 @@ export class CartService extends HttpService<any> {
       this.cartProductIds.push(event.id);
 
       // 2nd update database ...
+      const currentUserId = this.userService.getCurrentUserId();
+
       let body = {
-        user_id: 28, //TODO: extract user_id from token here locally
+        user_id: currentUserId,
         product_id: event.id,
         amount: 1,
       };
@@ -226,7 +230,8 @@ export class CartService extends HttpService<any> {
   }
 
   bringCartTable() {
-    this.getOne(28).subscribe(
+    const currentUserId = this.userService.getCurrentUserId();
+    this.getOne(currentUserId).subscribe(
       (response) => {
         //console.log(response as CartTableRecord[]);
         this.createCartProduct(response as CartTableRecord[]);
