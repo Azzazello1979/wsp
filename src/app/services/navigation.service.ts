@@ -173,6 +173,16 @@ export class NavigationService {
 
   constructor() {}
 
+  // set 'home' main card and subCard to selected, unselect the rest
+  restoreNav() {
+    this.cards.forEach((card) => {
+      card.id === 1 ? (card.selected = true) : (card.selected = false);
+      card.children.forEach((child) => {
+        child.id === 1 ? (child.selected = true) : (child.selected = false);
+      });
+    });
+  }
+
   // update sideNavState based on click on navTiles
   updateSideNavState(path: string) {
     let link: string;

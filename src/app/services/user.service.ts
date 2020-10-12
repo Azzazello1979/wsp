@@ -9,6 +9,7 @@ import { ProductCategoryService } from 'src/app/services/product-category.servic
 import { CentralService } from 'src/app/services/central.service';
 import { JwtHelperService } from '@auth0/angular-jwt'; // decode JWT token on FrontEnd!
 import { CartService } from 'src/app/services/cart.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 export interface AuthResponse {
   token: string;
@@ -26,6 +27,7 @@ export class UserService extends HttpService<User> {
     protected productService: ProductService,
     protected productCategoryService: ProductCategoryService,
     protected cartService: CartService,
+    protected navigationService: NavigationService,
     protected http: HttpClient,
     protected router: Router
   ) {
@@ -61,6 +63,7 @@ export class UserService extends HttpService<User> {
   logoutUser() {
     localStorage.removeItem('token');
     this.cartService.resetCart();
+    this.navigationService.restoreNav();
     this.router.navigate(['login']);
   }
 
