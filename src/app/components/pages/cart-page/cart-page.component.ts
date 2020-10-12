@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartProduct } from 'src/app/models/CartProduct';
 import { CartService } from 'src/app/services/cart.service';
 import { CartProductAmountChanged } from 'src/app/components/portable/cart-item/cart-item.component';
+import { Subscription } from 'rxjs';
 
 export interface ShippingOption {
   id: number;
@@ -73,8 +74,25 @@ export class CartPageComponent implements OnInit, OnDestroy {
   ];
 
   public cartProducts: CartProduct[] = [];
+  private cartProductsSub = new Subscription();
+  private selectedShippingOption: ShippingOption = null;
 
   constructor(private cartService: CartService) {}
+
+  calculateTotalPriceWithShipping(): number {
+    if (this.cartProducts.length === 0) {
+      return 0;
+    }
+
+    let subTotal: number = this.calculateAllCartItemsPrice();
+    let grandTotal: number = 0;
+    if (this.selectedShippingOption) {
+      grandTotal = this.selectedShippingOption.price + subTotal;
+    } else {
+      grandTotal = subTotal;
+    }
+    return grandTotal;
+  }
 
   calculateAllCartItemsAmount(): number {
     let sum: number = 0;
@@ -84,17 +102,18 @@ export class CartPageComponent implements OnInit, OnDestroy {
     return sum;
   }
 
-  calculateAllCartItemsPrice() {
-    let sum = 0;
+  calculateAllCartItemsPrice(): number {
+    let sum: number = 0;
     this.cartProducts.forEach((cp) => {
       sum += cp.totalPrice;
     });
-    return sum.toFixed(2);
+    return parseInt(sum.toFixed(2));
   }
 
   onShippingOptionSelect(id: number) {
     this.shippingOptions.forEach((so) => {
       so.id === id ? (so.selected = true) : (so.selected = false);
+      so.id === id ? (this.selectedShippingOption = { ...so }) : null;
     });
   }
 
@@ -103,14 +122,18 @@ export class CartPageComponent implements OnInit, OnDestroy {
   }
 
   fillCartProducts() {
-    this.cartService.cartProductsObservable().subscribe((news) => {
-      this.cartProducts = [...news];
-    });
+    this.cartProductsSub = this.cartService
+      .cartProductsObservable()
+      .subscribe((news) => {
+        this.cartProducts = [...news];
+      });
   }
 
   ngOnInit() {
     this.fillCartProducts();
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.cartProductsSub.unsubscribe();
+  }
 }

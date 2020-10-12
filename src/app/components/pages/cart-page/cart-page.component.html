@@ -55,6 +55,7 @@
     <p>
       total <mark class="bold">price</mark> of items
       <mark class="bold">(with shipping):</mark>
+      {{ calculateTotalPriceWithShipping() | currency }}
     </p>
   </div>
   <!-- details ends -->
