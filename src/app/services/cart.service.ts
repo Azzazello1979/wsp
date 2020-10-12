@@ -14,6 +14,7 @@ import { ShippingOption } from '../components/pages/cart-page/cart-page.componen
 export interface CartTableRecord {
   product_id: number;
   amount: number;
+  selectedShippingMethod: number;
 }
 
 @Injectable({
@@ -238,6 +239,26 @@ export class CartService extends HttpService<any> {
       (response) => {
         //console.log(response as CartTableRecord[]);
         this.createCartProduct(response as CartTableRecord[]);
+
+        let selectedShippingMethodId: number =
+          response[0].selectedShippingMethod;
+        this.shippingOptions.forEach((so) => {
+          so.id === selectedShippingMethodId
+            ? (so.selected = true)
+            : (so.selected = false);
+        });
+        this.shippingOptionsChanged.next(this.shippingOptions);
+
+        this.selectedShippingOption = {
+          ...this.shippingOptions.filter(
+            (so) => so.id === response[0].selectedShippingMethod
+          )[0],
+        };
+        console.log(
+          'selected shipping option in cart: ',
+          this.selectedShippingOption
+        );
+        this.selectedShippingOptionChanged.next(this.selectedShippingOption);
         this.centralService.busyOFF();
       },
       (err) => {

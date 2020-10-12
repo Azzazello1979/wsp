@@ -75,7 +75,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
       .shippingOptionsObservable()
       .subscribe((news) => {
         this.shippingOptions = [...news];
-        console.log(this.shippingOptions);
+        console.log('cart:', this.shippingOptions);
       });
   }
 
@@ -92,6 +92,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
       .selectedShippingOptionObservable()
       .subscribe((news) => {
         this.selectedShippingOption = { ...news };
+        //console.log('sso in cart-page:', this.selectedShippingOption);
       });
   }
 

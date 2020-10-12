@@ -18,7 +18,7 @@ router.get("/:user_id", tokenControl, (req, res) => {
     })
     .then(() => {
       return db.query(
-        ` SELECT product_id, amount FROM cart WHERE user_id = ${req.params.user_id} ;`
+        ` SELECT product_id, amount, selectedShippingMethod FROM cart WHERE user_id = ${req.params.user_id} ;`
       );
     })
     .then((response) => res.status(200).send(response[0]))
