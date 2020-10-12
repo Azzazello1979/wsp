@@ -76,6 +76,22 @@ export class CartPageComponent implements OnInit, OnDestroy {
 
   constructor(private cartService: CartService) {}
 
+  calculateAllCartItemsAmount(): number {
+    let sum: number = 0;
+    this.cartProducts.forEach((cp) => {
+      sum += cp.amount;
+    });
+    return sum;
+  }
+
+  calculateAllCartItemsPrice() {
+    let sum = 0;
+    this.cartProducts.forEach((cp) => {
+      sum += cp.totalPrice;
+    });
+    return sum.toFixed(2);
+  }
+
   onShippingOptionSelect(id: number) {
     this.shippingOptions.forEach((so) => {
       so.id === id ? (so.selected = true) : (so.selected = false);

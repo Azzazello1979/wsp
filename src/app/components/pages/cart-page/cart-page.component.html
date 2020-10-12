@@ -1,4 +1,5 @@
 <div class="cart-page-wrapper">
+  <!-- cart items starts -->
   <div class="cart-page-main">
     <app-cart-item
       *ngFor="let cartProduct of cartProducts"
@@ -6,8 +7,9 @@
       (amountChanged)="onAmountChange($event)"
     ></app-cart-item>
   </div>
+  <!-- cart items ends -->
+  <!-- shipping option card starts -->
   <div class="cart-page-options">
-    <!-- shipping option card starts -->
     <div
       class="shipping-option-card"
       *ngFor="let shippingOption of shippingOptions"
@@ -32,7 +34,28 @@
         </p>
       </div>
     </div>
-    <!-- shipping option card ends -->
   </div>
-  <div class="cart-page-details">DETAILS</div>
+  <!-- shipping option card ends -->
+  <!-- details starts -->
+  <div class="cart-page-details">
+    <h3>Summary:</h3>
+    <p>
+      number of <mark class="bold">unique items:</mark>
+      {{ cartProducts.length }}
+    </p>
+    <p>
+      number of <mark class="bold">total items:</mark>
+      {{ calculateAllCartItemsAmount() }}
+    </p>
+    <p>
+      total <mark class="bold">price</mark> of items
+      <mark class="bold">(no shipping):</mark>
+      {{ calculateAllCartItemsPrice() | currency }}
+    </p>
+    <p>
+      total <mark class="bold">price</mark> of items
+      <mark class="bold">(with shipping):</mark>
+    </p>
+  </div>
+  <!-- details ends -->
 </div>

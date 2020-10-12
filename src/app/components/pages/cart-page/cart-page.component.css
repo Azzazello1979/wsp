@@ -47,6 +47,8 @@
 .cart-page-details {
   grid-area: details;
   border: 1px solid grey;
+  background-color: white;
+  padding: 10px;
 }
 
 @media screen and (min-width: 1000px) {
