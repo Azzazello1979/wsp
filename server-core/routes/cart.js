@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const tokenControl = require("../middlewares/tokenControl");
-// import controllers...
 const cartController = require("./../controllers/cart");
 
 // GET user's saved cart

@@ -38,7 +38,14 @@ const multerFileFilter = (req, file, cb) => {
   }
 };
 
-// use middlewares...
+// require routes...
+const usersRoute = require("./server-core/routes/users");
+const productsRoute = require("./server-core/routes/products");
+const productCategoriesRoute = require("./server-core/routes/productCategories");
+const cartRoute = require("./server-core/routes/cart");
+
+/****** middlewares chain starts ******/
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -49,18 +56,15 @@ app.use(
 );
 app.use("/public", express.static(path.join(__dirname + "/public")));
 
-// require routes
-const usersRoute = require("./server-core/routes/users");
-const productsRoute = require("./server-core/routes/products");
-const productCategoriesRoute = require("./server-core/routes/productCategories");
-const cartRoute = require("./server-core/routes/cart");
-
-// use routes
+// routes...
 app.use("/users", usersRoute);
 app.use("/products", productsRoute);
 app.use("/categories", productCategoriesRoute);
 app.use("/cart", cartRoute);
 
+/****** middlewares chain ends ******/
+
+// server listen...
 app.listen(PORT, () => {
   console.log("OK...express listening on " + PORT);
 });
