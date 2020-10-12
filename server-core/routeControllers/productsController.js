@@ -23,7 +23,15 @@ router.get("/:currentUserId", tokenControl, (req, res) => {
     })
     .then(() => {
       console.log(rawProductsTable, wishedProductIds);
-      res.status(200).json({ message: "OK" });
+
+      let responseProductsTable = [...rawProductsTable];
+      wishedProductIds.forEach((wpi) => {
+        responseProductsTable.forEach((product) => {
+          product.id === wpi ? (product.wished = "Y") : (product.wished = "N");
+        });
+      });
+
+      res.status(200).send(responseProductsTable);
     })
     .catch((err) => res.status(500).send(err));
 });

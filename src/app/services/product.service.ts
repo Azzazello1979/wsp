@@ -124,6 +124,7 @@ export class ProductService extends HttpService<Product> {
     return this.post(productObject);
   }
 
+  // init getting products from DB after successful authentication
   getProducts() {
     const currentUserId: number = this.jwt.decodeToken(
       localStorage.getItem('token')
@@ -132,6 +133,12 @@ export class ProductService extends HttpService<Product> {
       (response) => {
         // response is the products table for the specific user, wished flag already set
         console.log(response);
+        this.products = [...response];
+        this.productsChanged.next(this.products);
+
+        this.filteredProducts = [...response];
+        this.filteredProductsChanged.next(this.filteredProducts);
+
         this.centralService.busyOFF();
       },
       (err) => {
