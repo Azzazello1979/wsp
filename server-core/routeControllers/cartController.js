@@ -25,6 +25,7 @@ router.get("/:user_id", tokenControl, (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
+// add new product to cart
 router.post("/", tokenControl, (req, res) => {
   res.setHeader("Content-Type", "application/json");
   // { user_id: 1, product_id: 17, amount: 1 }
@@ -37,19 +38,10 @@ router.post("/", tokenControl, (req, res) => {
         return db.query(
           ` INSERT INTO cart ( user_id, product_id, amount ) VALUES ( ${req.body.user_id}, ${req.body.product_id}, ${req.body.amount} );`
         );
-      } else {
-        // else, only update amount ... REMOVE THIS, sending patch instead
-        return db.query(
-          ` UPDATE cart SET amount = amount + 1 WHERE user_id = ${req.body.user_id} AND product_id = ${req.body.product_id} ;`
-        );
       }
     })
     .then((response) => {
-      if (response[0].insertId !== 0) {
-        res.status(200).json({ message: "OK, new record inserted!" });
-      } else {
-        res.status(200).json({ message: "OK, amount updated!" });
-      }
+      res.status(200).json({ message: "OK, new record inserted!" });
     })
     .catch((err) => res.status(500).send(err));
 });
@@ -78,7 +70,7 @@ router.patch("/:id", tokenControl, (req, res) => {
     db.query(
       ` UPDATE cart SET amount = amount ${operation()} 1 WHERE product_id = ${
         req.params.id
-      } ;`
+      } AND user_id = ${req.body.currentUserId};`
     )
       .then(() => {
         res.status(200).json({ message: "OK, updated amount!" });

@@ -8,6 +8,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 import { CentralService } from 'src/app/services/central.service';
 import { JwtHelperService } from '@auth0/angular-jwt'; // decode JWT token on FrontEnd!
+import { CartService } from 'src/app/services/cart.service';
 
 export interface AuthResponse {
   token: string;
@@ -24,6 +25,7 @@ export class UserService extends HttpService<User> {
     protected centralService: CentralService,
     protected productService: ProductService,
     protected productCategoryService: ProductCategoryService,
+    protected cartService: CartService,
     protected http: HttpClient,
     protected router: Router
   ) {
@@ -39,6 +41,7 @@ export class UserService extends HttpService<User> {
     this.router.navigate(['dashboard/home']);
     this.productService.getProducts();
     this.productCategoryService.getProductCategories();
+    this.cartService.bringCartAndSelectedShippingOption();
   }
 
   notAuthenticatedSequence(err) {
@@ -57,6 +60,7 @@ export class UserService extends HttpService<User> {
 
   logoutUser() {
     localStorage.removeItem('token');
+    this.cartService.resetCart();
     this.router.navigate(['login']);
   }
 

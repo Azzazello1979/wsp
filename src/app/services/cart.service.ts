@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CartProductAmountChanged } from 'src/app//components/portable/cart-item/cart-item.component';
 import { ProductCardEvent } from '../components/portable/animated-card/animated-card.component';
 import { ShippingOption } from '../components/pages/cart-page/cart-page.component';
-import { UserService } from 'src/app/services/user.service';
+import { JwtHelperService } from '@auth0/angular-jwt'; // decode JWT token on FrontEnd!
 
 export interface CartTableRecord {
   product_id: number;
@@ -87,17 +87,30 @@ export class CartService extends HttpService<any> {
     this.shippingOptions
   );
 
+  private jwt = new JwtHelperService();
+
   constructor(
     protected http: HttpClient,
     protected centralService: CentralService,
-    protected productService: ProductService,
-    protected userService: UserService
+    protected productService: ProductService
   ) {
     super(centralService, http, 'cart');
     this.productService.productsObservable().subscribe((news) => {
       this.products = [...news];
     });
-    this.bringCartTable();
+  }
+
+  resetCart() {
+    this.products = [];
+    this.cartProducts = [];
+    this.cartProductIds = [];
+  }
+
+  getCurrentUserId(): number {
+    const currentUserId: number = this.jwt.decodeToken(
+      localStorage.getItem('token')
+    ).userId;
+    return currentUserId;
   }
 
   shippingOptionsObservable() {
@@ -107,14 +120,15 @@ export class CartService extends HttpService<any> {
   onShippingOptionSelect(id: number) {
     this.shippingOptions.forEach((so) => {
       so.id === id
-        ? ((so.selected = true), this.updateSelectedShippingOption(so))
+        ? ((so.selected = true),
+          this.updateSelectedShippingOptionInDatabase(so))
         : (so.selected = false);
     });
     this.shippingOptionsChanged.next(this.shippingOptions);
   }
 
-  updateSelectedShippingOption(shippingOption: ShippingOption) {
-    const currentUserId = this.userService.getCurrentUserId();
+  updateSelectedShippingOptionInDatabase(shippingOption: ShippingOption) {
+    const currentUserId = this.getCurrentUserId();
     this.patch(currentUserId, {
       selectedShippingOptionId: shippingOption.id,
     }).subscribe(
@@ -130,7 +144,11 @@ export class CartService extends HttpService<any> {
   }
 
   persistAmountChangeToDB(event: CartProductAmountChanged) {
-    this.patch(event.id as number, { change: event.change }).subscribe(
+    const currentUserId = this.getCurrentUserId();
+    this.patch(event.id as number, {
+      change: event.change,
+      currentUserId,
+    }).subscribe(
       (response) => {
         console.log(response);
         this.centralService.busyOFF();
@@ -209,7 +227,7 @@ export class CartService extends HttpService<any> {
       this.cartProductIds.push(event.id);
 
       // 2nd update database ...
-      const currentUserId = this.userService.getCurrentUserId();
+      const currentUserId = this.getCurrentUserId();
 
       let body = {
         user_id: currentUserId,
@@ -229,13 +247,16 @@ export class CartService extends HttpService<any> {
     }
   }
 
-  bringCartTable() {
-    const currentUserId = this.userService.getCurrentUserId();
+  ////////////////////////////////////
+  bringCartAndSelectedShippingOption() {
+    console.log('bringCartAndSelectedShippingOption...');
+    const currentUserId = this.getCurrentUserId();
     this.getOne(currentUserId).subscribe(
       (response) => {
         //console.log(response as CartTableRecord[]);
         this.createCartProduct(response as CartTableRecord[]);
 
+        // update selected shipping option locally
         let selectedShippingMethodId: number =
           response[0].selectedShippingMethod;
         this.shippingOptions.forEach((so) => {
@@ -244,6 +265,7 @@ export class CartService extends HttpService<any> {
             : (so.selected = false);
         });
         this.shippingOptionsChanged.next(this.shippingOptions);
+
         this.centralService.busyOFF();
       },
       (err) => {
@@ -253,14 +275,12 @@ export class CartService extends HttpService<any> {
     );
   }
 
-  // create cart products on init
+  // this runs only once on init of cart
   createCartProduct(cartRows: CartTableRecord[]) {
-    console.log(cartRows);
+    console.log('cartRows', cartRows);
 
     cartRows.forEach((cartRow) => {
-      !this.cartProductIds.includes(cartRow.product_id)
-        ? this.cartProductIds.push(cartRow.product_id)
-        : null;
+      this.cartProductIds.push(cartRow.product_id);
     });
     //console.log(this.cartProductIds);
 
@@ -280,6 +300,7 @@ export class CartService extends HttpService<any> {
       });
     });
 
+    console.log('cartProducts:', this.cartProducts);
     this.cartProductsChanged.next(this.cartProducts);
   }
 
