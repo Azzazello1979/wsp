@@ -8,7 +8,7 @@ const SALT = process.env.SALT;
 const tokenControl = require("../middlewares/tokenControl");
 
 // LIST ALL USERS
-router.get("/", tokenControl, (req, res) => {
+router.get("/", tokenControl, (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   db.query(`SELECT * FROM users;`)
     .then((results) => {
@@ -24,7 +24,7 @@ router.get("/", tokenControl, (req, res) => {
 });
 
 // REGISTER OR LOGIN
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   if (
     req.body.name &&

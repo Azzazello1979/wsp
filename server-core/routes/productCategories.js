@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const tokenControl = require("../middlewares/tokenControl");
 
-router.get("/", tokenControl, (req, res) => {
+router.get("/", tokenControl, (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   db.query(`SELECT * FROM categories;`)
     .then((result) => {

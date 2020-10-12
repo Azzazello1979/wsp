@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const tokenControl = require("../middlewares/tokenControl");
 
-router.get("/:currentUserId", tokenControl, (req, res) => {
+router.get("/:currentUserId", tokenControl, (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   let rawProductsTable;
   let wishedProductIds;
@@ -35,7 +35,7 @@ router.get("/:currentUserId", tokenControl, (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-router.post("/", tokenControl, (req, res) => {
+router.post("/", tokenControl, (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   const { category, name, price, description, createdFileName } = req.body;
   const createPath = () => {
@@ -59,7 +59,7 @@ router.post("/", tokenControl, (req, res) => {
 });
 
 // UPDATE WISH TABLE
-router.patch("/:id", tokenControl, (req, res) => {
+router.patch("/:id", tokenControl, (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   db.query(
     ` SELECT * FROM wish WHERE product_id = ${req.params.id} AND user_id = ${req.body.currentUserId};`
