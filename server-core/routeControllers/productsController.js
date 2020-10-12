@@ -22,15 +22,14 @@ router.get("/:currentUserId", tokenControl, (req, res) => {
       wishedProductIds = wishResponse[0].map((w) => w.product_id);
     })
     .then(() => {
-      console.log(rawProductsTable, wishedProductIds);
+      //console.log(rawProductsTable, wishedProductIds);
 
       let responseProductsTable = [...rawProductsTable];
-      wishedProductIds.forEach((wpi) => {
-        responseProductsTable.forEach((product) => {
-          product.id === wpi ? (product.wished = "Y") : (product.wished = "N");
-        });
+      responseProductsTable.forEach((p) => {
+        wishedProductIds.includes(p.id) ? (p.wished = "Y") : (p.wished = "N");
       });
 
+      //console.log("responseProductsTable", responseProductsTable);
       res.status(200).send(responseProductsTable);
     })
     .catch((err) => res.status(500).send(err));
@@ -59,10 +58,12 @@ router.post("/", tokenControl, (req, res) => {
     });
 });
 
+// UPDATE WISH TABLE
 router.patch("/:id", tokenControl, (req, res) => {
   res.setHeader("Content-Type", "application/json");
-
-  db.query(` SELECT * FROM wish WHERE product_id = ${req.params.id};`)
+  db.query(
+    ` SELECT * FROM wish WHERE product_id = ${req.params.id} AND user_id = ${req.body.currentUserId};`
+  )
     .then((response) => {
       if (response[0].length === 0) {
         // if record does not exist yet, create it
@@ -72,11 +73,13 @@ router.patch("/:id", tokenControl, (req, res) => {
       } else {
         // if record already exists, delete it
         return db.query(
-          ` DELETE FROM wish WHERE product_id = ${req.params.id};`
+          ` DELETE FROM wish WHERE product_id = ${req.params.id} AND user_id = ${req.body.currentUserId};`
         );
       }
     })
     .then((response) => {
+      // return products table for current user, alredy updated with wished status
+
       res.status(200).send(response[0]);
     })
     .catch((err) => {

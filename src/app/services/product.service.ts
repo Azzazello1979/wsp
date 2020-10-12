@@ -41,7 +41,7 @@ export class ProductService extends HttpService<Product> {
 
   // in DB
   // TODO: wishedStatus no longer needed
-  updateWishedStatus(id: number, wishedStatus: string) {
+  updateWishedStatusInDataBase(id: number, wishedStatus: string) {
     const currentUserId: number = this.jwt.decodeToken(
       localStorage.getItem('token')
     ).userId;
@@ -51,10 +51,10 @@ export class ProductService extends HttpService<Product> {
   removeWish(id: number) {
     setTimeout(() => {
       // timeout, to be able to show animation first
-      this.updateWishedStatus(id, 'N').subscribe(
+      this.updateWishedStatusInDataBase(id, 'N').subscribe(
         (response) => {
           //console.log(response);
-          this.updateProductsWishStatus(id, 'N');
+          this.updateWishedStatusLocally(id, 'N');
           this.centralService.busyOFF();
         },
         (err) => {
@@ -88,11 +88,11 @@ export class ProductService extends HttpService<Product> {
   }
 
   onProductWished(event: ProductCardEvent) {
-    console.log(event);
-    this.updateWishedStatus(event.id, event.wishedStatus).subscribe(
+    console.log('onProductWished', event);
+    this.updateWishedStatusInDataBase(event.id, event.wishedStatus).subscribe(
       (response) => {
         console.log(response);
-        this.updateProductsWishStatus(event.id, event.wishedStatus);
+        this.updateWishedStatusLocally(event.id, event.wishedStatus);
         this.centralService.busyOFF();
       },
       (err) => {
@@ -103,7 +103,7 @@ export class ProductService extends HttpService<Product> {
   }
 
   // local
-  updateProductsWishStatus(id: number, wished: string): void {
+  updateWishedStatusLocally(id: number, wished: string): void {
     console.log('updating wish status');
     this.products.forEach((product) => {
       product.id === id ? (product.wished = wished) : null;
@@ -120,6 +120,7 @@ export class ProductService extends HttpService<Product> {
     return this.post(productObject);
   }
 
+  // called only once at login
   // init getting products from DB after successful authentication
   getProducts() {
     const currentUserId: number = this.jwt.decodeToken(
@@ -129,11 +130,17 @@ export class ProductService extends HttpService<Product> {
       (response) => {
         // response is the products table for the specific user, wished flag already set
         console.log(response);
+
         this.products = [...response];
         this.productsChanged.next(this.products);
 
         this.filteredProducts = [...response];
         this.filteredProductsChanged.next(this.filteredProducts);
+
+        this.wishedProducts = [
+          ...this.products.filter((p) => p.wished === 'Y'),
+        ];
+        this.wishedProductsChanged.next(this.wishedProducts);
 
         this.centralService.busyOFF();
       },
