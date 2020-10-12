@@ -120,7 +120,19 @@ export class CartService extends HttpService<any> {
   updateSelectedShippingOption(shippingOption: ShippingOption) {
     this.selectedShippingOption = { ...shippingOption };
     this.selectedShippingOptionChanged.next(this.selectedShippingOption);
-    //TODO: save selected shipping option to DB this.selectedShippingOption.id
+    //TODO: extract id of current user instead of using 28(ADMIN)
+    this.patch(28, {
+      selectedShippingOptionId: this.selectedShippingOption.id,
+    }).subscribe(
+      (response) => {
+        console.log(response);
+        this.centralService.busyOFF();
+      },
+      (err) => {
+        console.log(err);
+        this.centralService.busyOFF;
+      }
+    );
   }
 
   persistAmountChangeToDB(event: CartProductAmountChanged) {

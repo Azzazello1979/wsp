@@ -54,20 +54,37 @@ router.post("/", tokenControl, (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-router.patch("/:product_id", tokenControl, (req, res) => {
+router.patch("/:id", tokenControl, (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  const operation = () => {
-    return req.body.change === "plus" ? "+" : "-";
-  };
-  db.query(
-    ` UPDATE cart SET amount = amount ${operation()} 1 WHERE product_id = ${
-      req.params.product_id
-    } ;`
-  )
-    .then(() => {
-      res.status(200).json({ message: "OK, updated amount!" });
-    })
-    .catch((err) => res.status(500).send(err));
+  if (req.body.selectedShippingOptionId) {
+    // update selected shipping method, req.params.id is user_id
+
+    db.query(
+      ` UPDATE cart SET selectedShippingMethod = ${req.body.selectedShippingOptionId} WHERE user_id = ${req.params.id} ;`
+    )
+      .then((response) =>
+        res.status(200).json({
+          message: "OK, selected shipping method updated for user's cart.",
+        })
+      )
+      .catch((err) => res.status(500).send(err));
+  }
+
+  if (req.body.change) {
+    // update product amounts, req.params.id is product_id
+    const operation = () => {
+      return req.body.change === "plus" ? "+" : "-";
+    };
+    db.query(
+      ` UPDATE cart SET amount = amount ${operation()} 1 WHERE product_id = ${
+        req.params.id
+      } ;`
+    )
+      .then(() => {
+        res.status(200).json({ message: "OK, updated amount!" });
+      })
+      .catch((err) => res.status(500).send(err));
+  }
 });
 
 module.exports = router;
