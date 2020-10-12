@@ -23,7 +23,9 @@ mat-icon {
   justify-content: space-around;
   align-items: center;
 }
-
+.L1-text {
+  color: var(--lilac2);
+}
 .L2 {
   cursor: pointer;
   transition: 0.5s;

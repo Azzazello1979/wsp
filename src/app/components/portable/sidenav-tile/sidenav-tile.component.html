@@ -14,7 +14,12 @@
         >{{ card.icon }}</mat-icon
       >
     </div>
-    <div *ngIf="sideNavExpanded">{{ card.text }}</div>
+    <div
+      *ngIf="sideNavExpanded"
+      [style.color]="card.selected ? 'black' : 'var(--lilac2)'"
+    >
+      {{ card.text }}
+    </div>
   </div>
   <!-- L1 ends-->
 
