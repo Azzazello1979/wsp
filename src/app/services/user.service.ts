@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { User } from 'src/app/models/User';
 import { HttpService } from 'src/app/services/abstract/http.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 import { CentralService } from 'src/app/services/central.service';
+import { JwtHelperService } from '@auth0/angular-jwt'; // decode JWT token on FrontEnd!
 
 export interface AuthResponse {
   token: string;
@@ -29,6 +29,8 @@ export class UserService extends HttpService<User> {
   ) {
     super(centralService, http, 'users');
   }
+
+  private jwt = new JwtHelperService();
 
   authenticatedSequence(token: string) {
     this.centralService.busyOFF();
@@ -56,6 +58,18 @@ export class UserService extends HttpService<User> {
   logoutUser() {
     localStorage.removeItem('token');
     this.router.navigate(['login']);
+  }
+
+  getCurrentUserId(): number {
+    const token = localStorage.getItem('token');
+    let decoded = this.jwt.decodeToken(token);
+    return decoded.userId;
+  }
+
+  getCurrentUserName(): string {
+    const token = localStorage.getItem('token');
+    let decoded = this.jwt.decodeToken(token);
+    return decoded.userName;
   }
 
   // SPECIFIC HTTP CALLS - not from  HttpService Abstract class

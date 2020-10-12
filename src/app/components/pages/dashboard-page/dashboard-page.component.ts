@@ -66,6 +66,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       .subscribe((news) => {
         this.cards = [...news];
       });
+
+    this.userService.getCurrentUserId();
   }
 
   ngOnDestroy() {
