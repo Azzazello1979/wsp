@@ -9,6 +9,7 @@ import { CentralService } from './central.service';
 import { BehaviorSubject } from 'rxjs';
 import { CartProductAmountChanged } from 'src/app//components/portable/cart-item/cart-item.component';
 import { ProductCardEvent } from '../components/portable/animated-card/animated-card.component';
+import { ShippingOption } from '../components/pages/cart-page/cart-page.component';
 
 export interface CartTableRecord {
   product_id: number;
@@ -26,6 +27,66 @@ export class CartService extends HttpService<any> {
   private cartProductsChanged = new BehaviorSubject<CartProduct[]>(
     this.cartProducts
   );
+  private selectedShippingOption: ShippingOption = null;
+  private selectedShippingOptionChanged = new BehaviorSubject<ShippingOption>(
+    this.selectedShippingOption
+  );
+  // TODO: bring this in from DB
+  private shippingOptions: ShippingOption[] = [
+    {
+      id: 1,
+      name: 'China Mail',
+      price: 0,
+      minDays: 14,
+      maxDays: 30,
+      assetIMGpath:
+        './../../../../assets/img/shippingOptions/Shipping-3-icon.png',
+      selected: false,
+    },
+    {
+      id: 2,
+      name: 'DHL',
+      price: 29.95,
+      minDays: 3,
+      maxDays: 7,
+      assetIMGpath:
+        './../../../../assets/img/shippingOptions/Shipping-8-icon.png',
+      selected: false,
+    },
+    {
+      id: 3,
+      name: 'FedEx',
+      price: 25.95,
+      minDays: 3,
+      maxDays: 12,
+      assetIMGpath:
+        './../../../../assets/img/shippingOptions/Shipping-4-icon.png',
+      selected: false,
+    },
+    {
+      id: 4,
+      name: 'UPS',
+      price: 22.95,
+      minDays: 5,
+      maxDays: 10,
+      assetIMGpath:
+        './../../../../assets/img/shippingOptions/Shipping-5-icon.png',
+      selected: false,
+    },
+    {
+      id: 5,
+      name: 'TNT',
+      price: 19.95,
+      minDays: 4,
+      maxDays: 12,
+      assetIMGpath:
+        './../../../../assets/img/shippingOptions/Shipping-7-icon.png',
+      selected: false,
+    },
+  ];
+  private shippingOptionsChanged = new BehaviorSubject<ShippingOption[]>(
+    this.shippingOptions
+  );
 
   constructor(
     protected http: HttpClient,
@@ -37,6 +98,29 @@ export class CartService extends HttpService<any> {
       this.products = [...news];
     });
     this.bringCartTable();
+  }
+
+  shippingOptionsObservable() {
+    return this.shippingOptionsChanged.asObservable();
+  }
+
+  onShippingOptionSelect(id: number) {
+    this.shippingOptions.forEach((so) => {
+      so.id === id
+        ? ((so.selected = true), this.updateSelectedShippingOption(so))
+        : (so.selected = false);
+    });
+    this.shippingOptionsChanged.next(this.shippingOptions);
+  }
+
+  selectedShippingOptionObservable() {
+    return this.selectedShippingOptionChanged.asObservable();
+  }
+
+  updateSelectedShippingOption(shippingOption: ShippingOption) {
+    this.selectedShippingOption = { ...shippingOption };
+    this.selectedShippingOptionChanged.next(this.selectedShippingOption);
+    //TODO: save selected shipping option to DB this.selectedShippingOption.id
   }
 
   persistAmountChangeToDB(event: CartProductAmountChanged) {

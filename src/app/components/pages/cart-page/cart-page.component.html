@@ -1,6 +1,7 @@
 <div class="cart-page-wrapper">
   <!-- cart items starts -->
   <div class="cart-page-main">
+    <h3 *ngIf="cartProducts.length === 0">Your shopping cart is empty!</h3>
     <app-cart-item
       *ngFor="let cartProduct of cartProducts"
       [cartProduct]="cartProduct"

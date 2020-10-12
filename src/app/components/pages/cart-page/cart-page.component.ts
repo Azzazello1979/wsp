@@ -20,62 +20,14 @@ export interface ShippingOption {
   styleUrls: ['./cart-page.component.css'],
 })
 export class CartPageComponent implements OnInit, OnDestroy {
-  public shippingOptions: ShippingOption[] = [
-    {
-      id: 1,
-      name: 'China Mail',
-      price: 0,
-      minDays: 14,
-      maxDays: 30,
-      assetIMGpath:
-        './../../../../assets/img/shippingOptions/Shipping-3-icon.png',
-      selected: false,
-    },
-    {
-      id: 2,
-      name: 'DHL',
-      price: 29.95,
-      minDays: 3,
-      maxDays: 7,
-      assetIMGpath:
-        './../../../../assets/img/shippingOptions/Shipping-8-icon.png',
-      selected: false,
-    },
-    {
-      id: 3,
-      name: 'FedEx',
-      price: 25.95,
-      minDays: 3,
-      maxDays: 12,
-      assetIMGpath:
-        './../../../../assets/img/shippingOptions/Shipping-4-icon.png',
-      selected: false,
-    },
-    {
-      id: 4,
-      name: 'UPS',
-      price: 22.95,
-      minDays: 5,
-      maxDays: 10,
-      assetIMGpath:
-        './../../../../assets/img/shippingOptions/Shipping-5-icon.png',
-      selected: false,
-    },
-    {
-      id: 5,
-      name: 'TNT',
-      price: 19.95,
-      minDays: 4,
-      maxDays: 12,
-      assetIMGpath:
-        './../../../../assets/img/shippingOptions/Shipping-7-icon.png',
-      selected: false,
-    },
-  ];
-
   public cartProducts: CartProduct[] = [];
   private cartProductsSub = new Subscription();
+
+  public shippingOptions: ShippingOption[] = [];
+  private shippingOptionsSub = new Subscription();
+
   private selectedShippingOption: ShippingOption = null;
+  private selectedShippingOptionSub = new Subscription();
 
   constructor(private cartService: CartService) {}
 
@@ -111,14 +63,20 @@ export class CartPageComponent implements OnInit, OnDestroy {
   }
 
   onShippingOptionSelect(id: number) {
-    this.shippingOptions.forEach((so) => {
-      so.id === id ? (so.selected = true) : (so.selected = false);
-      so.id === id ? (this.selectedShippingOption = { ...so }) : null;
-    });
+    this.cartService.onShippingOptionSelect(id);
   }
 
   onAmountChange(event: CartProductAmountChanged) {
     this.cartService.onAmountChange(event);
+  }
+
+  fillShippingOptions() {
+    this.shippingOptionsSub = this.cartService
+      .shippingOptionsObservable()
+      .subscribe((news) => {
+        this.shippingOptions = [...news];
+        console.log(this.shippingOptions);
+      });
   }
 
   fillCartProducts() {
@@ -129,11 +87,23 @@ export class CartPageComponent implements OnInit, OnDestroy {
       });
   }
 
+  fillSelectedShippingOption() {
+    this.selectedShippingOptionSub = this.cartService
+      .selectedShippingOptionObservable()
+      .subscribe((news) => {
+        this.selectedShippingOption = { ...news };
+      });
+  }
+
   ngOnInit() {
     this.fillCartProducts();
+    this.fillShippingOptions();
+    this.fillSelectedShippingOption();
   }
 
   ngOnDestroy() {
     this.cartProductsSub.unsubscribe();
+    this.shippingOptionsSub.unsubscribe();
+    this.selectedShippingOptionSub.unsubscribe();
   }
 }
